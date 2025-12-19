@@ -26,6 +26,7 @@ import ActivationPending from './components/activationPending/activationPending'
 import ScrollToTop from './components/common/scrollToTop';
 import NotFoundPage from './components/notFound/NotFoundPage';
 import PaymentSuccessScanner from './utils/common/PaymentSuccessScanner';
+import Connect from './components/howWorks/Connect';
 
 // Create a query client with default options
 const queryClient = new QueryClient();
@@ -110,7 +111,7 @@ const App = () => {
            <ScrollToTop />
           <Routes>
             {/* Public Routes */}
-            <Route path="/" element={<><HeroSlider /><Footer /></>} />
+            <Route path="/" element={<><HeroSlider /><Connect/><Footer /></>} />
             <Route path="/contact" element={<><ContactUs /><Footer /></>} />
             <Route path="/register" element={<><Register /><Footer /></>} />
              <Route path="/membership" element={<><MembershipPlan /><Footer /></>} />
