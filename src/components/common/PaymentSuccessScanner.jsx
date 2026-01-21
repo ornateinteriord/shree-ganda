@@ -33,7 +33,7 @@ const PaymentSuccessScanner = ({ open, onClose, userType }) => {
           textAlign: "center",
           fontWeight: 600,
           fontSize: { xs: "1.25rem", sm: "1.5rem" },
-          color: "#326633",
+          color: "#7c2d12",
         }}
       >
         Payment Successful!
@@ -108,7 +108,7 @@ const PaymentSuccessScanner = ({ open, onClose, userType }) => {
           variant="contained"
           onClick={onClose}
           sx={{
-            backgroundColor: "#326633",
+            backgroundColor: "#7c2d12",
             color: "#fff",
             fontWeight: 600,
             textTransform: "none",

@@ -22,10 +22,7 @@ const HeroSlider = () => {
   const { isLoggedIn } = useAuth();
 
   const images = [
-    { src: '/img2.jpeg', alt: "Happy Couple 1" },
-    { src: '/shree2.jpg', alt: "Happy Couple 2" },
-    { src: '/img3.jpg', alt: "Happy Couple 3" },
-    { src: '/shree4.jpg', alt: "Happy Couple 4" },
+    { src: '/hero-background.jpg', alt: "Shreeganda Matrimony - Find Your Perfect Match" },
   ];
 
   const settings = {
@@ -61,7 +58,7 @@ const HeroSlider = () => {
     left: 0,
     width: "100%",
     height: "100%",
-    backgroundColor: "rgba(0, 0, 0, 0.4)",
+    backgroundColor: "rgba(0, 0, 0, 0.3)",
     zIndex: 1,
   }));
 
@@ -134,7 +131,7 @@ const HeroSlider = () => {
               mt: isMobile ? 1 : 2,
             }}
           >
-           {isLoggedIn ? (
+            {isLoggedIn ? (
               <ThemedButton
                 title="Get Started"
                 size={isMobile ? "small" : "large"}
@@ -145,7 +142,7 @@ const HeroSlider = () => {
                   fontFamily: 'Outfit, sans-serif',
                   minWidth: isMobile ? '160px' : '200px',
                 }}
-                onClick={() => navigate(isAdmin? '/admin/dashboard' : '/user/userDashboard')}
+                onClick={() => navigate(isAdmin ? '/admin/dashboard' : '/user/userDashboard')}
               />
             ) : (
               <>
@@ -168,7 +165,7 @@ const HeroSlider = () => {
                   sx={{
                     backgroundColor: '#FFFF',
                     '&:hover': { backgroundColor: '#FFFF' },
-                    color:'#000',
+                    color: '#000',
                     px: isMobile ? 2 : 4,
                     py: isMobile ? 1.5 : 1.5,
                     fontSize: isMobile ? '1rem' : '1rem',

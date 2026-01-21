@@ -15,37 +15,37 @@ const NotFoundPage = () => {
         justifyContent: 'center',
         textAlign: 'center',
         padding: 4,
-        color: '#326633'
+        color: '#7c2d12'
       }}
     >
       <Box sx={{ maxWidth: '600px' }}>
-        <Typography 
+        <Typography
           variant="h1"
-          sx={{ 
-            fontSize: '4rem', 
+          sx={{
+            fontSize: '4rem',
             fontWeight: 700,
             mb: 2,
-            color: '#326633'
+            color: '#7c2d12'
           }}
         >
           404
         </Typography>
-        
-        <Typography 
+
+        <Typography
           variant="h2"
-          sx={{ 
+          sx={{
             fontSize: '1.8rem',
             fontWeight: 600,
             mb: 2,
-            color: '#326633'
+            color: '#7c2d12'
           }}
         >
           Page Not Found
         </Typography>
-        
-        <Typography 
+
+        <Typography
           variant="body1"
-          sx={{ 
+          sx={{
             fontSize: '1.1rem',
             color: '#000',
             mb: 3,
@@ -56,14 +56,14 @@ const NotFoundPage = () => {
           <br />
           Please check the URL or use the buttons below to navigate.
         </Typography>
-        
+
         <Stack direction="row" spacing={2} justifyContent="center">
-          <Button 
+          <Button
             variant="contained"
             onClick={() => navigate('/')}
             sx={{
-                textTransform:'capitalize',
-              backgroundColor: '#326633',
+              textTransform: 'capitalize',
+              backgroundColor: '#7c2d12',
               '&:hover': { backgroundColor: 'rgba(93, 32, 110, 1)' },
               px: 3,
               py: 1
@@ -71,16 +71,16 @@ const NotFoundPage = () => {
           >
             Return to Home
           </Button>
-          
-          <Button 
+
+          <Button
             variant="outlined"
             onClick={() => navigate(-1)}
             sx={{
-                  textTransform:'capitalize',
-              color: '#326633',
-              borderColor: '#326633',
-              '&:hover': { 
-                backgroundColor: '#326633',
+              textTransform: 'capitalize',
+              color: '#7c2d12',
+              borderColor: '#7c2d12',
+              '&:hover': {
+                backgroundColor: '#7c2d12',
                 color: 'white'
               },
               px: 3,

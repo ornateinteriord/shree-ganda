@@ -118,7 +118,7 @@ const ProfileDialog = ({
     }
     if (loggedInUserRole === "FreeUser") {
       return {
-        color: "gold", 
+        color: "gold",
         text: "Upgrade",
         disabled: false,
         isPremiumAction: true,
@@ -157,8 +157,8 @@ const ProfileDialog = ({
           color: "primary",
           text: "Express Interest",
           disabled: false,
-            customStyle: {
-            backgroundColor: "#326633",
+          customStyle: {
+            backgroundColor: "#7c2d12",
             "&:hover": {
               backgroundColor: "#7a1c9a",
             },
@@ -282,11 +282,11 @@ const ProfileDialog = ({
                     fontSize: { xs: "0.7rem", sm: "0.8rem" },
                     backgroundColor:
                       selectedUser?.type_of_user === "PremiumUser" ||
-                      selectedUser?.type_of_user === "SilverUser"
+                        selectedUser?.type_of_user === "SilverUser"
                         ? "#FFD700"
                         : selectedUser?.type_of_user === "FreeUser"
-                        ? "#87CEEB"
-                        : "gray",
+                          ? "#87CEEB"
+                          : "gray",
                     color: "#000",
                     fontWeight: "500px",
                   }}
@@ -302,44 +302,44 @@ const ProfileDialog = ({
                 width: { xs: "100%", md: "auto" },
               }}
             >
-             <Tabs
-  value={currentTab}
-  onChange={(e, val) => setCurrentTab(val)}
-  variant="scrollable"
-  scrollButtons="auto"
-  sx={{
-    mb: 2,
-    "& .MuiTabs-indicator": {
-      backgroundColor: "#326633", 
-      height: 3,
-    },
-    "& .MuiTab-root": {
-      fontSize: { xs: "0.7rem", sm: "0.8rem" },
-      minWidth: "unset",
-      padding: { xs: "6px 12px", sm: "12px 16px" },
-      textTransform: "none", 
-      fontWeight: 500,
-      color: "rgba(0, 0, 0, 0.6)",
-      "&.Mui-selected": {
-        color: "#326633",
-        fontWeight: 600,
-      },
-      "&:hover": {
-        backgroundColor: "rgba(94, 4, 118, 0.08)", 
-        color: "#326633",
-      },
-    },
-  }}
->
-  {tabLabels.map((label, index) => (
-    <Tab 
-      key={index} 
-      label={label}
-      sx={{
-      }}
-    />
-  ))}
-</Tabs>
+              <Tabs
+                value={currentTab}
+                onChange={(e, val) => setCurrentTab(val)}
+                variant="scrollable"
+                scrollButtons="auto"
+                sx={{
+                  mb: 2,
+                  "& .MuiTabs-indicator": {
+                    backgroundColor: "#7c2d12",
+                    height: 3,
+                  },
+                  "& .MuiTab-root": {
+                    fontSize: { xs: "0.7rem", sm: "0.8rem" },
+                    minWidth: "unset",
+                    padding: { xs: "6px 12px", sm: "12px 16px" },
+                    textTransform: "none",
+                    fontWeight: 500,
+                    color: "rgba(0, 0, 0, 0.6)",
+                    "&.Mui-selected": {
+                      color: "#7c2d12",
+                      fontWeight: 600,
+                    },
+                    "&:hover": {
+                      backgroundColor: "rgba(94, 4, 118, 0.08)",
+                      color: "#7c2d12",
+                    },
+                  },
+                }}
+              >
+                {tabLabels.map((label, index) => (
+                  <Tab
+                    key={index}
+                    label={label}
+                    sx={{
+                    }}
+                  />
+                ))}
+              </Tabs>
               <Box
                 sx={{
                   p: { xs: 1, sm: 2 },
@@ -420,14 +420,14 @@ const ProfileDialog = ({
                     padding: { xs: "6px 12px", sm: "8px 16px" },
                     backgroundColor: (theme) => {
                       const colorMap = {
-                        primary: '#326633',
+                        primary: '#7c2d12',
                         secondary: '#f50057',
                         success: '#4caf50',
                         error: '#f44336',
                         warning: '#ff9800',
                         info: '#2196f3'
                       };
-                      return colorMap[buttonState.color] || '#326633';
+                      return colorMap[buttonState.color] || '#7c2d12';
                     },
                     "&:hover": {
                       backgroundColor: (theme) => {

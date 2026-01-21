@@ -15,12 +15,12 @@ import { calculateAge, isSilverOrPremiumUser } from "../../utils/common";
 const UserCard = ({
   profile,
   connection = null,
-  onViewMore = () => {},
-  onCancelRequest = () => {},
-  onRemoveConnection = () => {},
+  onViewMore = () => { },
+  onCancelRequest = () => { },
+  onRemoveConnection = () => { },
   interestId = null,
   showCancelButton = false,
-  onResponse = () => {},
+  onResponse = () => { },
   showResponseButtons = false,
   showRemoveButton = false,
 }) => {
@@ -97,11 +97,11 @@ const UserCard = ({
           width: { xs: 100, sm: 120 },
           height: { xs: 100, sm: 120 },
           borderRadius: "50%",
-          border: "2.5px solid #326633",
+          border: "2.5px solid #991b1b",
           boxShadow: "0 4px 8px rgba(0,0,0,0.2)",
           mb: 2,
           padding: "2px",
-          background: "linear-gradient(45deg, #326633, #fff)",
+          background: "linear-gradient(45deg, #991b1b, #fff)",
         }}
       >
         <Avatar
@@ -165,7 +165,7 @@ const UserCard = ({
         />
 
         <Box display="flex" justifyContent="space-around" width="100%" mb={1}>
-          <ProfileInfo label="Heigh"  font value={profile?.height || "N/A"} />
+          <ProfileInfo label="Heigh" font value={profile?.height || "N/A"} />
           <ProfileInfo label="Religion" value={profile?.religion || "N/A"} />
           <ProfileInfo label="Caste" value={profile?.caste || "N/A"} />
         </Box>
@@ -185,7 +185,7 @@ const UserCard = ({
                 variant="outlined"
                 sx={{
                   background: "#fff",
-                  ":hover":{
+                  ":hover": {
                     background: "transparent"
                   },
                   color: "error.main",
@@ -203,13 +203,13 @@ const UserCard = ({
                 variant="contained"
                 sx={{
                   backgroundColor: "transparent",
-                  border: "1px solid #326633",
+                  border: "1px solid #991b1b",
                   color: "#000",
                   textTransform: "capitalize",
                   flex: 1,
                   "&:hover": {
-                    backgroundColor: "#326633",
-                      color: "#fff",
+                    backgroundColor: "#991b1b",
+                    color: "#fff",
                   }
                 }}
                 onClick={() => onResponse(profile?.registration_no, true)}
@@ -224,10 +224,10 @@ const UserCard = ({
             variant="contained"
             onClick={() => onViewMore(profile)}
             sx={{
-               backgroundColor: "#326633",
-                "&:hover": {
-                    backgroundColor: "#80119eff",
-                  },
+              backgroundColor: "#991b1b",
+              "&:hover": {
+                backgroundColor: "#7f1d1d",
+              },
               minWidth: "120px",
               borderRadius: 2,
               py: 1,
@@ -253,11 +253,11 @@ const UserCard = ({
                 fontWeight: 500,
                 fontSize: { xs: "0.8rem", sm: "0.9rem" },
                 backgroundColor: "#d32f2f",
-                color : '#fff',
+                color: '#fff',
                 "&:hover": {
                   backgroundColor: "#d32f2f",
-                  color : '#fff',
-                  borderColor : '#fff'
+                  color: '#fff',
+                  borderColor: '#fff'
                 },
               }}
             >

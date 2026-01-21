@@ -56,18 +56,18 @@ const ReferInvitePage = () => {
   return (
     <Box sx={{
       p: 0,
-      ml:{xs:0, md:2},
-      mt:{xs:1, md:2}, 
+      ml: { xs: 0, md: 2 },
+      mt: { xs: 1, md: 2 },
       maxWidth: 900,
       borderRadius: 2
     }}>
 
-     <Typography
+      <Typography
         variant="h4"
         sx={{
           fontWeight: 700,
           mb: 4,
-          color: '#326633',
+          color: '#7c2d12',
           textAlign: 'center'
         }}
       >
@@ -83,7 +83,7 @@ const ReferInvitePage = () => {
           display: 'flex',
           alignItems: 'center',
           gap: 1.5,
-          textAlign:  'center' 
+          textAlign: 'center'
         }}
       >
         <Send fontSize="large" /> Refer / Invite
@@ -93,29 +93,29 @@ const ReferInvitePage = () => {
 
       {entries.map((entry, index) => (
         <React.Fragment key={index}>
-            <Grid item xs={12} sm={3} mb={2}>
-              <TextField
-               sx={{width:'80%'}}
-                label="Full Name"
-                variant="outlined"
-                value={entry.name}
-                onChange={(e) => handleInputChange(index, 'name', e.target.value)}
-              />
-            </Grid>
-             <Grid item xs={12} sm={3} mb={2}>
-              <TextField
-               sx={{width:'80%'}}
-                fullWidth
-                label="Email ID"
-                variant="outlined"
-                placeholder="example@domain.com"
-                value={entry.email}
-                onChange={(e) => handleInputChange(index, 'email', e.target.value)}
-              />
-            </Grid>
+          <Grid item xs={12} sm={3} mb={2}>
+            <TextField
+              sx={{ width: '80%' }}
+              label="Full Name"
+              variant="outlined"
+              value={entry.name}
+              onChange={(e) => handleInputChange(index, 'name', e.target.value)}
+            />
+          </Grid>
+          <Grid item xs={12} sm={3} mb={2}>
+            <TextField
+              sx={{ width: '80%' }}
+              fullWidth
+              label="Email ID"
+              variant="outlined"
+              placeholder="example@domain.com"
+              value={entry.email}
+              onChange={(e) => handleInputChange(index, 'email', e.target.value)}
+            />
+          </Grid>
           <Grid container spacing={2} sx={{ mb: 3 }}>
-            
-            
+
+
             <Grid item xs={12} sm={2}>
               <TextField
                 fullWidth
@@ -127,7 +127,7 @@ const ReferInvitePage = () => {
               />
             </Grid>
 
-            
+
             <Grid item xs={12} sm={1} sx={{ display: 'flex', justifyContent: 'center' }}>
               <IconButton
                 onClick={() => handleDeleteEntry(index)}
@@ -135,7 +135,7 @@ const ReferInvitePage = () => {
                 size='large'
                 sx={{
                   '&:hover': {
-                    background:'transparent',
+                    background: 'transparent',
                     color: 'red'
                   }
                 }}
@@ -144,35 +144,38 @@ const ReferInvitePage = () => {
               </IconButton>
             </Grid>
           </Grid>
-          
+
           {index < entries.length - 1 && <Divider sx={{ my: 2 }} />}
         </React.Fragment>
       ))}
 
-      <Box sx={{ display: 'flex',
-         justifyContent: 'flex-start',
-          mt: 3, gap:1.5 }}>
+      <Box sx={{
+        display: 'flex',
+        justifyContent: 'flex-start',
+        mt: 3, gap: 1.5
+      }}>
         <Button
           variant="outlined"
           startIcon={<Add />}
           onClick={handleAddEntry}
-           sx={{
-            p:{xs:'10px', md:'10px'},
-            textTransform:'capitalize',
-                  '&:hover': {
-                    background: 'transparent'
-                }
-              }}
+          sx={{
+            p: { xs: '10px', md: '10px' },
+            textTransform: 'capitalize',
+            '&:hover': {
+              background: 'transparent'
+            }
+          }}
         >
           Add Contact
         </Button>
-        
+
         <Button
           variant="contained"
           endIcon={<Send />}
           onClick={handleSubmit}
-          sx={{ px: 4, textTransform:'capitalize', 
-             p:{xs:'10px', md:' 10px 15px'},
+          sx={{
+            px: 4, textTransform: 'capitalize',
+            p: { xs: '10px', md: ' 10px 15px' },
           }}
         >
           Submit

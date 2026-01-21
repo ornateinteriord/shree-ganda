@@ -62,8 +62,8 @@ const AdminProfileDialog = ({ open, onClose }) => {
         }
       }}
     >
-      <DialogTitle sx={{ 
-        display: 'flex', 
+      <DialogTitle sx={{
+        display: 'flex',
         justifyContent: 'space-between',
         alignItems: 'center',
         pb: 1
@@ -75,13 +75,13 @@ const AdminProfileDialog = ({ open, onClose }) => {
           <Close />
         </IconButton>
       </DialogTitle>
-      
+
       <DialogContent dividers sx={{ pt: 3 }}>
-        <Box sx={{ 
-          display: 'flex', 
-          flexDirection: 'column', 
-          alignItems: 'center', 
-          mb: 4 
+        <Box sx={{
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          mb: 4
         }}>
           <Badge
             overlap="circular"
@@ -90,8 +90,8 @@ const AdminProfileDialog = ({ open, onClose }) => {
               <label htmlFor="avatar-upload">
                 <IconButton
                   component="span"
-                  sx={{ 
-                    backgroundColor: '#326633', 
+                  sx={{
+                    backgroundColor: '#7c2d12',
                     color: 'white',
                     '&:hover': { backgroundColor: '#3a5fc8' },
                     cursor: editMode ? 'pointer' : 'default'
@@ -126,7 +126,7 @@ const AdminProfileDialog = ({ open, onClose }) => {
                   width: 120,
                   height: 120,
                   fontSize: '3rem',
-                  backgroundColor: '#326633',
+                  backgroundColor: '#7c2d12',
                 }}
               >
                 {profileData.avatar}
@@ -139,43 +139,43 @@ const AdminProfileDialog = ({ open, onClose }) => {
         </Box>
 
 
-<Box display="flex" width="100%" justifySelf={'center'} gap={1}>
-  <Box width="100%" gap={2} display={'flex'} justifySelf={'center'} alignItems={'center'} flexDirection={'column'}>
-    <TextField
-      label="Full Name"
-      name="name"
-      value={profileData.name}
-      onChange={handleInputChange}
-      fullWidth
-      disabled={!editMode}
-      variant="outlined"
-    />
-    <TextField
-      label="Phone"
-      name="phone"
-      value={profileData.phone}
-      onChange={handleInputChange}
-      fullWidth
-      disabled={!editMode}
-      variant="outlined"
-      sx={{ mt: 0}}
-    />
-    <TextField
-      label="Email"
-      name="email"
-      value={profileData.email}
-      onChange={handleInputChange}
-      fullWidth
-      disabled={!editMode}
-      variant="outlined"
-    />
-  </Box>
-</Box>
+        <Box display="flex" width="100%" justifySelf={'center'} gap={1}>
+          <Box width="100%" gap={2} display={'flex'} justifySelf={'center'} alignItems={'center'} flexDirection={'column'}>
+            <TextField
+              label="Full Name"
+              name="name"
+              value={profileData.name}
+              onChange={handleInputChange}
+              fullWidth
+              disabled={!editMode}
+              variant="outlined"
+            />
+            <TextField
+              label="Phone"
+              name="phone"
+              value={profileData.phone}
+              onChange={handleInputChange}
+              fullWidth
+              disabled={!editMode}
+              variant="outlined"
+              sx={{ mt: 0 }}
+            />
+            <TextField
+              label="Email"
+              name="email"
+              value={profileData.email}
+              onChange={handleInputChange}
+              fullWidth
+              disabled={!editMode}
+              variant="outlined"
+            />
+          </Box>
+        </Box>
 
       </DialogContent>
 
-      <DialogActions sx={{ 
-        display: 'flex', 
+      <DialogActions sx={{
+        display: 'flex',
         justifyContent: 'space-between',
         p: 3,
         pt: 1
@@ -184,12 +184,12 @@ const AdminProfileDialog = ({ open, onClose }) => {
           <Button
             variant="outlined"
             startIcon={<Settings />}
-            sx={{ 
+            sx={{
               mr: 1,
-              borderColor: '#326633',
-              color: '#326633',
+              borderColor: '#7c2d12',
+              color: '#7c2d12',
               '&:hover': {
-                backgroundColor: '#32663310',
+                backgroundColor: '#7c2d1210',
                 borderColor: '#3a5fc8'
               }
             }}
@@ -199,7 +199,7 @@ const AdminProfileDialog = ({ open, onClose }) => {
           <Button
             variant="outlined"
             startIcon={<Lock />}
-            sx={{ 
+            sx={{
               borderColor: '#f44336',
               color: '#f44336',
               '&:hover': {
@@ -211,7 +211,7 @@ const AdminProfileDialog = ({ open, onClose }) => {
             Lock
           </Button>
         </Box>
-        
+
         <Box>
           <Button
             variant="contained"
@@ -219,7 +219,7 @@ const AdminProfileDialog = ({ open, onClose }) => {
             onClick={() => setEditMode(!editMode)}
             sx={{
               mr: 1,
-              backgroundColor: editMode ? '#f44336' : '#326633',
+              backgroundColor: editMode ? '#f44336' : '#7c2d12',
               '&:hover': {
                 backgroundColor: editMode ? '#d32f2f' : '#3a5fc8',
               },

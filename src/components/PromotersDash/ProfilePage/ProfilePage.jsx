@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { 
+import {
   Box,
   Typography,
   Tabs,
@@ -12,8 +12,8 @@ import {
   Button,
   Card
 } from '@mui/material';
-import { 
-  AccountBalance, 
+import {
+  AccountBalance,
   Person,
   Save
 } from '@mui/icons-material';
@@ -48,27 +48,27 @@ function ProfilePage() {
   };
 
   return (
-    <Box  sx={{ 
-      p: isMobile ? 0 : "0px 20px", 
-       width:'100%'
+    <Box sx={{
+      p: isMobile ? 0 : "0px 20px",
+      width: '100%'
     }}>
       {/* Header */}
-      <Typography 
-        variant="h3" 
-        component="h1" 
-        gutterBottom 
-        sx={{ 
-          textAlign: 'center', 
+      <Typography
+        variant="h3"
+        component="h1"
+        gutterBottom
+        sx={{
+          textAlign: 'center',
           mb: 1,
           fontWeight: 700,
-          color: '#326633'
+          color: '#7c2d12'
         }}
       >
         My Profile
       </Typography>
 
       {/* Action Buttons */}
-      <Box sx={{ display: 'flex', justifyContent: 'flex-end', mb: 0}}>
+      <Box sx={{ display: 'flex', justifyContent: 'flex-end', mb: 0 }}>
         {isEditing ? (
           <Button
             variant="contained"
@@ -76,11 +76,11 @@ function ProfilePage() {
             startIcon={<Save />}
             onClick={handleSave}
             sx={{
-                fontWeight:'bold',
-              p:'12px',
-              textTransform:'capitalize',
+              fontWeight: 'bold',
+              p: '12px',
+              textTransform: 'capitalize',
               '&:hover': {
-                backgroundColor: '#326633' 
+                backgroundColor: '#7c2d12'
               }
             }}
           >
@@ -92,9 +92,9 @@ function ProfilePage() {
             color="primary"
             onClick={handleEdit}
             sx={{
-              fontWeight:'bold',
-                p:'12px',
-                 textTransform:'capitalize',
+              fontWeight: 'bold',
+              p: '12px',
+              textTransform: 'capitalize',
               '&:hover': {
                 backgroundColor: 'transparent' // Remove hover effect
               }
@@ -106,39 +106,39 @@ function ProfilePage() {
       </Box>
 
       {/* Tabs */}
-      <Box sx={{ display: 'flex', justifyContent: 'center', mb: 1}}>
-        <Tabs 
-          value={value} 
+      <Box sx={{ display: 'flex', justifyContent: 'center', mb: 1 }}>
+        <Tabs
+          value={value}
           onChange={handleChange}
           variant={isMobile ? 'scrollable' : 'standard'}
           scrollButtons="auto"
           allowScrollButtonsMobile
           sx={{
-             width:'100%',
+            width: '100%',
             '& .MuiTab-root': {
               '&:hover': {
-                backgroundColor: 'transparent' 
+                backgroundColor: 'transparent'
               }
             },
             '& .MuiTabs-indicator': {
-              backgroundColor: '#326633'
+              backgroundColor: '#7c2d12'
             }
           }}
         >
-          <Tab 
-            label="About" 
-            icon={<Person />} 
-            iconPosition="start" 
+          <Tab
+            label="About"
+            icon={<Person />}
+            iconPosition="start"
             sx={{
               '&:hover': {
                 backgroundColor: 'transparent'
               }
             }}
           />
-          <Tab 
-            label="Bank Details" 
-            icon={<AccountBalance />} 
-            iconPosition="start" 
+          <Tab
+            label="Bank Details"
+            icon={<AccountBalance />}
+            iconPosition="start"
             sx={{
               '&:hover': {
                 backgroundColor: 'transparent'
@@ -152,9 +152,9 @@ function ProfilePage() {
       {value === 0 && (
         <Box sx={{ display: 'flex', flexDirection: isMobile ? 'column' : 'row', gap: 3 }}>
           {/* Basic Information */}
-          <Box  sx={{ 
-          p:isMobile? 0 : 2, 
-            borderRadius: 2, 
+          <Box sx={{
+            p: isMobile ? 0 : 2,
+            borderRadius: 2,
             flex: 1,
             '&:hover': {
               boxShadow: 0 // Remove hover effect
@@ -220,9 +220,9 @@ function ProfilePage() {
           </Box>
 
           {/* Address Information */}
-          <Box  sx={{ 
-             p:isMobile? 0 : 2, 
-            borderRadius: 2, 
+          <Box sx={{
+            p: isMobile ? 0 : 2,
+            borderRadius: 2,
             flex: 1,
             '&:hover': {
               boxShadow: 0
@@ -327,8 +327,8 @@ function ProfilePage() {
 
       {/* Bank Details Section */}
       {value === 1 && (
-        <Box sx={{ 
-          p:isMobile? 0 : 2, 
+        <Box sx={{
+          p: isMobile ? 0 : 2,
           borderRadius: 2,
           '&:hover': {
             boxShadow: 0

@@ -18,16 +18,16 @@ const Others = () => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
   const registerNo = TokenService.getRegistrationNo();
-  
+
   const [formData, setFormData] = useState({
     otherInfo: ""
   });
 
-  const { 
-    data: userProfile, 
-    isLoading, 
+  const {
+    data: userProfile,
+    isLoading,
     isError,
-    error 
+    error
   } = useGetMemberDetails(registerNo);
 
   const { mutate: updateProfile, isPending: isUpdating } = useUpdateProfile();
@@ -68,18 +68,18 @@ const Others = () => {
   }, [isError, error]);
 
   return (
-    <Box sx={{ 
-      fontFamily: "Outfit, sans-serif", 
+    <Box sx={{
+      fontFamily: "Outfit, sans-serif",
       padding: isMobile ? 0 : 3,
       width: "100%",
-      maxWidth: {xs:'100%',md:'50%'},
+      maxWidth: { xs: '100%', md: '50%' },
       margin: "0 auto",
-       borderRadius: 2,
-       mb: 3,
+      borderRadius: 2,
+      mb: 3,
     }}>
 
 
-      <Box sx={{ mb: 3,mt:2 }}>
+      <Box sx={{ mb: 3, mt: 2 }}>
         <TextField
           multiline
           minRows={5}
@@ -99,7 +99,7 @@ const Others = () => {
           }}
         />
       </Box>
-     
+
       <Box
         mt={4}
         sx={{
@@ -115,7 +115,7 @@ const Others = () => {
           fullWidth={isMobile}
           sx={{
             color: "black",
-             border:'1px solid #326633',
+            border: '1px solid #7c2d12',
             backgroundColor: "#fff",
             textTransform: "capitalize",
             "&:hover": { backgroundColor: "#fff" },
@@ -130,7 +130,7 @@ const Others = () => {
           disabled={isUpdating}
           fullWidth={isMobile}
           sx={{
-            backgroundColor: "#326633",
+            backgroundColor: "#7c2d12",
             textTransform: "capitalize",
             "&:hover": { backgroundColor: "#2c3e50" },
             width: isMobile ? "100%" : "130px"
@@ -139,8 +139,8 @@ const Others = () => {
           {isUpdating ? <CircularProgress size={24} /> : "Save"}
         </Button>
       </Box>
-      
-      {isLoading && <LoadingComponent/>}
+
+      {isLoading && <LoadingComponent />}
     </Box>
   );
 };

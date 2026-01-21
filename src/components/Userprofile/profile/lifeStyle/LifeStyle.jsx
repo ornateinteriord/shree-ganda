@@ -18,22 +18,22 @@ const LifeStyle = () => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
   const registerNo = TokenService.getRegistrationNo();
-  
+
   const [formData, setFormData] = useState({
     drink: "",
     smoke: "",
     diet: "",
     sunsign: "",
     bloodgroup: "",
-    body_type: "", 
-    skin_type: ""  
+    body_type: "",
+    skin_type: ""
   });
 
-  const { 
-    data: userProfile, 
-    isLoading, 
+  const {
+    data: userProfile,
+    isLoading,
     isError,
-    error 
+    error
   } = useGetMemberDetails(registerNo);
 
   const { mutate: updateProfile, isPending: isUpdating } = useUpdateProfile();
@@ -62,7 +62,7 @@ const LifeStyle = () => {
   };
 
   const handleClear = () => {
-     if (userProfile) {
+    if (userProfile) {
       setFormData({
         ...userProfile,
       });
@@ -76,7 +76,7 @@ const LifeStyle = () => {
   }, [isError, error]);
 
   return (
-    <Box sx={{ 
+    <Box sx={{
       padding: isMobile ? 0 : 3,
       width: "100%",
       maxWidth: "100%",
@@ -91,7 +91,7 @@ const LifeStyle = () => {
           sm: 'repeat(2, 1fr)'
         },
         gap: isMobile ? 3 : 4,
-        mt:2
+        mt: 2
       }}>
         {/* Drink */}
         <TextField
@@ -193,13 +193,13 @@ const LifeStyle = () => {
           <MenuItem value="Dark">Dark</MenuItem>
         </TextField>
       </Box>
-     
+
       <Box
         mt={4}
         sx={{
           display: "flex",
           gap: 2,
-          flexDirection:"row",
+          flexDirection: "row",
           justifyContent: "end"
         }}
       >
@@ -209,7 +209,7 @@ const LifeStyle = () => {
           fullWidth={isMobile}
           sx={{
             color: "black",
-             border:'1px solid #326633',
+            border: '1px solid #7c2d12',
             backgroundColor: "#fff",
             textTransform: "capitalize",
             "&:hover": { backgroundColor: "#fff" },
@@ -224,7 +224,7 @@ const LifeStyle = () => {
           disabled={isUpdating}
           fullWidth={isMobile}
           sx={{
-            backgroundColor: "#326633",
+            backgroundColor: "#7c2d12",
             textTransform: "capitalize",
             "&:hover": { backgroundColor: "#2c3e50" },
             width: isMobile ? "100%" : "130px"
@@ -233,8 +233,8 @@ const LifeStyle = () => {
           {isUpdating ? <CircularProgress size={24} /> : "Save"}
         </Button>
       </Box>
-      
-      {isLoading && <LoadingComponent/>}
+
+      {isLoading && <LoadingComponent />}
     </Box>
   );
 };

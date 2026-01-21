@@ -43,7 +43,7 @@ const Register = () => {
   const { mutate, isPending } = useSignupMutation();
   const searchParams = new URLSearchParams(location.search);
   const planType = searchParams.get("type");
-  
+
   const [showScanner, setShowScanner] = useState(false);
   const [signupResponse, setSignupResponse] = useState(null);
 
@@ -183,13 +183,13 @@ const Register = () => {
           if (response.success) {
             // Store the response for later use
             setSignupResponse(response);
-            
+
             // Check if user is Premium or Silver to show scanner
             if (formData.user_role === "PremiumUser" || formData.user_role === "SilverUser") {
               setShowScanner(true);
             } else {
               TokenService.setToken(response.token);
-              window.dispatchEvent(new Event("storage")); 
+              window.dispatchEvent(new Event("storage"));
               toast.success(response.message);
               navigate("/activation-pending");
             }
@@ -209,7 +209,7 @@ const Register = () => {
     // After closing scanner, proceed with normal flow
     if (signupResponse) {
       TokenService.setToken(signupResponse.token);
-      window.dispatchEvent(new Event("storage")); 
+      window.dispatchEvent(new Event("storage"));
       toast.success("Registration successful!");
       navigate("/activation-pending");
     }
@@ -264,7 +264,7 @@ const Register = () => {
                 mt: isMobile ? "15px" : "",
               }}
             >
-              <Avatar sx={{ bgcolor: "#326633" }}>
+              <Avatar sx={{ bgcolor: "#7c2d12" }}>
                 <HowToRegIcon />
               </Avatar>
               <Typography
@@ -290,7 +290,7 @@ const Register = () => {
               <Box
                 component="span"
                 sx={{
-                  color: "#326633",
+                  color: "#7c2d12",
                 }}
               >
                 {getUserRole()}
@@ -310,7 +310,7 @@ const Register = () => {
             <Box sx={{ flex: 1 }}>
               <Typography
                 variant="h6"
-                sx={{ mb: 3, color: "#326633", fontWeight: 600 }}
+                sx={{ mb: 3, color: "#7c2d12", fontWeight: 600 }}
               >
                 PERSONAL DETAILS
               </Typography>
@@ -406,7 +406,7 @@ const Register = () => {
               />
               <Typography
                 variant="h6"
-                sx={{ mb: 2, color: "#326633", fontWeight: 600 }}
+                sx={{ mb: 2, color: "#7c2d12", fontWeight: 600 }}
               >
                 SOCIAL & CAREER DETAILS
               </Typography>
@@ -476,7 +476,7 @@ const Register = () => {
             <Box sx={{ flex: 1 }}>
               <Typography
                 variant="h6"
-                sx={{ mb: 3, color: "#326633", fontWeight: 600 }}
+                sx={{ mb: 3, color: "#7c2d12", fontWeight: 600 }}
               >
                 FAMILY DETAILS
               </Typography>
@@ -564,7 +564,7 @@ const Register = () => {
 
           <Typography
             variant="h6"
-            sx={{ mt: 1, mb: 3, color: "#326633", fontWeight: 600 }}
+            sx={{ mt: 1, mb: 3, color: "#7c2d12", fontWeight: 600 }}
           >
             LOGIN DETAILS
           </Typography>
@@ -677,11 +677,11 @@ const Register = () => {
               sx={{
                 fontWeight: 600,
                 color: "#000",
-                border:'1px solid #326633',
+                border: '1px solid #7c2d12',
                 width: { xs: "100%", sm: "50%", md: "20%" },
                 textTransform: "capitalize",
                 "&:hover": {
-                  backgroundColor: "#326633",
+                  backgroundColor: "#7c2d12",
                   color: "#fff",
                 },
               }}
@@ -695,9 +695,9 @@ const Register = () => {
               size="large"
               disabled={isPending}
               sx={{
-                backgroundColor: "#326633",
+                backgroundColor: "#7c2d12",
                 "&:hover": {
-                  backgroundColor: "#326633",
+                  backgroundColor: "#7c2d12",
                 },
                 color: "white",
                 fontWeight: 600,
@@ -729,7 +729,7 @@ const Register = () => {
             textAlign: "center",
             fontWeight: 600,
             fontSize: { xs: "1.25rem", sm: "1.5rem" },
-            color: "#326633",
+            color: "#7c2d12",
           }}
         >
           Registration Successful!
@@ -804,7 +804,7 @@ const Register = () => {
             variant="contained"
             onClick={handleScannerClose}
             sx={{
-              backgroundColor: "#326633",
+              backgroundColor: "#7c2d12",
               color: "#fff",
               fontWeight: 600,
               textTransform: "none",
