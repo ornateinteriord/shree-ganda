@@ -8,7 +8,7 @@
   left: 0;
   width: 100%;
   height: 70px;
-  background: #326633;
+  background: #991b1b;
   color: #fff;
   z-index: 1000;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
@@ -55,7 +55,7 @@ h3 {
   }
 
   .link:hover {
-    color: aqua;
+    color: #ffd700;
     transform: scale(1.1);
   }
 }
@@ -74,7 +74,7 @@ h3 {
 }
 
 .mobile-link:hover {
-  color: aqua;
+  color: #ffd700;
 }
 
 /* Responsive Styles */
@@ -82,11 +82,13 @@ h3 {
 
 @media (max-width: 900px) {
   .menu.desktop-menu {
-    display: none; /* Hide desktop menu on mobile */
+    display: none;
+    /* Hide desktop menu on mobile */
   }
 
   .menu-button {
-    display: flex; /* Show hamburger menu button */
+    display: flex;
+    /* Show hamburger menu button */
   }
 
   .navbar {
@@ -108,13 +110,14 @@ h3 {
 }
 
 @media (max-width: 480px) {
- 
-  .menu-button{
+
+  .menu-button {
     margin-left: -10px;
   }
+
   .navbar-container {
     height: 60px;
-     
+
   }
 
 
@@ -176,5 +179,5 @@ button:hover {
 
 p {
   text-align: center;
-  color: green;
+  color: #991b1b;
 }

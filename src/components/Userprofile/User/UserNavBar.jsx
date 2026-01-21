@@ -219,7 +219,7 @@ const UserNavBar = () => {
         position="fixed"
         sx={{
           zIndex: 1201,
-          background: "#326633",
+          background: "#991b1b",
           height: "60px",
         }}
       >
@@ -239,242 +239,242 @@ const UserNavBar = () => {
           <Box sx={{ textAlign: "left", width: "100%" }}>
             <Link to="/" style={{ textDecoration: "none", color: "inherit" }}>
               <Typography variant="h6" noWrap component="div">
-               Shreeganda ❤️ Matrimony
+                Shreeganda ❤️ Matrimony
               </Typography>
             </Link>
           </Box>
 
-            <IconButton onClick={handleMenuOpen} sx={{ p: 0 }}>
-              <Typography
-                color="#fff"
-                fontFamily={"Outfit sans-serif"}
-                fontSize={"20px"}
-                marginRight={"10px"}
-                textTransform={"capitalize"}
-              >
-                {userProfile?.first_name}
-              </Typography>
-              <Avatar
-                src={userProfile?.image}
-                sx={{
-                  color: "black",
-                  fontWeight: "500px",
-                  textTransform: "uppercase",
-                }}
-              >
-                {userProfile?.first_name[0] || ""}
-              </Avatar>
-            </IconButton>
-
-            <Menu
-              anchorEl={anchorEl}
-              open={Boolean(anchorEl)}
-              onClose={handleMenuClose}
-              anchorOrigin={{
-                vertical: "bottom",
-                horizontal: "right",
-              }}
-              transformOrigin={{
-                vertical: "top",
-                horizontal: "right",
+          <IconButton onClick={handleMenuOpen} sx={{ p: 0 }}>
+            <Typography
+              color="#fff"
+              fontFamily={"Outfit sans-serif"}
+              fontSize={"20px"}
+              marginRight={"10px"}
+              textTransform={"capitalize"}
+            >
+              {userProfile?.first_name}
+            </Typography>
+            <Avatar
+              src={userProfile?.image}
+              sx={{
+                color: "black",
+                fontWeight: "500px",
+                textTransform: "uppercase",
               }}
             >
-              <MenuItem onClick={() => handleMenuItemClick(handleProfileClick)}>
-                My Profile
-              </MenuItem>
-              <MenuItem onClick={handleOpenChangePassword}>
-                <Box display="flex" alignItems="center">
-                  Change Password
-                </Box>
-              </MenuItem>
-              <MenuItem onClick={handleOpenLogoutDialog}>Logout</MenuItem>
-            </Menu>
-          </Toolbar>
-        </AppBar>
+              {userProfile?.first_name[0] || ""}
+            </Avatar>
+          </IconButton>
 
-        <Drawer
-          variant="persistent"
-          open={isSidebarOpen}
-          sx={{
+          <Menu
+            anchorEl={anchorEl}
+            open={Boolean(anchorEl)}
+            onClose={handleMenuClose}
+            anchorOrigin={{
+              vertical: "bottom",
+              horizontal: "right",
+            }}
+            transformOrigin={{
+              vertical: "top",
+              horizontal: "right",
+            }}
+          >
+            <MenuItem onClick={() => handleMenuItemClick(handleProfileClick)}>
+              My Profile
+            </MenuItem>
+            <MenuItem onClick={handleOpenChangePassword}>
+              <Box display="flex" alignItems="center">
+                Change Password
+              </Box>
+            </MenuItem>
+            <MenuItem onClick={handleOpenLogoutDialog}>Logout</MenuItem>
+          </Menu>
+        </Toolbar>
+      </AppBar>
+
+      <Drawer
+        variant="persistent"
+        open={isSidebarOpen}
+        sx={{
+          width: isSidebarOpen ? drawerWidth : 0,
+          flexShrink: 0,
+          [`& .MuiDrawer-paper`]: {
             width: isSidebarOpen ? drawerWidth : 0,
-            flexShrink: 0,
-            [`& .MuiDrawer-paper`]: {
-              width: isSidebarOpen ? drawerWidth : 0,
-              boxSizing: "border-box",
-              background: "#326633",
-              color: "#fff",
-              transition: "width 0.6s ease, opacity 0.6s ease",
-              opacity: isSidebarOpen ? 1 : 0,
-            },
-          }}
-        >
-          <Toolbar />
-          <SidebarMenu
-            selectedItem={selectedItem}
-            handleDashboardClick={() =>
-              handleMenuItemClick(handleDashboardClick)
-            }
-            handleProfileClick={() => handleMenuItemClick(handleProfileClick)}
-            handleMatchesClick={() => handleMenuItemClick(handleMatchesClick)}
-            handleInterestClick={() => handleMenuItemClick(handleInterestClick)}
-            handleViewAllClick={() => handleMenuItemClick(handleViewAllClick)}
-            handleSearchClick={() => handleMenuItemClick(handleSearchClick)}
-            handleOpenLogoutDialog={handleOpenLogoutDialog}
-            userProfile={userProfile}
-          />
-        </Drawer>
+            boxSizing: "border-box",
+            background: "#991b1b",
+            color: "#fff",
+            transition: "width 0.6s ease, opacity 0.6s ease",
+            opacity: isSidebarOpen ? 1 : 0,
+          },
+        }}
+      >
+        <Toolbar />
+        <SidebarMenu
+          selectedItem={selectedItem}
+          handleDashboardClick={() =>
+            handleMenuItemClick(handleDashboardClick)
+          }
+          handleProfileClick={() => handleMenuItemClick(handleProfileClick)}
+          handleMatchesClick={() => handleMenuItemClick(handleMatchesClick)}
+          handleInterestClick={() => handleMenuItemClick(handleInterestClick)}
+          handleViewAllClick={() => handleMenuItemClick(handleViewAllClick)}
+          handleSearchClick={() => handleMenuItemClick(handleSearchClick)}
+          handleOpenLogoutDialog={handleOpenLogoutDialog}
+          userProfile={userProfile}
+        />
+      </Drawer>
 
-        <Box
-          component="main"
-          sx={{
-            flexGrow: 1,
-            marginTop: 1,
-            paddingLeft: isSidebarOpen ? `30px` : "20px",
-            transition: "padding-left 0.4s ease",
-          }}
-        >
-          <Toolbar />
-          <Outlet />
-        </Box>
-
-              <Dialog
-  open={openLogoutDialog}
-  onClose={handleCloseLogoutDialog}
-  aria-labelledby="alert-dialog-title"
-  aria-describedby="alert-dialog-description"
->
-  <DialogTitle sx={{ fontWeight: 600, color: "black" }} id="alert-dialog-title">
-    Confirm Logout
-  </DialogTitle>
-
-  <DialogContent>
-    <DialogContentText
-      id="alert-dialog-description"
-      sx={{ color: "black" }}
-    >
-      Are you sure you want to logout from your account?
-    </DialogContentText>
-  </DialogContent>
-
-  <DialogActions>
-    <Button
-      onClick={handleCloseLogoutDialog}
-      variant="outlined"
-      sx={{
-        textTransform: "capitalize",
-        fontSize: "18px",
-        fontWeight: 500,
-        color: "black",
-        borderColor: "black",
-        "&:hover": {
-          backgroundColor: "#f0f0f0",
-          borderColor: "black",
-        },
-      }}
-    >
-      Cancel
-    </Button>
-
-    <Button
-      onClick={handleConfirmLogout}
-      color="error"
-      variant="contained"
-      autoFocus
-      sx={{
-        textTransform: "capitalize",
-        fontSize: "18px",
-        fontWeight: 500,
-        "&:hover": {
-          backgroundColor: "#d32f2f", 
-        },
-      }}
-    >
-      Logout
-    </Button>
-  </DialogActions>
-</Dialog>
-
-        <Dialog
-          open={openChangePasswordDialog}
-          onClose={handleCloseChangePassword}
-          aria-labelledby="form-dialog-title"
-        >
-          <DialogTitle sx={{ fontWeight: "bold" }} id="form-dialog-title">
-            Change Password
-          </DialogTitle>
-          <DialogContent>
-            <DialogContentText
-              sx={{
-                fontSize: { xs: "0.875rem", sm: "1rem" },
-                lineHeight: { xs: 1.3, sm: 1.5 },
-              }}
-            >
-              Please enter your current password and new password.
-            </DialogContentText>
-            <TextField
-              autoFocus
-              margin="dense"
-              name="oldPassword"
-              label="Current Password"
-              type="password"
-              fullWidth
-              value={passwordData.oldPassword}
-              onChange={handlePasswordChange}
-            />
-            <TextField
-              margin="dense"
-              name="newPassword"
-              label="New Password"
-              type="password"
-              fullWidth
-              value={passwordData.newPassword}
-              onChange={handlePasswordChange}
-            />
-            <TextField
-              margin="dense"
-              name="confirmPassword"
-              label="Confirm New Password"
-              type="password"
-              fullWidth
-              value={passwordData.confirmPassword}
-              onChange={handlePasswordChange}
-            />
-          </DialogContent>
-          <DialogActions>
-            <Button
-              onClick={handleCloseChangePassword}
-              sx={{
-                textTransform: "capitalize",
-                fontSize: "18px",
-                fontWeight: 400,
-                "&:hover": {
-                  backgroundColor: "transparent",
-                },
-              }}
-              color="primary"
-            >
-              Cancel
-            </Button>
-            <Button
-              onClick={handleSubmitPasswordChange}
-              sx={{
-                textTransform: "capitalize",
-                fontSize: "18px",
-                color: "#2e7d32", // Using success color from theme
-                fontWeight:400,
-                "&:hover": {
-                  backgroundColor: "transparent",
-                },
-              }}
-              disabled={isPending}
-            >
-              {isPending ? "Changing..." : "Submit"}
-            </Button>
-          </DialogActions>
-        </Dialog>
-
-        {isLoading && <LoadingComponent />}
+      <Box
+        component="main"
+        sx={{
+          flexGrow: 1,
+          marginTop: 1,
+          paddingLeft: isSidebarOpen ? `30px` : "20px",
+          transition: "padding-left 0.4s ease",
+        }}
+      >
+        <Toolbar />
+        <Outlet />
       </Box>
+
+      <Dialog
+        open={openLogoutDialog}
+        onClose={handleCloseLogoutDialog}
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description"
+      >
+        <DialogTitle sx={{ fontWeight: 600, color: "black" }} id="alert-dialog-title">
+          Confirm Logout
+        </DialogTitle>
+
+        <DialogContent>
+          <DialogContentText
+            id="alert-dialog-description"
+            sx={{ color: "black" }}
+          >
+            Are you sure you want to logout from your account?
+          </DialogContentText>
+        </DialogContent>
+
+        <DialogActions>
+          <Button
+            onClick={handleCloseLogoutDialog}
+            variant="outlined"
+            sx={{
+              textTransform: "capitalize",
+              fontSize: "18px",
+              fontWeight: 500,
+              color: "black",
+              borderColor: "black",
+              "&:hover": {
+                backgroundColor: "#f0f0f0",
+                borderColor: "black",
+              },
+            }}
+          >
+            Cancel
+          </Button>
+
+          <Button
+            onClick={handleConfirmLogout}
+            color="error"
+            variant="contained"
+            autoFocus
+            sx={{
+              textTransform: "capitalize",
+              fontSize: "18px",
+              fontWeight: 500,
+              "&:hover": {
+                backgroundColor: "#d32f2f",
+              },
+            }}
+          >
+            Logout
+          </Button>
+        </DialogActions>
+      </Dialog>
+
+      <Dialog
+        open={openChangePasswordDialog}
+        onClose={handleCloseChangePassword}
+        aria-labelledby="form-dialog-title"
+      >
+        <DialogTitle sx={{ fontWeight: "bold" }} id="form-dialog-title">
+          Change Password
+        </DialogTitle>
+        <DialogContent>
+          <DialogContentText
+            sx={{
+              fontSize: { xs: "0.875rem", sm: "1rem" },
+              lineHeight: { xs: 1.3, sm: 1.5 },
+            }}
+          >
+            Please enter your current password and new password.
+          </DialogContentText>
+          <TextField
+            autoFocus
+            margin="dense"
+            name="oldPassword"
+            label="Current Password"
+            type="password"
+            fullWidth
+            value={passwordData.oldPassword}
+            onChange={handlePasswordChange}
+          />
+          <TextField
+            margin="dense"
+            name="newPassword"
+            label="New Password"
+            type="password"
+            fullWidth
+            value={passwordData.newPassword}
+            onChange={handlePasswordChange}
+          />
+          <TextField
+            margin="dense"
+            name="confirmPassword"
+            label="Confirm New Password"
+            type="password"
+            fullWidth
+            value={passwordData.confirmPassword}
+            onChange={handlePasswordChange}
+          />
+        </DialogContent>
+        <DialogActions>
+          <Button
+            onClick={handleCloseChangePassword}
+            sx={{
+              textTransform: "capitalize",
+              fontSize: "18px",
+              fontWeight: 400,
+              "&:hover": {
+                backgroundColor: "transparent",
+              },
+            }}
+            color="primary"
+          >
+            Cancel
+          </Button>
+          <Button
+            onClick={handleSubmitPasswordChange}
+            sx={{
+              textTransform: "capitalize",
+              fontSize: "18px",
+              color: "#2e7d32", // Using success color from theme
+              fontWeight: 400,
+              "&:hover": {
+                backgroundColor: "transparent",
+              },
+            }}
+            disabled={isPending}
+          >
+            {isPending ? "Changing..." : "Submit"}
+          </Button>
+        </DialogActions>
+      </Dialog>
+
+      {isLoading && <LoadingComponent />}
+    </Box>
   );
 };
 

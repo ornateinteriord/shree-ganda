@@ -76,7 +76,7 @@ const About = () => {
         maxWidth: '100%',
         mx: 'auto',
         width: '100%',
-        mt:2
+        mt: 2
       }}
     >
 
@@ -96,35 +96,35 @@ const About = () => {
             <Stack spacing={2}>
               <TextField label="First Name" name="first_name" value={formData.first_name} onChange={handleChange} disabled={isUpdating} fullWidth />
               <TextField label="Last Name" name="last_name" value={formData.last_name} onChange={handleChange} disabled={isUpdating} fullWidth />
-             <LocalizationProvider dateAdapter={AdapterDayjs}>
-                             <DatePicker
-                               label="Date of Birth"
-                               value={
-                                 formData.date_of_birth
-                                   ? dayjs(formData.date_of_birth)
-                                   : null
-                               }
-                               onChange={(newValue) => {
-                                 const dob = newValue
-                                   ? newValue.toISOString().split("T")[0]
-                                   : "";
-                                 const age = dob ? calculateAge(dob) : "";
-                                 setFormData((prev) => ({
-                                   ...prev,
-                                   date_of_birth: dob,
-                                   age: age.toString(),
-                                 }));
-                               }}
-                               maxDate={dayjs()}
-                               slotProps={{
-                                 textField: {
-                                   fullWidth: true,
-                                   required: true,
-                                   sx: { mb: 3 },
-                                 },
-                               }}
-                             />
-                           </LocalizationProvider>
+              <LocalizationProvider dateAdapter={AdapterDayjs}>
+                <DatePicker
+                  label="Date of Birth"
+                  value={
+                    formData.date_of_birth
+                      ? dayjs(formData.date_of_birth)
+                      : null
+                  }
+                  onChange={(newValue) => {
+                    const dob = newValue
+                      ? newValue.toISOString().split("T")[0]
+                      : "";
+                    const age = dob ? calculateAge(dob) : "";
+                    setFormData((prev) => ({
+                      ...prev,
+                      date_of_birth: dob,
+                      age: age.toString(),
+                    }));
+                  }}
+                  maxDate={dayjs()}
+                  slotProps={{
+                    textField: {
+                      fullWidth: true,
+                      required: true,
+                      sx: { mb: 3 },
+                    },
+                  }}
+                />
+              </LocalizationProvider>
               <TextField label="Age" name="age" type="number" value={formData.age} onChange={handleChange} disabled={isUpdating} fullWidth />
             </Stack>
           </Box>
@@ -172,7 +172,7 @@ const About = () => {
         </Box>
       </Box>
 
-     <Box
+      <Box
         display="flex"
         justifyContent={{ xs: 'space-evenly', sm: 'flex-end' }}
         gap={2}
@@ -183,9 +183,9 @@ const About = () => {
           onClick={handleReset}
           disabled={isUpdating}
           fullWidth={true}
-          sx={{ 
+          sx={{
             color: "black",
-            border:'1px solid #326633',
+            border: '1px solid #7c2d12',
             maxWidth: { xs: '160px', sm: 180 },
             textTransform: 'capitalize',
             "&:hover": {
@@ -200,14 +200,14 @@ const About = () => {
           onClick={handleSave}
           disabled={isUpdating}
           fullWidth={true}
-          sx={{ 
+          sx={{
             maxWidth: { xs: '160px', sm: 200 },
-            textTransform: 'capitalize', 
-            backgroundColor: "#326633",
+            textTransform: 'capitalize',
+            backgroundColor: "#7c2d12",
             color: "#fff",
             "&:hover": {
               backgroundColor: "#6d2980ff"
-            } 
+            }
           }}
           startIcon={isUpdating ? <CircularProgress size={20} /> : null}
         >

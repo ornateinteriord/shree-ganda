@@ -46,12 +46,12 @@ const PromotersDashboard = () => {
     handleMenuClose();
   };
 
-   const handleConfirmLogout = () => {
-     
-      navigation("/");
-      TokenService.removeToken();
-      window.dispatchEvent(new Event("storage"));
-    };
+  const handleConfirmLogout = () => {
+
+    navigation("/");
+    TokenService.removeToken();
+    window.dispatchEvent(new Event("storage"));
+  };
 
 
   return (
@@ -60,7 +60,7 @@ const PromotersDashboard = () => {
         position="fixed"
         sx={{
           zIndex: 1201,
-          background: "linear-gradient(to right, #182848, #326633)",
+          background: "linear-gradient(to right, #182848, #7c2d12)",
         }}
       >
         <Toolbar>
@@ -115,7 +115,7 @@ const PromotersDashboard = () => {
                 sx={{
                   width: 40,
                   height: 40,
-                  bgcolor: "#326633",
+                  bgcolor: "#7c2d12",
                   fontSize: "1.2rem",
                   fontWeight: "bold",
                 }}

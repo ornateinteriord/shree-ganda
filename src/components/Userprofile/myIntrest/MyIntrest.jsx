@@ -60,7 +60,7 @@ const MyInterest = () => {
         variant="h5"
         sx={{
           fontSize: { xs: "21px", sm: "25px" },
-          color: "#326633 ",
+          color: "#7c2d12 ",
           mt: { xs: 1 },
           mb: { xs: 1, md: 2 },
         }}
@@ -82,14 +82,14 @@ const MyInterest = () => {
             color: "#444",
             "&:hover": {
               backgroundColor: "transparent",
-              color: "#326633 ",
+              color: "#7c2d12 ",
             },
           },
           "& .Mui-selected": {
-            color: "#326633  !important",
+            color: "#7c2d12  !important",
           },
           "& .MuiTabs-indicator": {
-            backgroundColor: "#326633 ",
+            backgroundColor: "#7c2d12 ",
           },
         }}
       >

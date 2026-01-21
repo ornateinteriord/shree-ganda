@@ -88,15 +88,15 @@ const Education = () => {
         width: { xs: "100%", sm: "90%", md: "85%", lg: "100%" },
         p: { xs: 0, sm: 3, md: 2 },
         boxSizing: 'border-box',
-         mt:{xs:2},
-    
+        mt: { xs: 2 },
+
       }}
     >
       <Stack spacing={3} mt={1}>
         <form>
           <Stack spacing={3}>
             <Stack
-              direction= {isMobile ? "column" : "row"}
+              direction={isMobile ? "column" : "row"}
               spacing={3}
               alignItems={isMobile ? "center" : "flex-start"}
             >
@@ -109,8 +109,9 @@ const Education = () => {
                   name="educational_qualification"
                   value={formData.educational_qualification}
                   onChange={(e) => handleChange("educational_qualification", e.target.value)}
-                  sx={{ 
-                    mb:isMobile ? 2 : 4 }}
+                  sx={{
+                    mb: isMobile ? 2 : 4
+                  }}
                 />
 
                 <CustomAutocomplete
@@ -119,9 +120,10 @@ const Education = () => {
                   name="occupation"
                   value={formData.occupation}
                   onChange={(e) => handleChange("occupation", e.target.value)}
-                 FullWidth
-                    sx={{ 
-                    mb:isMobile ? 0 : 3}}
+                  FullWidth
+                  sx={{
+                    mb: isMobile ? 0 : 3
+                  }}
                 />
               </Box>
 
@@ -134,8 +136,9 @@ const Education = () => {
                   FullWidth
                   value={formData.income_per_month}
                   onChange={(e) => handleChange("income_per_month", e.target.value)}
-                 sx={{ 
-                    mb:isMobile ? 2 : 4 }}
+                  sx={{
+                    mb: isMobile ? 2 : 4
+                  }}
                 />
 
                 <CustomAutocomplete
@@ -155,7 +158,7 @@ const Education = () => {
               sx={{
                 display: "flex",
                 gap: "10px",
-                flexDirection:"row" ,
+                flexDirection: "row",
                 alignItems: "center",
                 justifyContent: "end",
                 width: '100%'
@@ -166,7 +169,7 @@ const Education = () => {
                 variant="outlined"
                 sx={{
                   color: "black",
-                  border:'1px solid #326633',
+                  border: '1px solid #7c2d12',
                   backgroundColor: "#fff",
                   textTransform: "capitalize",
                   "&:hover": { backgroundColor: "#fff" },
@@ -180,9 +183,9 @@ const Education = () => {
                 variant="contained"
                 disabled={isUpdating}
                 sx={{
-                  backgroundColor: "#326633",
+                  backgroundColor: "#7c2d12",
                   textTransform: "capitalize",
-                  "&:hover": { backgroundColor: "#326633" },
+                  "&:hover": { backgroundColor: "#7c2d12" },
                   width: isMobile ? '100%' : '130px'
                 }}
               >

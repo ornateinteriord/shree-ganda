@@ -22,18 +22,18 @@ const UserUpgradeDialog = ({ open, handleClose, defaultUserType, userId }) => {
         paidType: "",
         referenceNumber: "",
     });
-    
+
     const [showScanner, setShowScanner] = useState(false);
     const [upgradedUserType, setUpgradedUserType] = useState("");
 
-     useEffect(() => {
+    useEffect(() => {
         if (open) {
-        setFormData({
-            userType: defaultUserType || "FreeUser",
-            amountPaid: "",
-            paidType: "",
-            referenceNumber: "",
-        });
+            setFormData({
+                userType: defaultUserType || "FreeUser",
+                amountPaid: "",
+                paidType: "",
+                referenceNumber: "",
+            });
         }
     }, [open, defaultUserType]);
 
@@ -64,7 +64,7 @@ const UserUpgradeDialog = ({ open, handleClose, defaultUserType, userId }) => {
             referenceNumber: formData.referenceNumber,
             registration_no: userId
         }, {
-            onSuccess:()=>{
+            onSuccess: () => {
                 // Show scanner dialog for Premium or Silver users
                 if (formData.userType === "PremiumUser" || formData.userType === "SilverUser") {
                     setUpgradedUserType(formData.userType);
@@ -79,12 +79,12 @@ const UserUpgradeDialog = ({ open, handleClose, defaultUserType, userId }) => {
                     referenceNumber: "",
                 });
             },
-            onError:(error)=>{
+            onError: (error) => {
                 console.error("Upgrade error:", error);
             }
         });
     };
-    
+
     const handleScannerClose = () => {
         setShowScanner(false);
         handleClose();
@@ -223,7 +223,7 @@ const UserUpgradeDialog = ({ open, handleClose, defaultUserType, userId }) => {
                             fontWeight: 500,
                             textTransform: "capitalize",
                             fontSize: "1rem",
-                            backgroundColor: "#326633",
+                            backgroundColor: "#7c2d12",
                             "&:hover": {
                                 backgroundColor: "#285228",
                             },
@@ -233,7 +233,7 @@ const UserUpgradeDialog = ({ open, handleClose, defaultUserType, userId }) => {
                     </Button>
                 </DialogActions>
             </Dialog>
-            
+
             {/* Payment Success Scanner Dialog */}
             <PaymentSuccessScanner
                 open={showScanner}

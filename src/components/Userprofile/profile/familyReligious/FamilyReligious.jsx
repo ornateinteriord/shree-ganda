@@ -165,8 +165,8 @@ const FamilyReligious = () => {
           onClick={handleReset}
           disabled={isUpdating}
           fullWidth={true}
-          sx={{ 
-            color:"black",
+          sx={{
+            color: "black",
             maxWidth: { xs: '160px', sm: 180 },
             textTransform: 'capitalize',
             "&:hover": {
@@ -181,14 +181,14 @@ const FamilyReligious = () => {
           onClick={handleSave}
           disabled={isUpdating}
           fullWidth={true}
-          sx={{ 
+          sx={{
             maxWidth: { xs: '160px', sm: 200 },
-            textTransform: 'capitalize', 
-            backgroundColor: "#326633",
+            textTransform: 'capitalize',
+            backgroundColor: "#7c2d12",
             color: "#fff",
             "&:hover": {
-              backgroundColor: "#326633"
-            } 
+              backgroundColor: "#7c2d12"
+            }
           }}
           startIcon={isUpdating ? <CircularProgress size={20} /> : null}
         >
@@ -196,7 +196,7 @@ const FamilyReligious = () => {
         </Button>
       </Box>
 
-      {isLoading && <LoadingComponent/>}
+      {isLoading && <LoadingComponent />}
     </Box>
   );
 };

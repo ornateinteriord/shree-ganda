@@ -95,10 +95,10 @@ const Profile = () => {
           fontSize: {
             xs: "20px",
             md: "25px",
-            color: "#326633",
+            color: "#7c2d12",
             textAlign: "left",
           },
-          mb:1.5
+          mb: 1.5
         }}
       >
         My Profile
@@ -125,16 +125,16 @@ const Profile = () => {
             aria-label="profile tabs"
             sx={{
               "& .MuiTabs-indicator": {
-                backgroundColor: "#326633",
+                backgroundColor: "#7c2d12",
               },
               "& .MuiTab-root": {
                 fontWeight: 500,
                 "&.Mui-selected": {
-                  color: "#326633",
+                  color: "#7c2d12",
                 },
                 "&:hover": {
                   backgroundColor: "transparent",
-                  color: "#326633",
+                  color: "#7c2d12",
                 },
               },
             }}
@@ -157,13 +157,13 @@ const Profile = () => {
             indicatorColor="primary"
             sx={{
               "& .MuiTabs-indicator": {
-                backgroundColor: "#326633",
+                backgroundColor: "#7c2d12",
               },
               "& .Mui-selected": {
-                color: "#326633 !important",
+                color: "#7c2d12 !important",
               },
               "& .MuiTab-root:hover": {
-                color: "#326633",
+                color: "#7c2d12",
               },
             }}
           >

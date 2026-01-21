@@ -117,7 +117,7 @@ const Navbar = () => {
       return;
     }
     setForgotPasswordError("");
-    
+
     resetPassword({ email }, {
       onSuccess: (response) => {
         if (response.success) {
@@ -140,11 +140,11 @@ const Navbar = () => {
       setForgotPasswordError("All fields are required");
       return;
     }
-    
-    resetPassword({ 
-      email, 
-      otp, 
-      password: newPassword, 
+
+    resetPassword({
+      email,
+      otp,
+      password: newPassword,
     }, {
       onSuccess: () => {
         toast.success("Password reset successfully");
@@ -164,8 +164,8 @@ const Navbar = () => {
           <IconButton
             className="menu-button"
             onClick={toggleMobileMenu}
-            sx={{ 
-              display: { xs: "flex", md: "none" }, 
+            sx={{
+              display: { xs: "flex", md: "none" },
               color: "#fff",
             }}
           >
@@ -183,7 +183,7 @@ const Navbar = () => {
               whiteSpace: "nowrap",
               textDecoration: "none",
               color: "#fff",
-             textAlign:'center',
+              textAlign: 'center',
               [theme.breakpoints.up('md')]: {
                 margin: "0",
                 marginRight: "auto"
@@ -194,65 +194,65 @@ const Navbar = () => {
           </Typography>
 
           {/* Desktop Menu */}
-       <Box 
-  sx={{ 
-    display: { xs: "none", md: "flex" },
-    flexGrow: 1,
-    justifyContent: "center",
-    marginLeft: "20px"
-  }}
->
-  {menuItems.map((item) => {
-    // Get the current path (assuming you're using React Router)
-    const currentPath = window.location.pathname;
-    // Check if this item is active
-    const isActive = currentPath === item.path;
-    
-    return (
-      <Button
-        key={item.text}
-        component={Link}
-        to={item.path}
-        sx={{
-          color: "#fff",
-          fontWeight: 600,  
-          fontSize: "1rem",
-          textTransform: "capitalize",
-          margin: "0 8px",
-          position: "relative",
-          "&:hover": {
-            color: "#fff",  
-            backgroundColor: "transparent",  
-            "&::after": { 
-              content: '""',
-              position: "absolute",
-              bottom: "4px",
-              left: "8px",
-              right: "8px",
-              height: "2px",
-              backgroundColor: "#fff",  
-              transform: "scaleX(1)",  
-              transition: "transform 0.3s ease"
-            }
-          },
-          "&::after": {  
-            content: '""',
-            position: "absolute",
-            bottom: "4px",
-            left: "8px",
-            right: "8px",
-            height: "2px",
-            backgroundColor: "#fff",
-            transform: isActive ? "scaleX(1)" : "scaleX(0)",  
-            transition: "transform 0.3s ease"
-          }
-        }}
-      >
-        {item.text}
-      </Button>
-    );
-  })}
-</Box>
+          <Box
+            sx={{
+              display: { xs: "none", md: "flex" },
+              flexGrow: 1,
+              justifyContent: "center",
+              marginLeft: "20px"
+            }}
+          >
+            {menuItems.map((item) => {
+              // Get the current path (assuming you're using React Router)
+              const currentPath = window.location.pathname;
+              // Check if this item is active
+              const isActive = currentPath === item.path;
+
+              return (
+                <Button
+                  key={item.text}
+                  component={Link}
+                  to={item.path}
+                  sx={{
+                    color: "#fff",
+                    fontWeight: 600,
+                    fontSize: "1rem",
+                    textTransform: "capitalize",
+                    margin: "0 8px",
+                    position: "relative",
+                    "&:hover": {
+                      color: "#fff",
+                      backgroundColor: "transparent",
+                      "&::after": {
+                        content: '""',
+                        position: "absolute",
+                        bottom: "4px",
+                        left: "8px",
+                        right: "8px",
+                        height: "2px",
+                        backgroundColor: "#fff",
+                        transform: "scaleX(1)",
+                        transition: "transform 0.3s ease"
+                      }
+                    },
+                    "&::after": {
+                      content: '""',
+                      position: "absolute",
+                      bottom: "4px",
+                      left: "8px",
+                      right: "8px",
+                      height: "2px",
+                      backgroundColor: "#fff",
+                      transform: isActive ? "scaleX(1)" : "scaleX(0)",
+                      transition: "transform 0.3s ease"
+                    }
+                  }}
+                >
+                  {item.text}
+                </Button>
+              );
+            })}
+          </Box>
 
           {/* Auth Buttons */}
           <Box sx={{ display: "flex", alignItems: "center", gap: 2 }}>
@@ -278,7 +278,7 @@ const Navbar = () => {
               </Button>
             ) : (
               <>
-             <Button
+                <Button
                   variant="contained"
                   size={isMobile ? "medium" : "large"}
                   onClick={handleOpen}
@@ -311,7 +311,7 @@ const Navbar = () => {
         sx={{
           "& .MuiDrawer-paper": {
             width: "280px",
-            background: '#326633',
+            background: '#7c2d12',
             color: "#fff",
           },
         }}
@@ -332,7 +332,7 @@ const Navbar = () => {
               component="div"
               sx={{ fontWeight: "bold", fontSize: "1.3rem" }}
             >
-              Sangam ❤️ Sathi
+              Shreeganda ❤️ Matrimony
             </Typography>
             <IconButton onClick={toggleMobileMenu} sx={{ color: "#fff" }}>
               <CloseIcon />
@@ -351,8 +351,8 @@ const Navbar = () => {
                   },
                 }}
               >
-                <Link 
-                  className="link mobile-link" 
+                <Link
+                  className="link mobile-link"
                   to={item.path}
                   style={{
                     width: "100%",
@@ -360,8 +360,8 @@ const Navbar = () => {
                     color: "#fff",
                   }}
                 >
-                  <ListItemText 
-                    primary={item.text} 
+                  <ListItemText
+                    primary={item.text}
                     primaryTypographyProps={{ fontWeight: 500 }}
                   />
                 </Link>
@@ -420,15 +420,15 @@ const Navbar = () => {
       </Drawer>
 
       {/* Login Dialog */}
-      <Dialog 
-        open={open} 
+      <Dialog
+        open={open}
         onClose={handleClose}
         maxWidth="xs"
         fullWidth
         PaperProps={{
           sx: {
             borderRadius: "12px",
-            padding: {xs: "0px", sm: "10px"},
+            padding: { xs: "0px", sm: "10px" },
           }
         }}
       >
@@ -450,7 +450,7 @@ const Navbar = () => {
               display: "flex",
               flexDirection: "column",
               gap: 2,
-             
+
             }}
           >
             <TextField
@@ -465,7 +465,7 @@ const Navbar = () => {
                 "& .MuiOutlinedInput-root": {
                   borderRadius: "5px",
                 },
-                mb:1
+                mb: 1
               }}
             />
             <TextField
@@ -486,7 +486,7 @@ const Navbar = () => {
             <Typography
               variant="body2"
               sx={{
-                color: "#326633",
+                color: "#7c2d12",
                 cursor: "pointer",
                 textAlign: "center",
                 "&:hover": {
@@ -518,14 +518,14 @@ const Navbar = () => {
               fontWeight: "bold",
               textTransform: "capitalize",
               fontSize: "1rem",
-              backgroundColor: "#326633",
+              backgroundColor: "#7c2d12",
               "&:hover": {
-                  backgroundColor: "#6c1b83ff",
+                backgroundColor: "#991b1b",
               }
             }}
           >
             {isLoginPending ? (
-             <CircularProgress size={24} color="inherit" /> 
+              <CircularProgress size={24} color="inherit" />
             ) : (
               "Login"
             )}
@@ -534,13 +534,13 @@ const Navbar = () => {
             variant="body2"
             sx={{
               textAlign: "center",
-              color:  "#326633",
+              color: "#7c2d12",
             }}
           >
             Don't have an account?{" "}
             <span
               style={{
-                color:  "#326633",
+                color: "#7c2d12",
                 cursor: "pointer",
                 fontWeight: "bold",
               }}
@@ -556,15 +556,15 @@ const Navbar = () => {
       </Dialog>
 
       {/* Forgot Password Dialog */}
-      <Dialog 
-        open={openForgotPassword} 
-        onClose={handleCloseForgotPassword} 
+      <Dialog
+        open={openForgotPassword}
+        onClose={handleCloseForgotPassword}
         maxWidth="xs"
         fullWidth
         PaperProps={{
           sx: {
             borderRadius: "12px",
-             padding: {xs: "0px", sm: "10px"},
+            padding: { xs: "0px", sm: "10px" },
           }
         }}
       >
@@ -636,7 +636,7 @@ const Navbar = () => {
                   InputProps={{
                     endAdornment: (
                       <InputAdornment position="end">
-                        <IconButton 
+                        <IconButton
                           onClick={() => setShowNewPassword(!showNewPassword)}
                           edge="end"
                         >
@@ -662,7 +662,7 @@ const Navbar = () => {
                   InputProps={{
                     endAdornment: (
                       <InputAdornment position="end">
-                        <IconButton 
+                        <IconButton
                           onClick={() => setShowConfirmPassword(!showConfirmPassword)}
                           edge="end"
                         >
@@ -686,63 +686,63 @@ const Navbar = () => {
             )}
           </Box>
         </DialogContent>
-  <DialogActions
-  sx={{
-    padding: "6px 24px",
-    flexDirection: "column",
-    gap: "12px",
-  }}
->
-  <Button
-    variant="contained"
-    fullWidth
-    onClick={otpSent ? handleResetPassword : handleSendOtp}
-    disabled={isResettingPassword}
-    sx={{
-      height: "44px",
-      borderRadius: "8px",
-      fontWeight: 500,
-      textTransform: "capitalize",
-      fontSize: "1rem",
-      backgroundColor: "#326633",
-      "&:hover": {
-        backgroundColor: "#6c1b83",
-      },
-    }}
-  >
-    {isResettingPassword ? (
-      <CircularProgress size={24} color="inherit" />
-    ) : otpSent ? (
-      "Reset Password"
-    ) : (
-      "Send OTP"
-    )}
-  </Button>
+        <DialogActions
+          sx={{
+            padding: "6px 24px",
+            flexDirection: "column",
+            gap: "12px",
+          }}
+        >
+          <Button
+            variant="contained"
+            fullWidth
+            onClick={otpSent ? handleResetPassword : handleSendOtp}
+            disabled={isResettingPassword}
+            sx={{
+              height: "44px",
+              borderRadius: "8px",
+              fontWeight: 500,
+              textTransform: "capitalize",
+              fontSize: "1rem",
+              backgroundColor: "#7c2d12",
+              "&:hover": {
+                backgroundColor: "#991b1b",
+              },
+            }}
+          >
+            {isResettingPassword ? (
+              <CircularProgress size={24} color="inherit" />
+            ) : otpSent ? (
+              "Reset Password"
+            ) : (
+              "Send OTP"
+            )}
+          </Button>
 
-  <Button
-    variant="outlined"
-    fullWidth
-    onClick={handleCloseForgotPassword}
-    sx={{
-      height: "44px",
-      mb:2.4,
-      mr:1,
-      borderRadius: "8px",
-      fontWeight: 500,
-      textTransform: "capitalize",
-      fontSize: "1rem",
-      color: "#326633",
-      borderColor: "#326633",
-      "&:hover": {
-        borderColor: "#6c1b83",
-        backgroundColor: "#e3d2e7ff",
-        color: "#6c1b83",
-      },
-    }}
-  >
-    Cancel
-  </Button>
-</DialogActions>
+          <Button
+            variant="outlined"
+            fullWidth
+            onClick={handleCloseForgotPassword}
+            sx={{
+              height: "44px",
+              mb: 2.4,
+              mr: 1,
+              borderRadius: "8px",
+              fontWeight: 500,
+              textTransform: "capitalize",
+              fontSize: "1rem",
+              color: "#7c2d12",
+              borderColor: "#7c2d12",
+              "&:hover": {
+                borderColor: "#991b1b",
+                backgroundColor: "#fef3c7",
+                color: "#7c2d12",
+              },
+            }}
+          >
+            Cancel
+          </Button>
+        </DialogActions>
 
       </Dialog>
     </div>
