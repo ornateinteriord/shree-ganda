@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, Suspense } from "react";
 import {
   AppBar,
   Toolbar,
@@ -28,6 +28,7 @@ import sidebarData from "./sidebar/data";
 import AdminProfileDialog from "../Adminprofile/AdminProfile";
 import Sidebar from "./sidebar/Sidebar";
 import { Outlet, useNavigate } from "react-router-dom";
+import { PremiumLoader } from "../../utils/common";
 import TokenService from "../token/tokenService";
 
 const PromotersDashboard = () => {
@@ -213,7 +214,11 @@ const PromotersDashboard = () => {
         }}
       >
         <Toolbar />
-        <Outlet />
+        <Suspense fallback={
+          <PremiumLoader />
+        }>
+          <Outlet />
+        </Suspense>
       </Box>
 
       <AdminProfileDialog

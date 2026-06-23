@@ -1,0 +1,247 @@
+.register-page-container {
+  min-height: 100vh;
+  width: 100%;
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px 20px 40px;
+  margin-top: 50px;
+  position: relative;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.45);
+    z-index: 1;
+  }
+
+  // ─── Branding ────────────────────────────────────────────
+  .branding-section {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    margin-bottom: 18px;
+    color: #fff;
+
+    h1 {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 2.8rem;
+      font-weight: 800;
+      margin: 0 0 4px;
+      letter-spacing: 3px;
+      color: #fff;
+      text-shadow: 0 2px 12px rgba(0, 0, 0, 0.7), 0 1px 3px rgba(0, 0, 0, 0.9);
+      line-height: 1.1;
+
+      span {
+        display: block;
+        font-size: 1rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 8px;
+        color: #F4D03F;
+        text-shadow: 0 1px 6px rgba(0, 0, 0, 0.6);
+        margin-top: 2px;
+      }
+    }
+
+    .tagline {
+      font-size: 1.1rem;
+      font-style: italic;
+      margin-top: 6px;
+      color: #fde8c8;
+      text-shadow: 0 1px 4px rgba(0, 0, 0, 0.7);
+    }
+  }
+
+  // ─── Form Card ───────────────────────────────────────────
+  .register-form-wrapper {
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    max-width: 1000px;
+    background: rgba(120, 40, 15, 0.88);
+    backdrop-filter: blur(10px);
+    border: 2px solid rgba(212, 175, 55, 0.6);
+    border-radius: 16px;
+    padding: 24px 36px;
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.6);
+
+    .form-header {
+      text-align: center;
+      margin-bottom: 20px;
+
+      &::before,
+      &::after {
+        content: '✦';
+        color: #D4AF37;
+        font-size: 1rem;
+        margin: 0 12px;
+        vertical-align: middle;
+      }
+
+      h2 {
+        display: inline-block;
+        color: #fff;
+        font-size: 1.5rem;
+        font-weight: 700;
+        margin: 0;
+        letter-spacing: 1px;
+        text-shadow: 0 1px 4px rgba(0, 0, 0, 0.4);
+      }
+    }
+
+    // ─── Grid ─────────────────────────────────────────────
+    .form-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+
+      @media (max-width: 900px) {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    // ─── Each field row ───────────────────────────────────
+    .form-row {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      margin-bottom: 12px;
+
+      .label-col {
+        color: #fde8c8;
+        font-weight: 600;
+        font-size: 0.82rem;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+      }
+
+      .input-col {
+        width: 100%;
+
+        // Force WHITE background on every MUI input ──────
+        .MuiInputBase-root,
+        .MuiOutlinedInput-root,
+        .mui-input-custom,
+        .MuiAutocomplete-root .MuiInputBase-root {
+          background: #ffffff !important;
+          border-radius: 6px !important;
+
+          input {
+            background: #ffffff !important;
+            color: #111 !important;
+            padding: 9px 12px !important;
+            font-size: 0.9rem !important;
+          }
+
+          .MuiSelect-select {
+            background: #ffffff !important;
+            color: #111 !important;
+            padding: 9px 12px !important;
+            font-size: 0.9rem !important;
+          }
+
+          textarea {
+            background: #ffffff !important;
+            color: #111 !important;
+            font-size: 0.9rem !important;
+          }
+
+          fieldset {
+            border-color: rgba(0, 0, 0, 0.15) !important;
+          }
+
+          &:hover fieldset {
+            border-color: #7c2d12 !important;
+          }
+
+          &.Mui-focused fieldset {
+            border-color: #7c2d12 !important;
+          }
+        }
+
+        // MUI label color
+        .MuiInputLabel-root {
+          color: #555 !important;
+          font-size: 0.88rem !important;
+        }
+
+        // Helper text (error)
+        .MuiFormHelperText-root {
+          color: #ffcdd2 !important;
+          font-size: 0.75rem !important;
+        }
+      }
+    }
+
+    // ─── Checkbox row ─────────────────────────────────────
+    .checkbox-row {
+      margin: 16px 0 4px;
+      display: flex;
+      align-items: center;
+      color: #fde8c8;
+      font-size: 0.88rem;
+
+      input[type="checkbox"] {
+        margin-right: 8px;
+        accent-color: #D4AF37;
+        width: 16px;
+        height: 16px;
+      }
+    }
+
+    // ─── Submit row ───────────────────────────────────────
+    .submit-btn-row {
+      text-align: center;
+      margin-top: 22px;
+      display: flex;
+      justify-content: center;
+      gap: 16px;
+
+      .register-btn {
+        background: linear-gradient(135deg, #e11d48 0%, #7c2d12 100%);
+        color: white;
+        padding: 11px 40px;
+        font-size: 1rem;
+        font-weight: 700;
+        border: 2px solid #D4AF37;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        text-transform: none;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.35);
+
+        &:hover {
+          transform: translateY(-2px);
+          box-shadow: 0 6px 20px rgba(0, 0, 0, 0.45);
+          background: linear-gradient(135deg, #7c2d12 0%, #c0392b 100%);
+        }
+
+        &:disabled {
+          opacity: 0.65;
+          cursor: not-allowed;
+          transform: none;
+        }
+
+        &.clear-btn {
+          background: transparent;
+          border: 2px solid #D4AF37;
+          color: #fff;
+
+          &:hover {
+            background: rgba(212, 175, 55, 0.2);
+            transform: translateY(-2px);
+          }
+        }
+      }
+    }
+  }
+}

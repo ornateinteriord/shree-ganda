@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, Suspense } from "react";
 import { FaBars } from "react-icons/fa";
 import {
   Avatar,
@@ -29,6 +29,7 @@ import {
 } from "../../api/User";
 import { toast } from "react-toastify";
 import { LoadingComponent } from "../../../App";
+import { PremiumLoader } from "../../../utils/common";
 import SidebarMenu from "../../sidebar/SidebarMenu";
 
 const drawerWidth = 240;
@@ -334,7 +335,11 @@ const UserNavBar = () => {
         }}
       >
         <Toolbar />
-        <Outlet />
+        <Suspense fallback={
+          <PremiumLoader />
+        }>
+          <Outlet />
+        </Suspense>
       </Box>
 
       <Dialog
