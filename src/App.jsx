@@ -28,6 +28,7 @@ import ScrollToTop from './components/common/scrollToTop';
 import NotFoundPage from './components/notFound/NotFoundPage';
 import PaymentSuccessScanner from './utils/common/PaymentSuccessScanner';
 import Connect from './components/howWorks/Connect';
+import { PremiumLoader } from './utils/common';
 
 // Create a query client with default options
 const queryClient = new QueryClient();
@@ -79,21 +80,7 @@ export const LoadingComponent = () => {
       }}
     >
       <DialogContent>
-        <Box
-          display="flex"
-          alignItems="center"
-          justifyContent="center"
-          p={6}
-        >
-          <CircularProgress
-            size={64}
-            thickness={3.6}
-            sx={{
-              color: "white",
-              animationDuration: '800ms',
-            }}
-          />
-        </Box>
+        <PremiumLoader />
       </DialogContent>
     </Dialog>
   );
@@ -104,9 +91,9 @@ const App = () => {
     <ProfileProvider>
       <QueryClientProvider client={queryClient}>
         <Suspense fallback={
-
-          <LoadingComponent />
-
+          <Box sx={{ minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', bgcolor: '#fceceb' }}>
+            <PremiumLoader />
+          </Box>
         }>
           <Router>
             <ScrollToTop />

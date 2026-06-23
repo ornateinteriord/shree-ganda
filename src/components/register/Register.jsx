@@ -21,6 +21,7 @@ import {
 import HowToRegIcon from "@mui/icons-material/HowToReg";
 import rawJsonData from "../Userprofile/profile/eduction/jsondata/data.json";
 import Navbar from "../navbar/Navbar";
+import "./Register.scss";
 
 import { toast } from "react-toastify";
 import { useSignupMutation } from "../api/Auth";
@@ -92,10 +93,7 @@ const Register = () => {
   const [formData, setFormData] = useState(initialFormState);
 
   useEffect(() => {
-    setFormData((prev) => ({
-      ...prev,
-      user_role: getUserRole(),
-    }));
+    setFormData((prev) => ({ ...prev, user_role: getUserRole() }));
   }, [planType]);
 
   useEffect(() => {
@@ -119,30 +117,21 @@ const Register = () => {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-
-    // For mobile number field - only allow numbers up to 10 digits
     if (name === "mobile_no") {
       if (value === "" || /^\d{0,10}$/.test(value)) {
         setFormData((prev) => ({ ...prev, [name]: value }));
       }
       return;
     }
-
-    // For age field - only allow numbers
     if (name === "age") {
       if (value === "" || /^\d+$/.test(value)) {
         setFormData((prev) => ({ ...prev, [name]: value }));
       }
       return;
     }
-
     if (name === "date_of_birth") {
       const age = calculateAge(value);
-      setFormData((prev) => ({
-        ...prev,
-        [name]: value,
-        age: age.toString(),
-      }));
+      setFormData((prev) => ({ ...prev, [name]: value, age: age.toString() }));
     } else if (name === "district") {
       const selectedDistrict = datas.districts?.find(
         (d) => d.name.toLowerCase() === value.toLowerCase()
@@ -161,18 +150,14 @@ const Register = () => {
     return Math.abs(ageDate.getUTCFullYear() - 1970);
   };
 
-  const handleClear = () => {
-    setFormData(initialFormState);
-  };
+  const handleClear = () => setFormData(initialFormState);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
     if (!/^[0-9]{10}$/.test(formData.mobile_no)) {
       toast.error("Please enter a valid 10-digit mobile number");
       return;
     }
-
     if (formData.password !== formData.confirmPassword) {
       toast.error("Passwords do not match");
       return;
@@ -181,10 +166,7 @@ const Register = () => {
       mutate(formData, {
         onSuccess: (response) => {
           if (response.success) {
-            // Store the response for later use
             setSignupResponse(response);
-
-            // Check if user is Premium or Silver to show scanner
             if (formData.user_role === "PremiumUser" || formData.user_role === "SilverUser") {
               setShowScanner(true);
             } else {
@@ -206,7 +188,6 @@ const Register = () => {
 
   const handleScannerClose = () => {
     setShowScanner(false);
-    // After closing scanner, proceed with normal flow
     if (signupResponse) {
       TokenService.setToken(signupResponse.token);
       window.dispatchEvent(new Event("storage"));
@@ -216,609 +197,262 @@ const Register = () => {
   };
 
   const isValidAge = (value) => {
-    if (value === "") return true; // Allow empty field
-    return /^\d+$/.test(value); // Check if it's only digits
+    if (value === "") return true;
+    return /^\d+$/.test(value);
   };
 
   return (
     <>
       <Navbar />
       {isPending && <LoadingComponent />}
-      <Box
-        sx={{
-          minHeight: "100vh",
-          py: 4,
-          px: { xs: 1, sm: 2 },
-          mt: "10px",
-          width: isMobile ? "100%" : "85%",
-          display: "flex",
-          justifyContent: "center",
-          justifySelf: "center",
-        }}
-      >
-        <Box
-          component="form"
-          onSubmit={handleSubmit}
-          sx={{
-            p: { xs: 2, sm: 4, md: 6 },
-            borderRadius: 2,
-            width: "100%",
-          }}
-        >
-          <Box
-            sx={{
-              display: "flex",
-              justifyContent: "space-between",
-              alignItems: "center",
-              mb: 2,
-              flexDirection: { xs: "column", sm: "row" },
-              gap: 1,
-              width: "100%",
-            }}
-          >
-            <Box
-              sx={{
-                display: "flex",
-                alignItems: "center",
-                gap: 2,
-                mt: isMobile ? "15px" : "",
-              }}
-            >
-              <Avatar sx={{ bgcolor: "#7c2d12" }}>
-                <HowToRegIcon />
-              </Avatar>
-              <Typography
-                variant={isMobile ? "h5" : "h4"}
-                component="h1"
-                sx={{ fontWeight: 500 }}
-              >
-                Register Here!
-              </Typography>
-            </Box>
+      <div className="register-page-container" style={{ backgroundImage: `url('/hero-background.jpg')` }}>
+        <div className="branding-section">
+          <h1>Shreeganda <span>MATRIMONY</span></h1>
+          <p className="tagline">Uniting Hearts, Creating Bonds</p>
+        </div>
 
-            <Box
-              sx={{
-                fontSize: { xs: "18px", sm: "22px" },
-                backgroundColor: "transparent",
-                color: "black",
-                py: 1,
-                borderRadius: 1,
-                fontWeight: 500,
-              }}
-            >
-              Registering as:{" "}
-              <Box
-                component="span"
-                sx={{
-                  color: "#7c2d12",
-                }}
-              >
-                {getUserRole()}
-              </Box>
-            </Box>
-          </Box>
+        <div className="register-form-wrapper">
+          <div className="form-header">
+            <h2>Create Your Profile</h2>
+          </div>
 
-          <Divider sx={{ height: "1px", mb: isMobile ? 1 : 2 }} />
+          <form onSubmit={handleSubmit}>
+            <div className="form-grid">
+              {/* LEFT COLUMN - Personal, Social & Career */}
+              <div className="form-column">
+                <div className="form-row">
+                  <div className="label-col">Profile For:</div>
+                  <div className="input-col">
+                    <Select fullWidth name="profilefor" value={formData.profilefor} onChange={handleChange} className="mui-input-custom" displayEmpty>
+                      <MenuItem value="" disabled>Profile Created by:</MenuItem>
+                      <MenuItem value="Self">Self</MenuItem>
+                      <MenuItem value="Son">Son</MenuItem>
+                      <MenuItem value="Daughter">Daughter</MenuItem>
+                      <MenuItem value="Brother">Brother</MenuItem>
+                      <MenuItem value="Sister">Sister</MenuItem>
+                    </Select>
+                  </div>
+                </div>
 
-          <Box
-            sx={{
-              display: "flex",
-              flexDirection: { xs: "column", md: "row" },
-              gap: 4,
-            }}
-          >
-            <Box sx={{ flex: 1 }}>
-              <Typography
-                variant="h6"
-                sx={{ mb: 3, color: "#7c2d12", fontWeight: 600 }}
-              >
-                PERSONAL DETAILS
-              </Typography>
+                <div className="form-row">
+                  <div className="label-col">Gender:</div>
+                  <div className="input-col">
+                    <Select fullWidth name="gender" value={formData.gender} onChange={handleChange} className="mui-input-custom" displayEmpty>
+                      <MenuItem value="" disabled>Select Gender</MenuItem>
+                      <MenuItem value="BrideGroom">Male</MenuItem>
+                      <MenuItem value="Bride">Female</MenuItem>
+                    </Select>
+                  </div>
+                </div>
 
-              <FormControl fullWidth sx={{ mb: 3 }} required>
-                <InputLabel>Marital Status</InputLabel>
-                <Select
-                  label="Marital Status"
-                  name="marital_status"
-                  value={formData.marital_status}
-                  onChange={handleChange}
-                >
-                  {datas.marritalStatus?.map((item, idx) => (
-                    <MenuItem key={idx} value={item}>
-                      {item}
-                    </MenuItem>
-                  ))}
-                </Select>
-              </FormControl>
+                <div className="form-row">
+                  <div className="label-col">Marital Status:</div>
+                  <div className="input-col">
+                    <Select fullWidth name="marital_status" value={formData.marital_status} onChange={handleChange} className="mui-input-custom" displayEmpty>
+                      <MenuItem value="" disabled>Marital Status</MenuItem>
+                      {datas.marritalStatus?.map((item, idx) => (
+                        <MenuItem key={idx} value={item}>{item}</MenuItem>
+                      ))}
+                    </Select>
+                  </div>
+                </div>
 
-              <FormControl fullWidth sx={{ mb: 3 }} required>
-                <InputLabel>Create Profile For</InputLabel>
-                <Select
-                  label="Create Profile For"
-                  name="profilefor"
-                  value={formData.profilefor}
-                  onChange={handleChange}
-                >
-                  <MenuItem value="Self">Self</MenuItem>
-                  <MenuItem value="Son">Son</MenuItem>
-                  <MenuItem value="Daughter">Daughter</MenuItem>
-                  <MenuItem value="Brother">Brother</MenuItem>
-                  <MenuItem value="Sister">Sister</MenuItem>
-                </Select>
-              </FormControl>
+                <div className="form-row">
+                  <div className="label-col">Religion:</div>
+                  <div className="input-col">
+                    <Select fullWidth name="religion" value={formData.religion} onChange={handleChange} className="mui-input-custom">
+                      <MenuItem value="Hindu">Hindu</MenuItem>
+                      <MenuItem value="Muslim">Muslim</MenuItem>
+                      <MenuItem value="Christian">Christian</MenuItem>
+                    </Select>
+                  </div>
+                </div>
 
-              <FormControl fullWidth sx={{ mb: 3 }} required>
-                <InputLabel>Gender</InputLabel>
-                <Select
-                  label="Gender"
-                  name="gender"
-                  value={formData.gender}
-                  onChange={handleChange}
-                >
-                  <MenuItem value="BrideGroom">Male</MenuItem>
-                  <MenuItem value="Bride">Female</MenuItem>
-                </Select>
-              </FormControl>
+                <div className="form-row">
+                  <div className="label-col">Caste:</div>
+                  <div className="input-col">
+                    <CustomAutocomplete options={datas.casteValues ?? []} label="Caste" name="caste" value={formData.caste} onChange={handleChange} />
+                  </div>
+                </div>
 
-              <LocalizationProvider dateAdapter={AdapterDayjs}>
-                <DatePicker
-                  label="Date of Birth"
-                  value={
-                    formData.date_of_birth
-                      ? dayjs(formData.date_of_birth)
-                      : null
-                  }
-                  onChange={(newValue) => {
-                    const dob = newValue
-                      ? newValue.toISOString().split("T")[0]
-                      : "";
-                    const age = dob ? calculateAge(dob) : "";
-                    setFormData((prev) => ({
-                      ...prev,
-                      date_of_birth: dob,
-                      age: age.toString(),
-                    }));
-                  }}
-                  maxDate={dayjs()}
-                  slotProps={{
-                    textField: {
-                      fullWidth: true,
-                      required: true,
-                      sx: { mb: 3 },
-                    },
-                  }}
-                />
-              </LocalizationProvider>
+                <div className="form-row">
+                  <div className="label-col">Date of Birth:</div>
+                  <div className="input-col">
+                    <LocalizationProvider dateAdapter={AdapterDayjs}>
+                      <DatePicker
+                        value={formData.date_of_birth ? dayjs(formData.date_of_birth) : null}
+                        onChange={(newValue) => {
+                          const dob = newValue ? newValue.toISOString().split("T")[0] : "";
+                          const age = dob ? calculateAge(dob) : "";
+                          setFormData((prev) => ({ ...prev, date_of_birth: dob, age: age.toString() }));
+                        }}
+                        maxDate={dayjs()}
+                        slotProps={{ textField: { fullWidth: true, required: true, className: "mui-input-custom" } }}
+                      />
+                    </LocalizationProvider>
+                  </div>
+                </div>
 
-              <TextField
-                fullWidth
-                label="Age"
-                type="text" // Changed from "number" to "text"
-                sx={{ mb: 3 }}
-                name="age"
-                value={formData.age}
-                onChange={handleChange}
-                InputLabelProps={{ shrink: !!formData.age }}
-                error={!isValidAge(formData.age)} // Show error state if not valid
-                helperText={
-                  !isValidAge(formData.age) ? "Please enter a valid number" : ""
-                }
-              />
-              <Typography
-                variant="h6"
-                sx={{ mb: 2, color: "#7c2d12", fontWeight: 600 }}
-              >
-                SOCIAL & CAREER DETAILS
-              </Typography>
+                <div className="form-row">
+                  <div className="label-col">Age:</div>
+                  <div className="input-col">
+                    <TextField fullWidth name="age" value={formData.age} onChange={handleChange} placeholder="Age" className="mui-input-custom" InputLabelProps={{ shrink: !!formData.age }} error={!isValidAge(formData.age)} helperText={!isValidAge(formData.age) ? "Please enter a valid number" : ""} />
+                  </div>
+                </div>
 
-              <Box
-                sx={{
-                  display: "flex",
-                  flexWrap: "wrap",
-                  gap: 2,
-                }}
-              >
-                <Box sx={{ flex: "1 1 48%", minWidth: "200px" }}>
-                  <CustomAutocomplete
-                    options={datas.qualificationValues ?? []}
-                    label="Educational Qualification"
-                    name="educational_qualification"
-                    value={formData.educational_qualification}
-                    onChange={handleChange}
-                    sx={{ width: "100%", mb: 2 }}
-                  />
-                </Box>
-                <Box sx={{ flex: "1 1 48%", minWidth: "200px" }}>
-                  <CustomAutocomplete
-                    options={datas.occupationValues ?? []}
-                    label="Occupation"
-                    name="occupation"
-                    value={formData.occupation}
-                    onChange={handleChange}
-                    sx={{ width: "100%", mb: 2 }}
-                  />
-                </Box>
+                <div className="form-row">
+                  <div className="label-col">Education:</div>
+                  <div className="input-col">
+                    <CustomAutocomplete options={datas.qualificationValues ?? []} label="Educational Qualification" name="educational_qualification" value={formData.educational_qualification} onChange={handleChange} />
+                  </div>
+                </div>
 
-                <Box sx={{ flex: "1 1 48%", minWidth: "200px" }}>
-                  <CustomAutocomplete
-                    options={datas.incomeValues ?? []}
-                    label="Income Per Annum"
-                    name="income_per_month"
-                    value={formData.income_per_month}
-                    onChange={handleChange}
-                    sx={{ width: "100%", mb: 2 }}
-                  />
-                </Box>
-                <Box sx={{ flex: "1 1 48%", minWidth: "200px" }}>
-                  <CustomAutocomplete
-                    options={datas.countries ?? []}
-                    label="Country"
-                    name="country"
-                    value={formData.country}
-                    onChange={handleChange}
-                    sx={{ width: "100%", mb: 2 }}
-                  />
-                </Box>
+                <div className="form-row">
+                  <div className="label-col">Occupation:</div>
+                  <div className="input-col">
+                    <CustomAutocomplete options={datas.occupationValues ?? []} label="Occupation" name="occupation" value={formData.occupation} onChange={handleChange} />
+                  </div>
+                </div>
 
-                <Box sx={{ flex: "1 1 48%", minWidth: "200px" }}>
-                  <CustomAutocomplete
-                    options={datas.languageValues ?? []}
-                    label="Mother Tongue"
-                    name="mother_tongue"
-                    value={formData.mother_tongue}
-                    onChange={handleChange}
-                    sx={{ width: "100%", mb: 2 }}
-                  />
-                </Box>
-              </Box>
-            </Box>
+                <div className="form-row">
+                  <div className="label-col">Income/Annum:</div>
+                  <div className="input-col">
+                    <CustomAutocomplete options={datas.incomeValues ?? []} label="Income Per Annum" name="income_per_month" value={formData.income_per_month} onChange={handleChange} />
+                  </div>
+                </div>
 
-            <Box sx={{ flex: 1 }}>
-              <Typography
-                variant="h6"
-                sx={{ mb: 3, color: "#7c2d12", fontWeight: 600 }}
-              >
-                FAMILY DETAILS
-              </Typography>
+                <div className="form-row">
+                  <div className="label-col">Country:</div>
+                  <div className="input-col">
+                    <CustomAutocomplete options={datas.countries ?? []} label="Country" name="country" value={formData.country} onChange={handleChange} />
+                  </div>
+                </div>
 
-              <FormControl fullWidth sx={{ mb: 3 }}>
-                <InputLabel>Select Parents</InputLabel>
-                <Select
-                  label="Select Parents"
-                  name="name_of_parent"
-                  value={formData.name_of_parent}
-                  onChange={handleChange}
-                >
-                  <MenuItem value="Father">Father</MenuItem>
-                  <MenuItem value="Mother">Mother</MenuItem>
-                  <MenuItem value="Guardian">Guardian</MenuItem>
-                </Select>
-              </FormControl>
+                <div className="form-row">
+                  <div className="label-col">Mother Tongue:</div>
+                  <div className="input-col">
+                    <CustomAutocomplete options={datas.languageValues ?? []} label="Mother Tongue" name="mother_tongue" value={formData.mother_tongue} onChange={handleChange} />
+                  </div>
+                </div>
+              </div>
 
-              <TextField
-                fullWidth
-                label="Please enter name"
-                name="parent_name"
-                sx={{ mb: 3 }}
-                value={formData.parent_name}
-                onChange={handleChange}
-              />
+              {/* RIGHT COLUMN - Family, Address & Login Details */}
+              <div className="form-column">
+                <div className="form-row">
+                  <div className="label-col">Select Parents:</div>
+                  <div className="input-col">
+                    <Select fullWidth name="name_of_parent" value={formData.name_of_parent} onChange={handleChange} className="mui-input-custom" displayEmpty>
+                      <MenuItem value="" disabled>Select Parents</MenuItem>
+                      <MenuItem value="Father">Father</MenuItem>
+                      <MenuItem value="Mother">Mother</MenuItem>
+                      <MenuItem value="Guardian">Guardian</MenuItem>
+                    </Select>
+                  </div>
+                </div>
 
-              <TextField
-                fullWidth
-                label="Religion"
-                name="religion"
-                value="Hindu"
-                disabled
-                sx={{ mb: 3 }}
-              />
+                <div className="form-row">
+                  <div className="label-col">Parent Name:</div>
+                  <div className="input-col">
+                    <TextField fullWidth name="parent_name" value={formData.parent_name} onChange={handleChange} placeholder="Parent / Guardian Name" className="mui-input-custom" />
+                  </div>
+                </div>
 
-              <CustomAutocomplete
-                options={datas.casteValues ?? []}
-                label="Caste"
-                name="caste"
-                value={formData.caste}
-                onChange={handleChange}
-                sx={{ mb: 3 }}
-              />
+                <div className="form-row">
+                  <div className="label-col">Address:</div>
+                  <div className="input-col">
+                    <TextField fullWidth name="address" value={formData.address} onChange={handleChange} placeholder="Address" className="mui-input-custom" multiline rows={2} />
+                  </div>
+                </div>
 
-              <TextField
-                fullWidth
-                label="Address"
-                name="address"
-                multiline
-                rows={3}
-                sx={{ mb: 3 }}
-                value={formData.address}
-                onChange={handleChange}
-              />
+                <div className="form-row">
+                  <div className="label-col">Occ. Country:</div>
+                  <div className="input-col">
+                    <CustomAutocomplete options={datas.countries ?? []} label="Occupation Country" name="occupation_country" value={formData.occupation_country} onChange={handleChange} />
+                  </div>
+                </div>
 
-              <CustomAutocomplete
-                options={datas.countries ?? []}
-                label="Occupation Country"
-                name="occupation_country"
-                value={formData.occupation_country}
-                onChange={handleChange}
-                sx={{ mb: 3 }}
-              />
+                <div className="form-row">
+                  <div className="label-col">State:</div>
+                  <div className="input-col">
+                    <CustomAutocomplete options={datas.states || []} label="Select State" name="state" value={formData.state} onChange={handleChange} />
+                  </div>
+                </div>
 
-              <CustomAutocomplete
-                options={datas.states || []}
-                label="Select State"
-                name="state"
-                value={formData.state}
-                onChange={handleChange}
-                sx={{ mb: 3 }}
-              />
+                <div className="form-row">
+                  <div className="label-col">City:</div>
+                  <div className="input-col">
+                    <CustomAutocomplete options={citySuggestions} label="Select City" name="city" value={formData.city} onChange={handleChange} />
+                  </div>
+                </div>
 
-              <CustomAutocomplete
-                options={citySuggestions}
-                label="Select City"
-                name="city"
-                value={formData.city}
-                onChange={handleChange}
-                sx={{ mb: 3 }}
-              />
-            </Box>
-          </Box>
+                <div className="form-row">
+                  <div className="label-col">First Name:</div>
+                  <div className="input-col">
+                    <TextField fullWidth name="first_name" value={formData.first_name} onChange={handleChange} placeholder="First Name" className="mui-input-custom" required />
+                  </div>
+                </div>
 
-          <Typography
-            variant="h6"
-            sx={{ mt: 1, mb: 3, color: "#7c2d12", fontWeight: 600 }}
-          >
-            LOGIN DETAILS
-          </Typography>
+                <div className="form-row">
+                  <div className="label-col">Last Name:</div>
+                  <div className="input-col">
+                    <TextField fullWidth name="last_name" value={formData.last_name} onChange={handleChange} placeholder="Last Name" className="mui-input-custom" required />
+                  </div>
+                </div>
 
-          <Box
-            sx={{
-              display: "flex",
-              flexDirection: { xs: "column", sm: "row" },
-              gap: 2,
-            }}
-          >
-            <Box sx={{ flex: 1 }}>
-              <TextField
-                fullWidth
-                label="First Name"
-                name="first_name"
-                sx={{ mb: 3 }}
-                value={formData.first_name}
-                onChange={handleChange}
-                required
-              />
-              <TextField
-                fullWidth
-                label="Last Name"
-                sx={{ mb: 3 }}
-                name="last_name"
-                value={formData.last_name}
-                onChange={handleChange}
-                required
-              />
-            </Box>
-            <Box sx={{ flex: 1 }}>
-              <TextField
-                fullWidth
-                label="Email"
-                type="email"
-                name="username"
-                sx={{ mb: 3 }}
-                value={formData.username}
-                onChange={handleChange}
-                required
-              />
-              <TextField
-                fullWidth
-                label="Mobile Number"
-                type="text" // Changed from "number" to "text" for better control
-                name="mobile_no"
-                sx={{ mb: 3 }}
-                value={formData.mobile_no}
-                onChange={handleChange}
-                required
-                inputProps={{
-                  maxLength: 10, // Limit to 10 digits for Indian numbers
-                  pattern: "[0-9]*", // Ensures only numbers are entered
-                }}
-                error={
-                  formData.mobile_no && !/^[0-9]{10}$/.test(formData.mobile_no)
-                }
-                helperText={
-                  formData.mobile_no && !/^[0-9]{10}$/.test(formData.mobile_no)
-                    ? "Please enter a valid 10-digit mobile number"
-                    : ""
-                }
-              />
-            </Box>
-          </Box>
+                <div className="form-row">
+                  <div className="label-col">Mobile:</div>
+                  <div className="input-col">
+                    <TextField
+                      fullWidth name="mobile_no" value={formData.mobile_no} onChange={handleChange}
+                      placeholder="Mobile Number" className="mui-input-custom" required
+                      inputProps={{ maxLength: 10, pattern: "[0-9]*" }}
+                      error={formData.mobile_no && !/^[0-9]{10}$/.test(formData.mobile_no)}
+                      helperText={formData.mobile_no && !/^[0-9]{10}$/.test(formData.mobile_no) ? "Please enter a valid 10-digit mobile number" : ""}
+                    />
+                  </div>
+                </div>
 
-          <Box
-            sx={{
-              display: "flex",
-              flexDirection: { xs: "column", sm: "row" },
-              gap: 2,
-              mb: 4,
-            }}
-          >
-            <TextField
-              fullWidth
-              label="Password"
-              name="password"
-              type="password"
-              value={formData.password}
-              onChange={handleChange}
-            />
-            <TextField
-              fullWidth
-              label="Confirm Password"
-              name="confirmPassword"
-              type="password"
-              value={formData.confirmPassword}
-              onChange={handleChange}
-            />
-          </Box>
+                <div className="form-row">
+                  <div className="label-col">Email:</div>
+                  <div className="input-col">
+                    <TextField fullWidth type="email" name="username" value={formData.username} onChange={handleChange} placeholder="Email ID" className="mui-input-custom" required />
+                  </div>
+                </div>
 
-          <Box
-            sx={{
-              width: "100%",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              gap: 2,
-              flexDirection: isMobile ? "row" : "row",
-            }}
-          >
+                <div className="form-row">
+                  <div className="label-col">Password:</div>
+                  <div className="input-col">
+                    <TextField fullWidth type="password" name="password" value={formData.password} onChange={handleChange} placeholder="Password" className="mui-input-custom" />
+                  </div>
+                </div>
+
+                <div className="form-row">
+                  <div className="label-col">Confirm Pwd:</div>
+                  <div className="input-col">
+                    <TextField fullWidth type="password" name="confirmPassword" value={formData.confirmPassword} onChange={handleChange} placeholder="Confirm Password" className="mui-input-custom" />
+                  </div>
+                </div>
+
+                <div className="checkbox-row">
+                  <input type="checkbox" id="terms" required />
+                  <label htmlFor="terms">I agree to the Terms &amp; Conditions</label>
+                </div>
+              </div>
+            </div>
+
             <input type="hidden" name="user_role" value={formData.user_role} />
-            <Button
-              type="button"
-              variant="outlined"
-              size="large"
-              onClick={handleClear}
-              sx={{
-                fontWeight: 600,
-                color: "#000",
-                border: '1px solid #7c2d12',
-                width: { xs: "100%", sm: "50%", md: "20%" },
-                textTransform: "capitalize",
-                "&:hover": {
-                  backgroundColor: "#7c2d12",
-                  color: "#fff",
-                },
-              }}
-            >
-              Clear
-            </Button>
 
-            <Button
-              type="submit"
-              variant="contained"
-              size="large"
-              disabled={isPending}
-              sx={{
-                backgroundColor: "#7c2d12",
-                "&:hover": {
-                  backgroundColor: "#7c2d12",
-                },
-                color: "white",
-                fontWeight: 600,
-                width: { xs: "100%", sm: "50%", md: "20%" },
-                textTransform: "capitalize",
-              }}
-            >
-              Submit
-            </Button>
-          </Box>
-        </Box>
-      </Box>
-
-      {/* Payment Success Scanner Dialog */}
-      {/* <Dialog
-        open={showScanner}
-        onClose={handleScannerClose}
-        maxWidth="md"
-        fullWidth
-        PaperProps={{
-          sx: {
-            borderRadius: "10px",
-            padding: { xs: "10px", sm: "20px" },
-          },
-        }}
-      >
-        <DialogTitle
-          sx={{
-            textAlign: "center",
-            fontWeight: 600,
-            fontSize: { xs: "1.25rem", sm: "1.5rem" },
-            color: "#7c2d12",
-          }}
-        >
-          Registration Successful!
-        </DialogTitle>
-
-        <DialogContent>
-          <Box
-            sx={{
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "center",
-              gap: 2,
-            }}
-          >
-            <Typography
-              variant="h6"
-              sx={{
-                textAlign: "center",
-                fontWeight: 500,
-                fontSize: { xs: "1rem", sm: "1.125rem" },
-              }}
-            >
-              Congratulations! You have successfully registered as {formData.user_role}.
-            </Typography>
-
-            <Typography
-              variant="body1"
-              sx={{
-                textAlign: "center",
-                mb: 2,
-                fontSize: { xs: "0.875rem", sm: "1rem" },
-              }}
-            >
-              Please scan the QR code below for payment confirmation:
-            </Typography>
-
-            <Box
-              component="img"
-              src="/scan1.jpg"
-              alt="Payment Scanner"
-              sx={{
-                width: "100%",
-                maxWidth: "300px",
-                height: "auto",
-                borderRadius: "8px",
-                border: "1px solid #ddd",
-                boxShadow: "0 4px 8px rgba(0,0,0,0.1)",
-              }}
-            />
-
-            <Typography
-              variant="body2"
-              sx={{
-                textAlign: "center",
-                mt: 1,
-                color: "rgba(0, 0, 0, 0.6)",
-                fontSize: { xs: "0.75rem", sm: "0.875rem" },
-              }}
-            >
-              Scan this QR code with your mobile device to complete the payment process.
-            </Typography>
-          </Box>
-        </DialogContent>
-
-        <DialogActions
-          sx={{
-            padding: "16px 24px",
-            justifyContent: "center",
-          }}
-        >
-          <Button
-            variant="contained"
-            onClick={handleScannerClose}
-            sx={{
-              backgroundColor: "#7c2d12",
-              color: "#fff",
-              fontWeight: 600,
-              textTransform: "none",
-              padding: "8px 24px",
-              fontSize: { xs: "0.875rem", sm: "1rem" },
-              "&:hover": {
-                backgroundColor: "#285228",
-              },
-            }}
-          >
-            Continue
-          </Button>
-        </DialogActions>
-      </Dialog> */}
+            <div className="submit-btn-row">
+              <button type="button" className="register-btn clear-btn" onClick={handleClear}>
+                Clear
+              </button>
+              <button type="submit" className="register-btn" disabled={isPending}>
+                Register Now
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
     </>
   );
 };

@@ -18,6 +18,8 @@ import {
   InputAdornment,
   useMediaQuery,
   useTheme,
+  Checkbox,
+  FormControlLabel,
 } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
@@ -41,6 +43,7 @@ const Navbar = () => {
   const [forgotPasswordError, setForgotPasswordError] = useState("");
   const [showNewPassword, setShowNewPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  const [rememberMe, setRememberMe] = useState(false);
 
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
@@ -58,7 +61,22 @@ const Navbar = () => {
       toast.error("Both username and password are required");
       return;
     }
-    login(loginData);
+    login(loginData, {
+      onSuccess: (response) => {
+        if (response?.success) {
+          if (rememberMe) {
+            localStorage.setItem("rememberedUser", loginData.username);
+            localStorage.setItem("rememberedPass", loginData.username); // User requested 'remind pass'
+            // NOTE: Usually we store a token or hashed pass, but for 'Proper' pre-fill:
+            localStorage.setItem("rememberedPassVal", loginData.password);
+          } else {
+            localStorage.removeItem("rememberedUser");
+            localStorage.removeItem("rememberedPassVal");
+          }
+          handleClose();
+        }
+      }
+    });
   };
 
   const handleOpen = () => setOpen(true);
@@ -67,6 +85,32 @@ const Navbar = () => {
   useEffect(() => {
     if (openDialog) {
       setOpen(true);
+    }
+    const savedUser = localStorage.getItem("rememberedUser");
+    const savedPass = localStorage.getItem("rememberedPassVal");
+    if (savedUser) {
+      // Guard against corrupted JSON stored in localStorage
+      let cleanUser = savedUser;
+      try {
+        const parsed = JSON.parse(savedUser);
+        // If it parsed as an object/JSON — it's corrupted, clear it
+        if (typeof parsed === "object" && parsed !== null) {
+          localStorage.removeItem("rememberedUser");
+          localStorage.removeItem("rememberedPassVal");
+          localStorage.removeItem("rememberedPass");
+          cleanUser = null;
+        }
+      } catch (e) {
+        // Normal plain string — safe to use
+      }
+      if (cleanUser) {
+        setLoginData((prev) => ({
+          ...prev,
+          username: cleanUser,
+          password: savedPass || ""
+        }));
+        setRememberMe(true);
+      }
     }
   }, [openDialog]);
 
@@ -483,20 +527,41 @@ const Navbar = () => {
                 },
               }}
             />
-            <Typography
-              variant="body2"
-              sx={{
-                color: "#7c2d12",
-                cursor: "pointer",
-                textAlign: "center",
-                "&:hover": {
-                  textDecoration: "underline",
-                },
-              }}
-              onClick={handleOpenForgotPassword}
-            >
-              Forgot Password?
-            </Typography>
+            <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 1 }}>
+              <FormControlLabel
+                control={
+                  <Checkbox
+                    checked={rememberMe}
+                    onChange={(e) => setRememberMe(e.target.checked)}
+                    sx={{
+                      color: "#7c2d12",
+                      "&.Mui-checked": {
+                        color: "#7c2d12",
+                      },
+                    }}
+                  />
+                }
+                label={
+                  <Typography variant="body2" sx={{ color: "#7c2d12", userSelect: 'none' }}>
+                    Remember Me
+                  </Typography>
+                }
+              />
+              <Typography
+                variant="body2"
+                sx={{
+                  color: "#7c2d12",
+                  cursor: "pointer",
+                  fontWeight: 500,
+                  "&:hover": {
+                    textDecoration: "underline",
+                  },
+                }}
+                onClick={handleOpenForgotPassword}
+              >
+                Forgot Password?
+              </Typography>
+            </Box>
           </Box>
         </DialogContent>
         <DialogActions

@@ -4,8 +4,10 @@ import {  FaUser, FaUsers, FaServer, FaReceipt, FaBars, FaChevronDown, FaChevron
 import { TbMessageReportFilled } from 'react-icons/tb';
 import { IoIosNotifications } from 'react-icons/io';
 import { Link, Outlet, useLocation } from 'react-router-dom';
+import { Suspense } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Collapse, List, ListItem, ListItemText, IconButton, Typography, Menu, MenuItem, Avatar, Badge, Dialog, DialogTitle, DialogContent, TextField, Button, DialogActions } from '@mui/material';
+import { Collapse, List, ListItem, ListItemText, IconButton, Typography, Menu, MenuItem, Avatar, Badge, Dialog, DialogTitle, DialogContent, TextField, Button, DialogActions, Box } from '@mui/material';
+import { PremiumLoader } from '../../utils/common';
 import { IoMdNotifications } from "react-icons/io";
 import { CgProfile } from "react-icons/cg";
 import { getAllUserCounts } from '../api/Admin';
@@ -236,37 +238,55 @@ const handleConfirmLogout = () => {
             display: 'none', 
           }
         }}>
-          <List sx={{ width: '100%' }}>
+          {/* Sidebar Header */}
+          <div className="sidebar-header" style={{ padding: '15px' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+              <Avatar 
+                alt="Admin" 
+                src={userProfile.profilePicture || "/path-to-profile-pic.jpg"} 
+                style={{ border: '2px solid rgba(255,255,255,0.5)', width: 40, height: 40 }}
+              />
+              <Typography variant="h6" style={{ fontWeight: 'bold', fontSize: '1.1rem' }}>{adminName}</Typography>
+            </div>
+            {/* Removed the redundant toggle button here */}
+          </div>
+
+          <List sx={{ width: '100%', padding: 0 }}>
           <ListItem
             onClick={handleProfileDialogOpen}
             sx={{ 
               cursor: 'pointer',
-              padding: '10px',
-              backgroundColor: isActive('/admin/profile') ? 'rgba(255, 255, 255, 0.2)' : 'transparent',
+              padding: '8px 20px',
+              color: '#5d2a18',
+              backgroundColor: isActive('/admin/profile') ? '#e6d5b8' : 'transparent',
               '&:hover': {
-                backgroundColor: isActive('/admin/profile') ? 'rgba(255, 255, 255, 0.2)' : 'rgba(0, 0, 0, 0.04)',
-                color: 'aqua'
+                backgroundColor: '#f0e2cc',
+                color: '#7c2d12'
               }
             }}
           >
-            <CgProfile /> Profile
+            <CgProfile style={{ marginRight: '12px', fontSize: '18px', color: '#7c2d12' }} /> 
+            <Typography style={{ fontSize: '0.95rem', fontWeight: isActive('/admin/profile') ? 'bold' : 'normal' }}>Profile</Typography>
           </ListItem>
+          <div className="sidebar-divider" />
 
             <ListItem 
               onClick={handleDashboard} 
               sx={{ 
                 cursor: 'pointer',
-                padding: '14px',
-                borderRadius:'4px',
-                backgroundColor: isActive('/admin/dashboard') ? 'rgba(255, 255, 255, 0.2)' : 'transparent',
+                padding: '8px 20px',
+                color: '#5d2a18',
+                backgroundColor: isActive('/admin/dashboard') ? '#e6d5b8' : 'transparent',
                 '&:hover': {
-                  backgroundColor: isActive('/admin/dashboard') ? 'rgba(255, 255, 255, 0.2)' : 'rgba(0, 0, 0, 0.04)',
-                  color: 'aqua'
+                  backgroundColor: '#f0e2cc',
+                  color: '#7c2d12'
                 }
               }}
             >
-              <FaDashcube /> Dashboard
+              <FaDashcube style={{ marginRight: '12px', fontSize: '18px', color: '#7c2d12' }} /> 
+              <Typography style={{ fontSize: '0.95rem', fontWeight: isActive('/admin/dashboard') ? 'bold' : 'normal' }}>Dashboard</Typography>
             </ListItem>
+            <div className="sidebar-divider" />
 
             {/* User Management Dropdown */}
            <ListItem 
@@ -274,103 +294,83 @@ const handleConfirmLogout = () => {
               onClick={toggleUserManagement}
               sx={{ 
                 cursor: 'pointer',
-                padding: '10px',
-                borderRadius: '4px',
-                backgroundColor: openUserManagement ? 'rgba(255, 255, 255, 0.2)' : 'transparent',
-                color: openUserManagement ? '#fff' : 'inherit',
+                padding: '8px 20px',
+                color: '#5d2a18',
+                backgroundColor: openUserManagement ? '#e6d5b8' : 'transparent',
                 '&:hover': {
-                  backgroundColor: openUserManagement ? 'rgba(255, 255, 255, 0.2)' : 'transparent',
-                  color: 'aqua'
+                  backgroundColor: '#f0e2cc',
+                  color: '#7c2d12'
                 },
               }}
             >
-              <FaUser />
-              <ListItemText primary="User Management" />
-              {openUserManagement ? <FaChevronUp /> : <FaChevronDown />}
+              <FaUser style={{ marginRight: '12px', fontSize: '18px', color: '#7c2d12' }} />
+              <ListItemText primary="User Management" primaryTypographyProps={{ style: { fontSize: '0.95rem', fontWeight: openUserManagement ? 'bold' : 'normal' } }} />
+              {openUserManagement ? <FaChevronUp style={{ color: '#7c2d12', fontSize: '14px' }} /> : <FaChevronDown style={{ color: '#7c2d12', fontSize: '14px' }} />}
             </ListItem>
             <Collapse in={openUserManagement} timeout="auto" unmountOnExit>
-              <List component="div" disablePadding sx={{ width: '100%',marginLeft:'20px' }}>
+              <List component="div" disablePadding sx={{ width: '100%', backgroundColor: 'rgba(124, 45, 18, 0.05)' }}>
                 <ListItem 
                   button 
                   onClick={navigateUserTable}
                   sx={{
-                    padding: '0',
-                    borderRadius:'2px',
-                    color: isActive('/admin/user-table') ? 'aqua' : '',
-                    '&:hover': {
-                    color: isActive('/admin/user-table') ?  'darkaqua' : 'aqua',
-                   
-                    }
+                    padding: '5px 20px 5px 50px',
+                    color: isActive('/admin/user-table') ? '#7c2d12' : '#5d2a18',
+                    '&:hover': { color: '#7c2d12', backgroundColor: '#f0e2cc' }
                   }}
                 >
-                  <ListItemText primary="User Table" />
+                  <ListItemText primary="User Table" primaryTypographyProps={{ style: { fontSize: '0.9rem' } }} />
                 </ListItem>
           
                 <ListItem 
                   button 
                   onClick={navigateUserUpgrade}
                   sx={{
-                    padding: '0px ',
-                    borderRadius:'2px',
-                    color: isActive('/admin/userData') ? 'aqua' : '',
-                    '&:hover': {
-                      color: isActive('/admin/userData') ? 'darkaqua' : 'aqua',
-                     
-                    }
+                    padding: '5px 20px 5px 50px',
+                    color: isActive('/admin/userData') ? '#7c2d12' : '#5d2a18',
+                    '&:hover': { color: '#7c2d12', backgroundColor: '#f0e2cc' }
                   }}
                 >
-                  <ListItemText primary="User Upgrade" />
+                  <ListItemText primary="User Upgrade" primaryTypographyProps={{ style: { fontSize: '0.9rem' } }} />
                 </ListItem>
-     
+      
                 <ListItem 
                   button 
                   onClick={navigateRenewals}
                   sx={{
-                 padding: '0',
-                    borderRadius:'2px',
-                    color: isActive('/admin/renewals') ? 'aqua' : '',
-                    '&:hover': {
-                      color: isActive('/admin/renewals') ? 'darkaqua' : 'aqua',
-                      
-                    }
+                    padding: '5px 20px 5px 50px',
+                    color: isActive('/admin/renewals') ? '#7c2d12' : '#5d2a18',
+                    '&:hover': { color: '#7c2d12', backgroundColor: '#f0e2cc' }
                   }}
                 >
-                  <ListItemText primary="Renewal" />
+                  <ListItemText primary="Renewal" primaryTypographyProps={{ style: { fontSize: '0.9rem' } }} />
                 </ListItem>             
     
                 <ListItem 
                   button 
                   onClick={navigateresetpass}
                   sx={{
-                   padding: '0',
-                    borderRadius:'2px',
-                    color: isActive('/admin/resetpass') ? 'aqua' : '',
-                    '&:hover': {
-                      color: isActive('/admin/resetpass') ? 'darkaqua' : 'aqua',
-                   
-                    }
+                    padding: '5px 20px 5px 50px',
+                    color: isActive('/admin/resetpass') ? '#7c2d12' : '#5d2a18',
+                    '&:hover': { color: '#7c2d12', backgroundColor: '#f0e2cc' }
                   }}
                 >
-                  <ListItemText primary="Password" />
+                  <ListItemText primary="Password" primaryTypographyProps={{ style: { fontSize: '0.9rem' } }} />
                 </ListItem>
           
                 <ListItem 
                   button 
                   onClick={navigateImageVerify}
                   sx={{
-                    padding: '0',
-                    borderRadius:'2px',
-                    color: isActive('/admin/imageverify') ? 'aqua' : '',
-                    '&:hover': {
-                      color: isActive('/admin/imageverify') ?  'darkaqua' : 'aqua',
-                     
-                    }
+                    padding: '5px 20px 5px 50px',
+                    color: isActive('/admin/imageverify') ? '#7c2d12' : '#5d2a18',
+                    '&:hover': { color: '#7c2d12', backgroundColor: '#f0e2cc' }
                   }}
                 >
-                  <ListItemText primary="Image Verification" />
+                  <ListItemText primary="Image Verification" primaryTypographyProps={{ style: { fontSize: '0.9rem' } }} />
                 </ListItem>
               </List>
             </Collapse>
+            <div className="sidebar-divider" />
 
             {/* Assistance Service Dropdown */}
             <ListItem 
@@ -378,71 +378,59 @@ const handleConfirmLogout = () => {
               onClick={toggleAssistanceService}
               sx={{ 
                 cursor: 'pointer',
-                padding: '10px',
-                borderRadius: '4px',
-                backgroundColor: openAssistanceService ? 'rgba(255, 255, 255, 0.2)' : 'transparent',
-                color: openAssistanceService ? '#fff' : 'inherit',
+                padding: '8px 20px',
+                color: '#5d2a18',
+                backgroundColor: openAssistanceService ? '#e6d5b8' : 'transparent',
                 '&:hover': {
-                  backgroundColor: openAssistanceService ? 'rgba(255, 255, 255, 0.2)' : 'rgba(0, 0, 0, 0.04)',
-                  color: 'aqua'
+                  backgroundColor: '#f0e2cc',
+                  color: '#7c2d12'
                 }
               }}
             >
-              <FaServer />
-              <ListItemText primary="Assistance Service" />
-              {openAssistanceService ? <FaChevronUp /> : <FaChevronDown />}
+              <FaServer style={{ marginRight: '12px', fontSize: '18px', color: '#7c2d12' }} />
+              <ListItemText primary="Assistance Service" primaryTypographyProps={{ style: { fontSize: '0.95rem', fontWeight: openAssistanceService ? 'bold' : 'normal' } }} />
+              {openAssistanceService ? <FaChevronUp style={{ color: '#7c2d12', fontSize: '14px' }} /> : <FaChevronDown style={{ color: '#7c2d12', fontSize: '14px' }} />}
            </ListItem>
             <Collapse in={openAssistanceService} timeout="auto" unmountOnExit>
-              <List component="div" disablePadding sx={{ width: '100%',marginLeft:'20px' }}>
+              <List component="div" disablePadding sx={{ width: '100%', backgroundColor: 'rgba(124, 45, 18, 0.05)' }}>
                 <ListItem 
                   button 
                   onClick={navigatePendingdata}
                   sx={{
-                    padding: '0',
-                    borderRadius:'2px',
-                  color: isActive('/admin/pendingdata') ? 'aqua' : '',
-                    '&:hover': {
-                     color: isActive('/admin/pendingdata') ?  'darkaqua' : 'aqua',
-                    
-                    }
+                    padding: '5px 20px 5px 50px',
+                    color: isActive('/admin/pendingdata') ? '#7c2d12' : '#5d2a18',
+                    '&:hover': { color: '#7c2d12', backgroundColor: '#f0e2cc' }
                   }}
                 >
-                  <ListItemText primary="Pending" />
+                  <ListItemText primary="Pending" primaryTypographyProps={{ style: { fontSize: '0.9rem' } }} />
                 </ListItem>
           
                 <ListItem 
                   button 
                   onClick={navigateSuccessdata}
                   sx={{
-                  padding: '0',
-                    borderRadius:'2px',
-                  color: isActive('/admin/successdata') ? 'aqua' : '',
-                    '&:hover': {
-                      color: isActive('/admin/successdata') ? 'darkaqua' : 'aqua',
-                      
-                    }
+                    padding: '5px 20px 5px 50px',
+                    color: isActive('/admin/successdata') ? '#7c2d12' : '#5d2a18',
+                    '&:hover': { color: '#7c2d12', backgroundColor: '#f0e2cc' }
                   }}
                 >
-                  <ListItemText primary="Success" />
+                  <ListItemText primary="Success" primaryTypographyProps={{ style: { fontSize: '0.9rem' } }} />
                 </ListItem>
            
                 <ListItem 
                   button 
                   onClick={navigatePromoterdata}
                   sx={{
-                   padding: '0',
-                    borderRadius:'2px',
-                    color: isActive('/admin/promotersdata') ? 'aqua' : '',
-                    '&:hover': {
-                   color: isActive('/admin/promotersdata') ?  'darkaqua' : 'aqua',
-                     
-                    }
+                    padding: '5px 20px 5px 50px',
+                    color: isActive('/admin/promotersdata') ? '#7c2d12' : '#5d2a18',
+                    '&:hover': { color: '#7c2d12', backgroundColor: '#f0e2cc' }
                   }}
                 >
-                  <ListItemText primary="Promoter User" />
+                  <ListItemText primary="Promoter User" primaryTypographyProps={{ style: { fontSize: '0.9rem' } }} />
                 </ListItem>
               </List>
             </Collapse>
+            <div className="sidebar-divider" />
 
             {/* Promoter Management Dropdown */}
             <ListItem 
@@ -450,87 +438,71 @@ const handleConfirmLogout = () => {
               onClick={togglePromoterManagement}
               sx={{ 
                 cursor: 'pointer',
-                padding: '10px',
-                borderRadius: '4px',
-                backgroundColor: openPromoterManagement ? 'rgba(255, 255, 255, 0.2)' : 'transparent',
-                color: openPromoterManagement ? '#fff' : 'inherit',
+                padding: '8px 20px',
+                color: '#5d2a18',
+                backgroundColor: openPromoterManagement ? '#e6d5b8' : 'transparent',
                 '&:hover': {
-                  backgroundColor: openPromoterManagement ? 'rgba(255, 255, 255, 0.2)' : 'rgba(0, 0, 0, 0.04)',
-                  color: 'aqua'
+                  backgroundColor: '#f0e2cc',
+                  color: '#7c2d12'
                 }
               }}
             >
-              <FaUsers />
-              <ListItemText primary="Promoter Management" />
-              {openPromoterManagement ? <FaChevronUp /> : <FaChevronDown />}
+              <FaUsers style={{ marginRight: '12px', fontSize: '18px', color: '#7c2d12' }} />
+              <ListItemText primary="Promoter Management" primaryTypographyProps={{ style: { fontSize: '0.95rem', fontWeight: openPromoterManagement ? 'bold' : 'normal' } }} />
+              {openPromoterManagement ? <FaChevronUp style={{ color: '#7c2d12', fontSize: '14px' }} /> : <FaChevronDown style={{ color: '#7c2d12', fontSize: '14px' }} />}
             </ListItem>
             <Collapse in={openPromoterManagement} timeout="auto" unmountOnExit>
-              <List component="div" disablePadding sx={{ width: '100%',marginLeft:'20px' }}>
+              <List component="div" disablePadding sx={{ width: '100%', backgroundColor: 'rgba(124, 45, 18, 0.05)' }}>
                 <ListItem 
                   button 
                   onClick={navigatePromotersData}
                   sx={{
-                   padding: '0',
-                    borderRadius:'2px',
-                    color: isActive('/admin/promoters') ? 'aqua' : '',
-                    '&:hover': {
-                  color: isActive('/admin/promoters') ?  'darkaqua' : 'aqua',
-                      
-                    }
+                    padding: '5px 20px 5px 50px',
+                    color: isActive('/admin/promoters') ? '#7c2d12' : '#5d2a18',
+                    '&:hover': { color: '#7c2d12', backgroundColor: '#f0e2cc' }
                   }}
                 >
-                  <ListItemText primary="Promoters" />
+                  <ListItemText primary="Promoters" primaryTypographyProps={{ style: { fontSize: '0.9rem' } }} />
                 </ListItem>
              
                 <ListItem 
                   button 
                   onClick={navigatePromotersUsers}
                   sx={{
-                  padding: '0',
-                    borderRadius:'2px',
-                    color: isActive('/admin/promotersusers') ? 'aqua' : '',
-                    '&:hover': {
-                      color: isActive('/admin/promotersusers') ?  'darkaqua' : 'aqua',
-                     
-                    }
+                    padding: '5px 20px 5px 50px',
+                    color: isActive('/admin/promotersusers') ? '#7c2d12' : '#5d2a18',
+                    '&:hover': { color: '#7c2d12', backgroundColor: '#f0e2cc' }
                   }}
                 >
-                  <ListItemText primary="Promoter Users" />
+                  <ListItemText primary="Promoter Users" primaryTypographyProps={{ style: { fontSize: '0.9rem' } }} />
                 </ListItem>
               
                 <ListItem 
                   button 
                   onClick={navigatePromotersEarn}
                   sx={{
-                   padding: '0',
-                    borderRadius:'2px',
-                    color: isActive('/admin/promoterearn') ? 'aqua' : '',
-                    '&:hover': {
-                      color: isActive('/admin/promoterearn') ?  'darkaqua' : 'aqua',
-                     
-                    }
+                    padding: '5px 20px 5px 50px',
+                    color: isActive('/admin/promoterearn') ? '#7c2d12' : '#5d2a18',
+                    '&:hover': { color: '#7c2d12', backgroundColor: '#f0e2cc' }
                   }}
                 >
-                  <ListItemText primary="Promoter Earnings" />
+                  <ListItemText primary="Promoter Earnings" primaryTypographyProps={{ style: { fontSize: '0.9rem' } }} />
                 </ListItem>
       
                 <ListItem 
                   button 
                   onClick={navigatePaytopromoters}
                   sx={{
-                   padding: '0',
-                    borderRadius:'2px',
-                   color: isActive('/admin/paytopromoters') ? 'aqua' : '',
-                    '&:hover': {
-                     color: isActive('/admin/paytopromoters') ?  'darkaqua' : 'aqua',
-                     
-                    }
+                    padding: '5px 20px 5px 50px',
+                    color: isActive('/admin/paytopromoters') ? '#7c2d12' : '#5d2a18',
+                    '&:hover': { color: '#7c2d12', backgroundColor: '#f0e2cc' }
                   }}
                 >
-                  <ListItemText primary="Pay to Promoters" />
+                  <ListItemText primary="Pay to Promoters" primaryTypographyProps={{ style: { fontSize: '0.9rem' } }} />
                 </ListItem>
               </List>
             </Collapse>
+            <div className="sidebar-divider" />
            
              {/* Promoter Receipts Dropdown */}
             <ListItem 
@@ -538,71 +510,59 @@ const handleConfirmLogout = () => {
               onClick={toggleReceiptsManagement}
               sx={{ 
                 cursor: 'pointer',
-                padding: '10px',
-                borderRadius: '4px',
-                backgroundColor: openPromoterReceipts ? 'rgba(255, 255, 255, 0.2)' : 'transparent',
-                color: openPromoterReceipts ? '#fff' : 'inherit',
+                padding: '8px 20px',
+                color: '#5d2a18',
+                backgroundColor: openPromoterReceipts ? '#e6d5b8' : 'transparent',
                 '&:hover': {
-                  backgroundColor: openPromoterReceipts ? 'rgba(255, 255, 255, 0.2)' : 'rgba(0, 0, 0, 0.04)',
-                  color: 'aqua'
+                  backgroundColor: '#f0e2cc',
+                  color: '#7c2d12'
                 }
               }}
             >
-              <FaReceipt />
-              <ListItemText primary="Receipts" />
-              {openPromoterReceipts ? <FaChevronUp /> : <FaChevronDown />}
+              <FaReceipt style={{ marginRight: '12px', fontSize: '18px', color: '#7c2d12' }} />
+              <ListItemText primary="Receipts" primaryTypographyProps={{ style: { fontSize: '0.95rem', fontWeight: openPromoterReceipts ? 'bold' : 'normal' } }} />
+              {openPromoterReceipts ? <FaChevronUp style={{ color: '#7c2d12', fontSize: '14px' }} /> : <FaChevronDown style={{ color: '#7c2d12', fontSize: '14px' }} />}
             </ListItem>
             <Collapse in={openPromoterReceipts} timeout="auto" unmountOnExit>
-              <List component="div" disablePadding sx={{ width: '100%',marginLeft:'20px' }}>
+              <List component="div" disablePadding sx={{ width: '100%', backgroundColor: 'rgba(124, 45, 18, 0.05)' }}>
                 <ListItem 
                   button 
                   onClick={navigateOnlineTransaction}
                   sx={{
-                   padding: '0',
-                    borderRadius:'2px',
-                  color: isActive('/admin/onlinetransaction') ? 'aqua' : '',
-                    '&:hover': {
-                      color: isActive('/admin/onlinetransaction') ?  'darkaqua' : 'aqua',
-                     
-                    }
+                    padding: '5px 20px 5px 50px',
+                    color: isActive('/admin/onlinetransaction') ? '#7c2d12' : '#5d2a18',
+                    '&:hover': { color: '#7c2d12', backgroundColor: '#f0e2cc' }
                   }}
                 >
-                  <ListItemText primary="Online Transaction" />
+                  <ListItemText primary="Online Transaction" primaryTypographyProps={{ style: { fontSize: '0.9rem' } }} />
                 </ListItem>
-       
+        
                 <ListItem 
                   button 
                   onClick={navigateAssistanceData}
                   sx={{
-                   padding: '0',
-                    borderRadius:'2px',
-                color: isActive('/admin/assistance') ? 'aqua' : '',
-                    '&:hover': {
-                    color: isActive('/admin/assistance') ? 'darkaqua' : 'aqua',
-                     
-                    }
+                    padding: '5px 20px 5px 50px',
+                    color: isActive('/admin/assistance') ? '#7c2d12' : '#5d2a18',
+                    '&:hover': { color: '#7c2d12', backgroundColor: '#f0e2cc' }
                   }}
                 >
-                  <ListItemText primary="Assistance Online Transaction" />
+                  <ListItemText primary="Assistance Online Transaction" primaryTypographyProps={{ style: { fontSize: '0.9rem' } }} />
                 </ListItem>
                
                 <ListItem 
                   button 
                   onClick={navigateReceiptsvocher}
                   sx={{
-                   padding: '0',
-                    borderRadius:'2px',
-                   color: isActive('/admin/receiptsvocher') ? 'aqua' : '',
-                    '&:hover': {
-                      color: isActive('/admin/receiptsvocher') ?  'darkaqua' : 'aqua',
-                    
-                    }
+                    padding: '5px 20px 5px 50px',
+                    color: isActive('/admin/receiptsvocher') ? '#7c2d12' : '#5d2a18',
+                    '&:hover': { color: '#7c2d12', backgroundColor: '#f0e2cc' }
                   }}
                 >
-                  <ListItemText primary="Receipt Voucher" />
+                  <ListItemText primary="Receipt Voucher" primaryTypographyProps={{ style: { fontSize: '0.9rem' } }} />
                 </ListItem>
               </List>
             </Collapse>
+            <div className="sidebar-divider" />
 
                {/* Reports Dropdown */}
              <ListItem 
@@ -610,88 +570,77 @@ const handleConfirmLogout = () => {
                onClick={toggleReportManagement}
                sx={{ 
                  cursor: 'pointer',
-                 padding: '10px',
-                 borderRadius: '4px',
-                 backgroundColor: openPromoterReports ? 'rgba(255, 255, 255, 0.2)' : 'transparent',
-                 color: openPromoterReports ? '#fff' : 'inherit',
+                 padding: '8px 20px',
+                 color: '#5d2a18',
+                 backgroundColor: openPromoterReports ? '#e6d5b8' : 'transparent',
                  '&:hover': {
-                   backgroundColor: openPromoterReports ? 'rgba(255, 255, 255, 0.2)' : 'rgba(0, 0, 0, 0.04)',
-                   color: 'aqua'
+                   backgroundColor: '#f0e2cc',
+                   color: '#7c2d12'
                  }
                }}
              >
-               <TbMessageReportFilled /> 
-              <ListItemText primary="Reports" />
-              {openPromoterReports ? <FaChevronUp /> : <FaChevronDown />}
+               <TbMessageReportFilled style={{ marginRight: '12px', fontSize: '18px', color: '#7c2d12' }} /> 
+              <ListItemText primary="Reports" primaryTypographyProps={{ style: { fontSize: '0.95rem', fontWeight: openPromoterReports ? 'bold' : 'normal' } }} />
+              {openPromoterReports ? <FaChevronUp style={{ color: '#7c2d12', fontSize: '14px' }} /> : <FaChevronDown style={{ color: '#7c2d12', fontSize: '14px' }} />}
             </ListItem>
             <Collapse in={openPromoterReports} timeout="auto" unmountOnExit>
-              <List component="div" disablePadding sx={{ width: '100%',marginLeft:'20px' }}>
+              <List component="div" disablePadding sx={{ width: '100%', backgroundColor: 'rgba(124, 45, 18, 0.05)' }}>
                 <ListItem 
                   button 
                   onClick={navigateUserReports}
                   sx={{
-                    padding: '0',
-                    borderRadius:'2px',
-                  color: isActive('/admin/userreports') ? 'aqua' : '',
-                    '&:hover': {
-                      color: isActive('/admin/userreports') ? 'darkaqua' : 'aqua',
-                     
-                    }
+                    padding: '5px 20px 5px 50px',
+                    color: isActive('/admin/userreports') ? '#7c2d12' : '#5d2a18',
+                    '&:hover': { color: '#7c2d12', backgroundColor: '#f0e2cc' }
                   }}
                 >
-                  <ListItemText primary="Users" />
+                  <ListItemText primary="Users" primaryTypographyProps={{ style: { fontSize: '0.9rem' } }} />
                 </ListItem>
                
                 <ListItem 
                   button 
                   onClick={navigateRenewalReports}
                   sx={{
-                    padding: '0',
-                    borderRadius:'2px',
-                    color: isActive('/admin/renewalreports') ? 'aqua' : '',
-                    '&:hover': {
-                   color: isActive('/admin/renewalreports') ?  'darkaqua' : 'aqua',
-                    
-                    }
+                    padding: '5px 20px 5px 50px',
+                    color: isActive('/admin/renewalreports') ? '#7c2d12' : '#5d2a18',
+                    '&:hover': { color: '#7c2d12', backgroundColor: '#f0e2cc' }
                   }}
                 >
-                  <ListItemText primary="Renewals" />
+                  <ListItemText primary="Renewals" primaryTypographyProps={{ style: { fontSize: '0.9rem' } }} />
                 </ListItem>
               
                 <ListItem 
                   button 
                   onClick={navigateReceiptsReportsdata}
                   sx={{
-                  padding: '0',
-                    borderRadius:'2px',
-                 color: isActive('/admin/receiptsreports') ? 'aqua' : '',
-                    '&:hover': {
-                     color: isActive('/admin/receiptsreports') ?  'darkaqua' : 'aqua',
-                     
-                    }
+                    padding: '5px 20px 5px 50px',
+                    color: isActive('/admin/receiptsreports') ? '#7c2d12' : '#5d2a18',
+                    '&:hover': { color: '#7c2d12', backgroundColor: '#f0e2cc' }
                   }}
                 >
-                  <ListItemText primary="Receipts" />
+                  <ListItemText primary="Receipts" primaryTypographyProps={{ style: { fontSize: '0.9rem' } }} />
                 </ListItem>
               </List>
             </Collapse>
+            <div className="sidebar-divider" />
+
             {/* notification */}
             <ListItem 
               button 
               onClick={navigateNotification}
               sx={{ 
                 cursor: 'pointer',
-                padding: '10px',
-                borderRadius:'4px',
-                backgroundColor: isActive('/admin/notification') ? 'rgba(255, 255, 255, 0.2)' : 'transparent',
+                padding: '8px 20px',
+                color: '#5d2a18',
+                backgroundColor: isActive('/admin/notification') ? '#e6d5b8' : 'transparent',
                 '&:hover': {
-                  backgroundColor: isActive('/admin/notification') ? 'rgba(255, 255, 255, 0.2)' : 'rgba(0, 0, 0, 0.04)',
-                  color: 'aqua'
+                  backgroundColor: '#f0e2cc',
+                  color: '#7c2d12'
                 }
               }}
             >
-              <IoIosNotifications />
-              <ListItemText primary="Notifications" />
+              <IoIosNotifications style={{ marginRight: '12px', fontSize: '18px', color: '#7c2d12' }} />
+              <ListItemText primary="Notifications" primaryTypographyProps={{ style: { fontSize: '0.95rem', fontWeight: isActive('/admin/notification') ? 'bold' : 'normal' } }} />
             </ListItem>
           </List>
         </aside>
@@ -800,7 +749,13 @@ const handleConfirmLogout = () => {
             transition: 'padding-left 0.3s ease',
           }}
         >
-          <Outlet />
+          <Suspense fallback={
+            <Box sx={{ minHeight: '60vh', display: 'flex', alignItems: 'center', justifyContent: 'center', width: '100%' }}>
+              <PremiumLoader />
+            </Box>
+          }>
+            <Outlet />
+          </Suspense>
         </div>
       </div>
     
