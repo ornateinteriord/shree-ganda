@@ -27,7 +27,7 @@ function Footer() {
           <div className="footer-section">
             <h3 className="footer-heading">About Company</h3>
             <ul className="footer-list">
-              <li onClick={() => navigate("/")}>Home</li>
+              <li onClick={() => navigate("/home")}>Home</li>
                {/* <li onClick={() => navigate("/service")}>Service</li>
               <li onClick={() => navigate("/about")}>About Us</li>
               <li onClick={() => navigate("/privacy-policy")}>Privacy Policy</li> */}

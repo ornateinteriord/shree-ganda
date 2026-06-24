@@ -1,0 +1,363 @@
+@import url('https://fonts.googleapis.com/css2?family=Great+Vibes&family=Montserrat:wght@500;700&display=swap');
+
+.pre-welcome-container {
+  min-height: 100vh;
+  background-image: url('/hero-background.jpg');
+  background-size: cover;
+  background-position: center top; /* Focus more on the top part of the image on mobile */
+  background-repeat: no-repeat;
+  background-attachment: fixed; /* Parallax effect */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  padding: 20px;
+}
+
+.pre-welcome-headings {
+  position: relative;
+  z-index: 1;
+  text-align: center;
+  margin-bottom: 25px;
+  width: 100%;
+}
+
+.main-heading {
+  font-family: 'Great Vibes', cursive;
+  font-size: 58px;
+  color: #6a1310;
+  margin: 0 0 8px 0; /* Added margin-bottom */
+  font-weight: 700;
+  text-shadow: 2px 2px 4px rgba(255, 255, 255, 0.8), 0 0 10px rgba(255,255,255,0.5);
+  line-height: 1.2;
+}
+
+.sub-heading {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 14px;
+  color: #6a1310;
+  letter-spacing: 6px;
+  padding-left: 6px; 
+  margin: 0 auto 8px auto; /* Reset top margin to stop pulling it up */
+  text-align: center;
+  font-weight: 700;
+  text-transform: uppercase;
+  text-shadow: 1px 1px 2px rgba(255,255,255,0.7);
+}
+
+.tagline {
+  font-family: 'Great Vibes', cursive;
+  font-size: 26px;
+  color: #6a1310;
+  margin: 0;
+  text-shadow: 1px 1px 2px rgba(255,255,255,0.6);
+}
+
+.search-widget-wrapper {
+  position: relative;
+  z-index: 1;
+  background-color: #6a1310; /* Dark maroon/red */
+  border: 4px solid #8e2320; /* Darker border */
+  border-radius: 12px;
+  padding: 6px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+  max-width: 550px; /* Reduced from 650px */
+  width: 100%;
+  margin: 0 auto;
+}
+
+.search-widget-inner {
+  border: 2px dashed #d4af37; /* Golden dashed inner border */
+  border-radius: 8px;
+  padding: 12px 15px; /* Reduced padding */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.search-title {
+  color: #f6e6b8; /* Light golden/cream */
+  font-family: 'Georgia', serif;
+  font-size: 18px; /* Reduced */
+  font-weight: 500;
+  margin-bottom: 12px;
+  letter-spacing: 1px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-align: center;
+}
+
+.dots {
+  color: #d4af37;
+  font-size: 14px;
+  letter-spacing: 2px;
+}
+
+.search-form {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.form-inputs-row-top,
+.form-inputs-row-bottom {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  justify-content: center;
+  width: 100%;
+}
+
+.custom-select,
+.custom-input {
+  flex: 1;
+  min-width: 100px; /* Reduced from 120px */
+  padding: 6px 10px; /* Reduced padding */
+  border-radius: 6px;
+  border: none;
+  font-size: 12px; /* Reduced from 13px */
+  color: #333;
+  outline: none;
+  background-color: #fff;
+  box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+  font-family: inherit;
+  box-sizing: border-box;
+}
+
+/* Make inputs look consistent with selects */
+.custom-input::placeholder {
+  color: #555;
+  opacity: 1;
+}
+
+/* Specific styling for the drop down arrows can be added if needed */
+.custom-select {
+  cursor: pointer;
+  appearance: none;
+  background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23555%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E");
+  background-repeat: no-repeat;
+  background-position: right 6px top 50%;
+  background-size: 8px auto;
+  padding-right: 20px;
+}
+
+.form-action-row {
+  display: flex;
+  justify-content: center;
+  margin-top: 5px;
+}
+
+.search-btn {
+  background: linear-gradient(180deg, #e65c00 0%, #b32d00 100%);
+  color: #ffffff;
+  border: 1px solid #ffb380;
+  padding: 8px 25px; /* Reduced from 10px 30px */
+  border-radius: 20px; /* Pill shape */
+  font-size: 14px; /* Reduced from 16px */
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+  text-shadow: 1px 1px 2px rgba(0,0,0,0.4);
+}
+
+.search-btn:hover {
+  background: linear-gradient(180deg, #ff6600 0%, #cc3300 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 15px rgba(0,0,0,0.4);
+}
+
+.search-btn:active {
+  transform: translateY(1px);
+  box-shadow: 0 2px 5px rgba(0,0,0,0.4);
+}
+
+.search-btn:disabled {
+  background: #999;
+  border-color: #777;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+.top-register-btn {
+  position: absolute;
+  top: 20px;
+  right: 30px;
+  background: linear-gradient(180deg, #e65c00 0%, #b32d00 100%);
+  color: #ffffff;
+  border: 1px solid #ffb380;
+  padding: 12px 32px; /* Bigger padding */
+  border-radius: 25px; /* Adjust radius for bigger button */
+  font-size: 22px; /* Much bigger text as requested */
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+  z-index: 10;
+}
+
+.top-register-btn:hover {
+  background: linear-gradient(180deg, #ff6600 0%, #cc3300 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 15px rgba(0,0,0,0.4);
+}
+
+.top-register-btn:active {
+  transform: translateY(1px);
+  box-shadow: 0 2px 5px rgba(0,0,0,0.4);
+}
+
+/* Success Dialog Styles */
+.custom-dialog-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  backdrop-filter: blur(4px);
+}
+
+.custom-dialog-box {
+  background-color: #6a1310;
+  border: 4px solid #d4af37;
+  border-radius: 12px;
+  padding: 30px;
+  max-width: 400px;
+  width: 90%;
+  text-align: center;
+  box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+  animation: popIn 0.3s ease-out;
+}
+
+@keyframes popIn {
+  from { transform: scale(0.8); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+
+.dialog-title {
+  font-family: 'Great Vibes', cursive;
+  font-size: 40px;
+  color: #f6e6b8;
+  margin: 0 0 15px 0;
+  text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+}
+
+.dialog-text {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 15px;
+  color: #ffffff;
+  line-height: 1.6;
+  margin-bottom: 25px;
+}
+
+.dialog-btn {
+  background: linear-gradient(180deg, #e65c00 0%, #b32d00 100%);
+  color: #ffffff;
+  border: 1px solid #ffb380;
+  padding: 12px 25px;
+  border-radius: 25px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+}
+
+.dialog-btn:hover {
+  background: linear-gradient(180deg, #ff6600 0%, #cc3300 100%);
+  transform: translateY(-2px);
+}
+
+/* Comprehensive Responsive Adjustments */
+@media (max-width: 768px) {
+  .pre-welcome-container {
+    padding: 15px;
+  }
+  .main-heading {
+    font-size: 40px;
+  }
+  .sub-heading {
+    font-size: 14px;
+    letter-spacing: 2px;
+  }
+  .tagline {
+    font-size: 22px;
+  }
+  .search-title {
+    font-size: 16px;
+  }
+  .search-widget-wrapper {
+    max-width: 90%;
+  }
+}
+
+@media (max-width: 600px) {
+  .pre-welcome-container {
+    padding: 10px;
+  }
+  .top-register-btn {
+    top: 15px; 
+    right: 15px;
+    padding: 8px 20px; 
+    font-size: 16px; /* Bigger text on mobile too */
+  }
+
+  .main-heading {
+    font-size: 38px; /* Slightly larger cursive font for mobile */
+    margin-top: 45px; /* Push down so button doesn't overlap */
+  }
+
+  .tagline {
+    font-size: 20px; /* Slightly larger for readability */
+  }
+
+  .search-title {
+    font-size: 15px;
+    flex-direction: row;
+    gap: 5px;
+  }
+  .dots {
+    display: inline-block;
+  }
+
+  /* Make inputs 2 per row instead of stacking all vertically */
+  .form-inputs-row-top,
+  .form-inputs-row-bottom {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+  
+  .custom-select,
+  .custom-input {
+    flex: 1 1 45%; /* Take up roughly half width */
+    min-width: 100px;
+    padding: 8px 10px;
+    font-size: 13px;
+  }
+
+  /* Make Caste, Email, and Mobile full width */
+  .form-inputs-row-top .custom-select:nth-child(3),
+  .form-inputs-row-bottom .custom-input {
+    flex: 1 1 100%;
+  }
+
+  .search-widget-inner {
+    padding: 10px;
+  }
+  
+  .search-btn {
+    width: 100%;
+    padding: 10px 20px;
+  }
+}

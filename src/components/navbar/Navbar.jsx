@@ -142,7 +142,7 @@ const Navbar = () => {
   const toggleMobileMenu = () => setMobileMenuOpen((prev) => !prev);
 
   const menuItems = [
-    { text: "Home", path: "/" },
+    { text: "Home", path: "/home" },
     // { text: "Service", path: "/service" },
     // { text: "About Us", path: "/about" },
     // { text: "Privacy Policy", path: "/privacy-policy" },
@@ -220,7 +220,7 @@ const Navbar = () => {
           <Typography
             variant="h5"
             component={Link}
-            to="/"
+            to="/home"
             sx={{
               fontWeight: "bold",
               fontSize: { xs: "1.5rem", sm: "1.5rem", md: "1.75rem" },

@@ -64,7 +64,7 @@ const ViewAll = lazy(() => import('./components/Userprofile/viewAll/ViewAll'));
 const Search = lazy(() => import('./components/Userprofile/search/Search'));
 const UserDashboard = lazy(() => import('./components/Userprofile/userdDashboard/UserDashboard'));
 const Profile = lazy(() => import('./components/Userprofile/profile/Profile'));
-
+const PreWelcome = lazy(() => import('./components/PreWelcome/PreWelcome'));
 
 
 export const LoadingComponent = () => {
@@ -99,7 +99,8 @@ const App = () => {
             <ScrollToTop />
             <Routes>
               {/* Public Routes */}
-              <Route path="/" element={<><HeroSlider /><Connect /><Footer /></>} />
+              <Route path="/" element={<PreWelcome />} />
+              <Route path="/home" element={<><HeroSlider /><Connect /><Footer /></>} />
               <Route path="/contact" element={<><ContactUs /><Footer /></>} />
               <Route path="/register" element={<><Register /><Footer /></>} />
               <Route path="/membership" element={<><MembershipPlan /><Footer /></>} />
