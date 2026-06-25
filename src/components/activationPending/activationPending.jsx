@@ -29,7 +29,7 @@ const ActivationPending = () => {
   const handleLogout = () => {
   TokenService.removeToken();           
   window.dispatchEvent(new Event("storage")); 
-  navigate("/");                         
+  navigate("/home");                         
 };
 
   const handleUpgrade = () => {

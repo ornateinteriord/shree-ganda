@@ -49,7 +49,7 @@ const PromotersDashboard = () => {
 
   const handleConfirmLogout = () => {
 
-    navigation("/");
+    navigation("/home");
     TokenService.removeToken();
     window.dispatchEvent(new Event("storage"));
   };

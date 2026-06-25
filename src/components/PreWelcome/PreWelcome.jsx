@@ -78,7 +78,7 @@ const PreWelcome = () => {
 
       <button 
         className="top-register-btn" 
-        onClick={() => navigate('/register')}
+        onClick={() => navigate('/home')}
       >
         Register
       </button>
