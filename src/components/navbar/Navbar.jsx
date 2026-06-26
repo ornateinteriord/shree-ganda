@@ -150,7 +150,7 @@ const Navbar = () => {
   ];
 
   const handleLogout = () => {
-    navigate("/");
+    navigate("/home");
     TokenService.removeToken();
     window.dispatchEvent(new Event("storage"));
   };

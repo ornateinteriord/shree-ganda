@@ -5,24 +5,10 @@ import TokenService from "../../token/tokenService";
 import { get, post } from "../authHooks";
 
 export const useSignupMutation = ()=>{
-  const navigate = useNavigate();
   return useMutation({
       mutationFn: async (data) => {
         return await post("/api/auth/signup", data);
-      },
-      onSuccess: (response) => {
-        if (response.success) {
-          TokenService.setToken(response.token);
-       window.dispatchEvent(new Event("storage")); 
-          toast.success(response.message);
-          navigate("/activation-pending");
-        } else {
-          console.error(response.message);
-        }
-      },
-      onError: (error) => {
-        toast.error(error.response.data.message);
-      },
+      }
     });
 }
 export const useLoginMutation = () => {

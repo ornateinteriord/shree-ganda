@@ -173,7 +173,7 @@ const handleLogoutDialogClose = () => {
 
 const handleConfirmLogout = () => {
   localStorage.removeItem('token');
-  navigate('/');
+  navigate('/home');
   setLogoutDialogOpen(false);
 };
   const handleProfileChange = (event) => {

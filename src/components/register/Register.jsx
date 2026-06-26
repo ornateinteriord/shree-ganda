@@ -17,8 +17,10 @@ import {
   DialogTitle,
   DialogContent,
   DialogActions,
+  IconButton,
 } from "@mui/material";
 import HowToRegIcon from "@mui/icons-material/HowToReg";
+import CloseIcon from "@mui/icons-material/Close";
 import rawJsonData from "../Userprofile/profile/eduction/jsondata/data.json";
 import Navbar from "../navbar/Navbar";
 import "./Register.scss";
@@ -46,7 +48,9 @@ const Register = () => {
   const planType = searchParams.get("type");
 
   const [showScanner, setShowScanner] = useState(false);
+  const [showSuccessDialog, setShowSuccessDialog] = useState(false);
   const [signupResponse, setSignupResponse] = useState(null);
+  const [paymentScreenshot, setPaymentScreenshot] = useState(null);
 
   const [citySuggestions, setCitySuggestions] = useState(datas.cities || []);
   const [talukSuggestions, setTalukSuggestions] = useState([]);
@@ -170,29 +174,34 @@ const Register = () => {
             if (formData.user_role === "PremiumUser" || formData.user_role === "SilverUser") {
               setShowScanner(true);
             } else {
-              TokenService.setToken(response.token);
-              window.dispatchEvent(new Event("storage"));
-              toast.success(response.message);
-              navigate("/activation-pending");
+              setShowSuccessDialog(true);
             }
           } else {
             console.error(response.message);
             toast.error(response.message);
           }
         },
+        onError: (error) => {
+          console.error("Signup error:", error);
+          toast.error(error?.response?.data?.message || "Something went wrong. Please try again.");
+        }
       });
     } catch (error) {
       console.error("Signup error:", error);
     }
   };
 
-  const handleScannerClose = () => {
+  const handleScannerSubmit = () => {
     setShowScanner(false);
+    setShowSuccessDialog(true);
+  };
+
+  const handleSuccessClose = () => {
+    setShowSuccessDialog(false);
     if (signupResponse) {
       TokenService.setToken(signupResponse.token);
       window.dispatchEvent(new Event("storage"));
-      toast.success("Registration successful!");
-      navigate("/activation-pending");
+      navigate("/home");
     }
   };
 
@@ -453,6 +462,133 @@ const Register = () => {
           </form>
         </div>
       </div>
+
+      {/* Payment Scanner Dialog */}
+      <Dialog open={showScanner} onClose={() => setShowScanner(false)} maxWidth="sm" fullWidth>
+        <DialogTitle sx={{ textAlign: "center", fontWeight: "bold", position: "relative" }}>
+          Premium Membership 
+          <IconButton
+            onClick={() => setShowScanner(false)}
+            sx={{
+              position: 'absolute',
+              right: 8,
+              top: 8,
+              color: (theme) => theme.palette.grey[500],
+            }}
+          >
+            <CloseIcon />
+          </IconButton>
+        </DialogTitle>
+        <DialogContent sx={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
+          <Typography variant="body2" sx={{ mb: 1, textAlign: "center", color: 'green' }}>
+            Please scan the QR code below to complete your payment.
+          </Typography>
+          <Box
+            component="img"
+            src="/ShreeScanner.jpeg"
+            alt="Payment Scanner"
+            sx={{
+              width: "100%",
+              maxWidth: "180px",
+              height: "auto",
+              borderRadius: "8px",
+              border: "1px solid #ddd",
+              boxShadow: "0 4px 8px rgba(0,0,0,0.1)",
+              mb: 2
+            }}
+          />
+
+          <Typography
+            variant="body1"
+            sx={{
+              textAlign: "center",
+              fontWeight: 500,
+              color: "rgba(0, 0, 0, 0.8)",
+              mb: 2,
+            }}
+          >
+            Please share the payment screenshot to this mail: <br />
+            <a href="mailto:shreegandaenterprises@gmail.com" style={{ color: "#3f51b5", textDecoration: "none", fontWeight: 600 }}>shreegandaenterprises@gmail.com</a>
+          </Typography>
+          
+
+        </DialogContent>
+        <DialogActions sx={{ justifyContent: "center", pb: 3 }}>
+          <Button 
+            onClick={handleScannerSubmit} 
+            variant="contained" 
+            sx={{
+              bgcolor: '#e11d48',
+              color: 'white',
+              '&:hover': {
+                bgcolor: '#c0392b',
+                color: 'white',
+              }
+            }}
+          >
+            Submit Payment
+          </Button>
+        </DialogActions>
+      </Dialog>
+
+      {/* Success Dialog */}
+      <Dialog open={showSuccessDialog} onClose={handleSuccessClose} maxWidth="sm" fullWidth>
+        <DialogTitle sx={{ textAlign: "center", color: "#4caf50", fontWeight: "bold", position: "relative" }}>
+          Registration Successful!
+          <IconButton
+            onClick={handleSuccessClose}
+            sx={{
+              position: 'absolute',
+              right: 8,
+              top: 8,
+              color: (theme) => theme.palette.grey[500],
+            }}
+          >
+            <CloseIcon />
+          </IconButton>
+        </DialogTitle>
+        <DialogContent>
+          <Typography variant="body1" sx={{ textAlign: "center", mt: 2 }}>
+            Thank you for registering with Shreeganda Matrimony. 
+          </Typography>
+          <Typography variant="body2" sx={{ textAlign: "center", mt: 1, color: "text.secondary" }}>
+            Your details have been successfully submitted and our team will review them shortly.
+          </Typography>
+          
+          <Box sx={{ mt: 3, p: 2, bgcolor: "#f5f5f5", borderRadius: 2 }}>
+            <Typography variant="subtitle1" fontWeight="bold" sx={{ mb: 1, textAlign: "center" }}>
+              Your Login Details:
+            </Typography>
+            <Typography variant="body1" sx={{ textAlign: "center" }}>
+              <strong>Username:</strong> {formData.username}
+            </Typography>
+            <Typography variant="body1" sx={{ textAlign: "center" }}>
+              <strong>Password:</strong> {formData.password}
+            </Typography>
+          </Box>
+
+          <Typography variant="body2" sx={{ textAlign: "center", mt: 3, color: "text.secondary" }}>
+            If you have any queries, please reach us at: <br />
+            <a href="mailto:shreegandamatrimonysupport@gmail.com" style={{ color: "#1976d2", textDecoration: "none", fontWeight: 500 }}>shreegandamatrimonysupport@gmail.com</a>
+          </Typography>
+        </DialogContent>
+        <DialogActions sx={{ justifyContent: "center", pb: 3 }}>
+          <Button 
+            onClick={handleSuccessClose} 
+            variant="contained" 
+            sx={{
+              bgcolor: '#e11d48',
+              color: 'white',
+              '&:hover': {
+                bgcolor: '#c0392b',
+                color: 'white',
+              }
+            }}
+          >
+            Continue to Website
+          </Button>
+        </DialogActions>
+      </Dialog>
     </>
   );
 };

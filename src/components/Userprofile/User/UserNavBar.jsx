@@ -107,7 +107,7 @@ const UserNavBar = () => {
 
   const handleConfirmLogout = () => {
     handleCloseLogoutDialog();
-    navigation("/");
+    navigation("/home");
     TokenService.removeToken();
     window.dispatchEvent(new Event("storage"));
   };

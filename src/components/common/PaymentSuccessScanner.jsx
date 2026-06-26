@@ -60,11 +60,11 @@ const PaymentSuccessScanner = ({ open, onClose, userType }) => {
           </Typography> */}
 
           <Typography
-            variant="body1"
+            variant="body2"
             sx={{
               textAlign: "center",
               mb: 2,
-              fontSize: { xs: "0.875rem", sm: "1rem" },
+              fontSize: { xs: "0.75rem", sm: "0.875rem" },
             }}
           >
             Please scan the QR code below for payment confirmation:
@@ -76,11 +76,12 @@ const PaymentSuccessScanner = ({ open, onClose, userType }) => {
             alt="Payment Scanner"
             sx={{
               width: "100%",
-              maxWidth: "300px",
+              maxWidth: "160px",
               height: "auto",
               borderRadius: "8px",
               border: "1px solid #ddd",
               boxShadow: "0 4px 8px rgba(0,0,0,0.1)",
+              mb: 1
             }}
           />
 
@@ -94,6 +95,20 @@ const PaymentSuccessScanner = ({ open, onClose, userType }) => {
             }}
           >
             Scan this QR code with your mobile device to complete the payment process.
+          </Typography>
+
+          <Typography
+            variant="body1"
+            sx={{
+              textAlign: "center",
+              mt: 2,
+              fontWeight: 500,
+              color: "rgba(0, 0, 0, 0.8)",
+              fontSize: { xs: "0.875rem", sm: "1rem" },
+            }}
+          >
+            Please share the payment screenshot to this mail: <br />
+            <a href="mailto:shreegandaenterprises@gmail.com" style={{ color: "#3f51b5", textDecoration: "none", fontWeight: 600 }}>shreegandaenterprises@gmail.com</a>
           </Typography>
         </Box>
       </DialogContent>
