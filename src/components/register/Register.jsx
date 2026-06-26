@@ -466,7 +466,7 @@ const Register = () => {
       {/* Payment Scanner Dialog */}
       <Dialog open={showScanner} onClose={() => setShowScanner(false)} maxWidth="sm" fullWidth>
         <DialogTitle sx={{ textAlign: "center", fontWeight: "bold", position: "relative" }}>
-          Premium Membership Payment
+          Premium Membership 
           <IconButton
             onClick={() => setShowScanner(false)}
             sx={{
@@ -480,25 +480,38 @@ const Register = () => {
           </IconButton>
         </DialogTitle>
         <DialogContent sx={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
-          <Typography variant="body1" sx={{ mb: 2, textAlign: "center" }}>
+          <Typography variant="body2" sx={{ mb: 1, textAlign: "center", color: 'green' }}>
             Please scan the QR code below to complete your payment.
           </Typography>
-          <Box sx={{ width: 200, height: 200, bgcolor: "#e0e0e0", display: "flex", alignItems: "center", justifyContent: "center", mb: 3 }}>
-            <Typography color="text.secondary">Sample QR Code</Typography>
-            {/* Insert actual QR code image here later */}
-          </Box>
+          <Box
+            component="img"
+            src="/ShreeScanner.jpeg"
+            alt="Payment Scanner"
+            sx={{
+              width: "100%",
+              maxWidth: "180px",
+              height: "auto",
+              borderRadius: "8px",
+              border: "1px solid #ddd",
+              boxShadow: "0 4px 8px rgba(0,0,0,0.1)",
+              mb: 2
+            }}
+          />
+
+          <Typography
+            variant="body1"
+            sx={{
+              textAlign: "center",
+              fontWeight: 500,
+              color: "rgba(0, 0, 0, 0.8)",
+              mb: 2,
+            }}
+          >
+            Please share the payment screenshot to this mail: <br />
+            <a href="mailto:shreegandaenterprises@gmail.com" style={{ color: "#3f51b5", textDecoration: "none", fontWeight: 600 }}>shreegandaenterprises@gmail.com</a>
+          </Typography>
           
-          <Box sx={{ width: "100%", mt: 2 }}>
-            <Typography variant="body2" sx={{ mb: 1, fontWeight: "bold" }}>
-              Upload Payment Screenshot:
-            </Typography>
-            <TextField 
-              type="file" 
-              fullWidth 
-              inputProps={{ accept: "image/*" }}
-              onChange={(e) => setPaymentScreenshot(e.target.files[0])}
-            />
-          </Box>
+
         </DialogContent>
         <DialogActions sx={{ justifyContent: "center", pb: 3 }}>
           <Button 
@@ -553,6 +566,11 @@ const Register = () => {
               <strong>Password:</strong> {formData.password}
             </Typography>
           </Box>
+
+          <Typography variant="body2" sx={{ textAlign: "center", mt: 3, color: "text.secondary" }}>
+            If you have any queries, please reach us at: <br />
+            <a href="mailto:shreegandamatrimonysupport@gmail.com" style={{ color: "#1976d2", textDecoration: "none", fontWeight: 500 }}>shreegandamatrimonysupport@gmail.com</a>
+          </Typography>
         </DialogContent>
         <DialogActions sx={{ justifyContent: "center", pb: 3 }}>
           <Button 
