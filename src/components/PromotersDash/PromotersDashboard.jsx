@@ -78,9 +78,9 @@ const PromotersDashboard = () => {
             variant="h6"
             noWrap
             component="div"
-            sx={{ flexGrow: 1, fontWeight: "bold" }}
+            sx={{ flexGrow: 1, fontWeight: "bold", display: 'flex', alignItems: 'center' }}
           >
-            {sidebarData.title}
+            <img src="/ShreeLogo.jpeg" alt="Shreeganda Matrimony" style={{ height: "40px", width: "auto", borderRadius: '8px' }} />
           </Typography>
 
           <Box sx={{ display: "flex", alignItems: "center" }}>

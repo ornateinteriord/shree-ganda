@@ -58,6 +58,7 @@ const ContactUs = () => {
                   <div className="card-content">
                     <h3>Call Us</h3>
                     <p>+91 9148824442</p>
+                    <p>Promotor: +91 7026425724</p>
                   </div>
                 </div>
               </div>

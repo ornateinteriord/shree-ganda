@@ -2,7 +2,7 @@
 export const membershipOptions = [
   {
     name: 'STANDARD',
-    discountedPrice: '₹2999',
+    discountedPrice: '₹799',
     duration: '6 MONTHS',
     features: [
       'Basic Profile Highlight',
@@ -16,7 +16,7 @@ export const membershipOptions = [
   },
   {
     name: 'PREMIUM',
-    discountedPrice: '₹4999',
+    discountedPrice: '₹999',
     duration: '1 YEAR',
     features: [
       'Enhanced Profile Visibility',
@@ -28,20 +28,5 @@ export const membershipOptions = [
     color: '#83163C',
     gradient: 'linear-gradient(135deg, #83163C 0%, #b01e4f 100%)',
     originalName: 'Premium'
-  },
-  {
-    name: 'ELITE',
-    discountedPrice: '₹7999',
-    duration: '2 YEARS',
-    features: [
-      'Maximum Profile Highlight',
-      'View Unlimited Contacts',
-      'Send Unlimited Messages',
-      'Dedicated Matchmaker',
-      'Exclusive Services & Benefits'
-    ],
-    color: '#A50901',
-    gradient: 'linear-gradient(135deg, #A50901 0%, #d91c12 100%)',
-    originalName: 'Elite'
   }
 ];
