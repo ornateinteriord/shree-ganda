@@ -69,30 +69,20 @@ const MembershipPlans = () => {
           <Box sx={{
             textAlign: 'center',
             mb: isMobile ? 6 : 8,
-            pt: isMobile ? 4 : 0 // Added top padding for mobile
+            pt: isMobile ? 0 : 0 // Added top padding for mobile
           }}>
             {/* Logo */}
             <Box sx={{ mb: 2, display: 'flex', justifyContent: 'center' }}>
-              <Box sx={{
-                width: isMobile ? 60 : 80,
-                height: isMobile ? 60 : 80,
-                borderRadius: '50%',
-                background: 'linear-gradient(135deg, #7c2d12 0%, #991b1b 100%)',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                boxShadow: '0 4px 20px rgba(0,0,0,0.4)',
-                border: '3px solid #d97706'
-              }}>
-                <Typography sx={{
-                  color: '#fbbf24',
-                  fontWeight: 700,
-                  fontSize: isMobile ? '24px' : '32px',
-                  fontFamily: 'Georgia, serif'
-                }}>
-                  SG
-                </Typography>
-              </Box>
+              <img 
+                src="/ShreeLogo.jpeg" 
+                alt="Shreeganda Matrimony Logo" 
+                style={{ 
+                  height: isMobile ? "50px" : "70px", 
+                  width: "auto", 
+                  borderRadius: '12px', 
+                  boxShadow: '0 4px 20px rgba(0,0,0,0.4)' 
+                }} 
+              />
             </Box>
 
             <Typography
@@ -100,7 +90,7 @@ const MembershipPlans = () => {
               sx={{
                 color: '#7c2d12',
                 fontWeight: 700,
-                fontSize: isMobile ? '32px' : isTablet ? '42px' : '52px',
+                fontSize: isMobile ? '22px' : isTablet ? '32px' : '42px',
                 mb: 1,
                 textAlign: 'center', // Explicitly center
                 textShadow: '2px 2px 4px rgba(255,255,255,0.3)',

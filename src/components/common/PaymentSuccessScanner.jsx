@@ -43,73 +43,95 @@ const PaymentSuccessScanner = ({ open, onClose, userType }) => {
         <Box
           sx={{
             display: "flex",
-            flexDirection: "column",
+            flexDirection: { xs: "column", md: "row" },
             alignItems: "center",
-            gap: 2,
+            justifyContent: "center",
+            gap: { xs: 3, md: 6 },
+            py: 2
           }}
         >
-          {/* <Typography
-            variant="h6"
-            sx={{
-              textAlign: "center",
-              fontWeight: 500,
-              fontSize: { xs: "1rem", sm: "1.125rem" },
-            }}
-          >
-            Congratulations! You have successfully upgraded to {userType}.
-          </Typography> */}
+          {/* Left Side: QR Code */}
+          <Box sx={{ display: "flex", flexDirection: "column", alignItems: "center", flex: 1 }}>
+            <Typography
+              variant="body2"
+              sx={{
+                textAlign: "center",
+                mb: 2,
+                fontSize: { xs: "0.75rem", sm: "0.875rem" },
+              }}
+            >
+              Please scan the QR code below for payment confirmation:
+            </Typography>
 
-          <Typography
-            variant="body2"
-            sx={{
-              textAlign: "center",
-              mb: 2,
-              fontSize: { xs: "0.75rem", sm: "0.875rem" },
-            }}
-          >
-            Please scan the QR code below for payment confirmation:
-          </Typography>
+            <Box
+              component="img"
+              src="/ShreeScanner.jpeg"
+              alt="Payment Scanner"
+              sx={{
+                width: "100%",
+                maxWidth: "200px",
+                height: "auto",
+                borderRadius: "8px",
+                border: "1px solid #ddd",
+                boxShadow: "0 4px 8px rgba(0,0,0,0.1)",
+                mb: 1
+              }}
+            />
 
-          <Box
-            component="img"
-            src="/ShreeScanner.jpeg"
-            alt="Payment Scanner"
-            sx={{
-              width: "100%",
-              maxWidth: "160px",
-              height: "auto",
-              borderRadius: "8px",
-              border: "1px solid #ddd",
-              boxShadow: "0 4px 8px rgba(0,0,0,0.1)",
-              mb: 1
-            }}
-          />
+            <Typography
+              variant="body2"
+              sx={{
+                textAlign: "center",
+                mt: 1,
+                color: "rgba(0, 0, 0, 0.6)",
+                fontSize: { xs: "0.75rem", sm: "0.875rem" },
+                maxWidth: "250px"
+              }}
+            >
+              Scan this QR code with your mobile device to complete the payment process.
+            </Typography>
+          </Box>
 
-          <Typography
-            variant="body2"
-            sx={{
-              textAlign: "center",
-              mt: 1,
-              color: "rgba(0, 0, 0, 0.6)",
-              fontSize: { xs: "0.75rem", sm: "0.875rem" },
-            }}
-          >
-            Scan this QR code with your mobile device to complete the payment process.
-          </Typography>
-
-          <Typography
-            variant="body1"
-            sx={{
-              textAlign: "center",
-              mt: 2,
-              fontWeight: 500,
-              color: "rgba(0, 0, 0, 0.8)",
-              fontSize: { xs: "0.875rem", sm: "1rem" },
-            }}
-          >
-            Please share the payment screenshot to this mail: <br />
-            <a href="mailto:shreegandaenterprises@gmail.com" style={{ color: "#3f51b5", textDecoration: "none", fontWeight: 600 }}>shreegandaenterprises@gmail.com</a>
-          </Typography>
+          {/* Right Side: Email Info */}
+          <Box sx={{ 
+            display: "flex", 
+            flexDirection: "column", 
+            alignItems: "center", 
+            justifyContent: "center",
+            flex: 1,
+            borderLeft: { xs: "none", md: "1px solid #eee" },
+            borderTop: { xs: "1px solid #eee", md: "none" },
+            pt: { xs: 3, md: 0 },
+            pl: { xs: 0, md: 4 }
+          }}>
+            <Typography
+              variant="body1"
+              sx={{
+                textAlign: "center",
+                fontWeight: 500,
+                color: "rgba(0, 0, 0, 0.8)",
+                fontSize: { xs: "0.875rem", sm: "1rem" },
+                mb: 2
+              }}
+            >
+              Please share the payment screenshot to this mail:
+            </Typography>
+            <a 
+              href="mailto:shreegandaenterprises@gmail.com" 
+              style={{ 
+                color: "#7c2d12", 
+                textDecoration: "none", 
+                fontWeight: 600,
+                fontSize: "1.1rem",
+                padding: "10px 15px",
+                backgroundColor: "#fff3e0",
+                borderRadius: "8px",
+                border: "1px dashed #7c2d12"
+              }}
+            >
+              shreegandaenterprises@gmail.com
+            </a>
+          </Box>
         </Box>
       </DialogContent>
 

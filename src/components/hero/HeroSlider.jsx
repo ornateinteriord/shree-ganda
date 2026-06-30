@@ -50,6 +50,7 @@ const HeroSlider = () => {
     height: isMobile ? "100vh" : isTablet ? "80vh" : "100vh",
     objectFit: "cover",
     objectPosition: "center",
+    marginTop: isMobile ? '60px' : '70px',
   }));
 
   const Overlay = styled(Box)(({ theme }) => ({

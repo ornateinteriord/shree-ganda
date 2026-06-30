@@ -201,7 +201,9 @@ const handleConfirmLogout = () => {
           <IconButton onClick={toggleSidebar}>
             <FaBars style={{ color: '#fff', fontSize: '1.8rem' }} />
           </IconButton>
-          <Link to="/" style={{ textDecoration: "none", color: "inherit" }}><h2 className="navtxt">Admin Dashboard</h2></Link>
+          <Link to="/" style={{ textDecoration: "none", color: "inherit", display: 'flex', alignItems: 'center' }}>
+            <img src="/ShreeLogo.jpeg" alt="Shreeganda Matrimony" style={{ height: "40px", width: "auto", borderRadius: '8px' }} />
+          </Link>
         </div>
         <div className="nav-right">
         <Badge color="error" variant="dot">

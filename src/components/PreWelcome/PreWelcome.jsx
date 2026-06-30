@@ -83,9 +83,8 @@ const PreWelcome = () => {
         Register
       </button>
 
-      <div className="pre-welcome-headings">
-        <h1 className="main-heading">Shreeganda</h1>
-        <h3 className="sub-heading">MATRIMONY</h3>
+      <div className="pre-welcome-headings" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+        <img src="/ShreeLogo.jpeg" alt="Shreeganda Matrimony Logo" style={{ height: "100px", width: "auto", borderRadius: '8px', marginBottom: '10px' }} />
         <p className="tagline">Uniting Hearts, Creating Bonds</p>
       </div>
 

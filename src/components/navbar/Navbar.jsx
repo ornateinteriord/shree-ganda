@@ -204,23 +204,11 @@ const Navbar = () => {
     <div className="navbar-main-container">
       <div className="navbar-container">
         <div className="navbar">
-          {/* Mobile Menu Button */}
-          <IconButton
-            className="menu-button"
-            onClick={toggleMobileMenu}
-            sx={{
-              display: { xs: "flex", md: "none" },
-              color: "#fff",
-            }}
-          >
-            {mobileMenuOpen ? <CloseIcon /> : <MenuIcon />}
-          </IconButton>
-
           {/* Logo/Brand Name */}
           <Typography
             variant="h5"
             component={Link}
-            to="/home"
+            to="/"
             sx={{
               fontWeight: "bold",
               fontSize: { xs: "1.5rem", sm: "1.5rem", md: "1.75rem" },
@@ -228,13 +216,12 @@ const Navbar = () => {
               textDecoration: "none",
               color: "#fff",
               textAlign: 'center',
-              [theme.breakpoints.up('md')]: {
-                margin: "0",
-                marginRight: "auto"
-              }
+              display: 'flex',
+              alignItems: 'center',
+              marginRight: 'auto'
             }}
           >
-            Shreeganda ❤️ Matrimony
+            <img src="/ShreeLogo.jpeg" alt="Shreeganda Matrimony" style={{ height: "40px", width: "auto", borderRadius: '8px' }} />
           </Typography>
 
           {/* Desktop Menu */}
@@ -299,7 +286,7 @@ const Navbar = () => {
           </Box>
 
           {/* Auth Buttons */}
-          <Box sx={{ display: "flex", alignItems: "center", gap: 2 }}>
+          <Box sx={{ display: { xs: "none", sm: "flex" }, alignItems: "center", gap: 2 }}>
             {isLoggedIn ? (
               <Button
                 variant="contained"
@@ -344,6 +331,18 @@ const Navbar = () => {
               </>
             )}
           </Box>
+
+          {/* Mobile Menu Button */}
+          <IconButton
+            className="menu-button"
+            onClick={toggleMobileMenu}
+            sx={{
+              display: { xs: "flex", md: "none" },
+              color: "#fff",
+            }}
+          >
+            {mobileMenuOpen ? <CloseIcon /> : <MenuIcon />}
+          </IconButton>
         </div>
       </div>
 
@@ -374,9 +373,9 @@ const Navbar = () => {
             <Typography
               variant="h6"
               component="div"
-              sx={{ fontWeight: "bold", fontSize: "1.3rem" }}
+              sx={{ fontWeight: "bold", fontSize: "1.3rem", display: 'flex', alignItems: 'center' }}
             >
-              Shreeganda ❤️ Matrimony
+              <img src="/ShreeLogo.jpeg" alt="Shreeganda Matrimony" style={{ height: "35px", width: "auto", borderRadius: '6px' }} />
             </Typography>
             <IconButton onClick={toggleMobileMenu} sx={{ color: "#fff" }}>
               <CloseIcon />

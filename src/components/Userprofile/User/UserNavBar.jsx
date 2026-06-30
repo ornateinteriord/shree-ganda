@@ -238,10 +238,8 @@ const UserNavBar = () => {
           )}
 
           <Box sx={{ textAlign: "left", width: "100%" }}>
-            <Link to="/" style={{ textDecoration: "none", color: "inherit" }}>
-              <Typography variant="h6" noWrap component="div">
-                Shreeganda ❤️ Matrimony
-              </Typography>
+            <Link to="/" style={{ textDecoration: "none", color: "inherit", display: 'inline-flex', alignItems: 'center' }}>
+              <img src="/ShreeLogo.jpeg" alt="Shreeganda Matrimony" style={{ height: "40px", width: "auto", borderRadius: '8px' }} />
             </Link>
           </Box>
 
