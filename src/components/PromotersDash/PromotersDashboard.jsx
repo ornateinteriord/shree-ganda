@@ -78,9 +78,11 @@ const PromotersDashboard = () => {
             variant="h6"
             noWrap
             component="div"
-            sx={{ flexGrow: 1, fontWeight: "bold", display: 'flex', alignItems: 'center' }}
+            sx={{ flexGrow: 1, fontWeight: "bold", display: 'flex', alignItems: 'center', ml: 1 }}
           >
-            <img src="/ShreeLogo.jpeg" alt="Shreeganda Matrimony" style={{ height: "40px", width: "auto", borderRadius: '8px' }} />
+            {!isMobile && (
+              <img src="/ShreeLogo.png" alt="Shreeganda Matrimony" style={{ height: "50px", width: "auto", borderRadius: '8px', objectFit: 'contain', display: 'block' }} />
+            )}
           </Typography>
 
           <Box sx={{ display: "flex", alignItems: "center" }}>

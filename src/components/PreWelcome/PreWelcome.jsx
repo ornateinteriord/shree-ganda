@@ -33,7 +33,7 @@ const PreWelcome = () => {
 
     setLoading(true);
     try {
-      const apiUrl = import.meta.env.VITE_BASE_URL || 'http://localhost:5000';
+      const apiUrl = import.meta.env.VITE_API_URL || import.meta.env.VITE_BASE_URL || 'http://localhost:5000';
       const response = await axios.post(`${apiUrl}/api/webenquire`, formData);
       
       if (response.data.success) {
@@ -84,7 +84,7 @@ const PreWelcome = () => {
       </button>
 
       <div className="pre-welcome-headings" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-        <img src="/ShreeLogo.jpeg" alt="Shreeganda Matrimony Logo" style={{ height: "100px", width: "auto", borderRadius: '8px', marginBottom: '10px' }} />
+        <img src="/ShreeLogo.png" alt="Shreeganda Matrimony Logo" style={{ height: "100px", width: "auto", borderRadius: '8px', marginBottom: '10px' }} />
         <p className="tagline">Uniting Hearts, Creating Bonds</p>
       </div>
 

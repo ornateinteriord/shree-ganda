@@ -74,7 +74,7 @@ const MembershipPlans = () => {
             {/* Logo */}
             <Box sx={{ mb: 2, display: 'flex', justifyContent: 'center' }}>
               <img 
-                src="/ShreeLogo.jpeg" 
+                src="/ShreeLogo.png" 
                 alt="Shreeganda Matrimony Logo" 
                 style={{ 
                   height: isMobile ? "50px" : "70px", 

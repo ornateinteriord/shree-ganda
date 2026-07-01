@@ -221,7 +221,7 @@ const Navbar = () => {
               marginRight: 'auto'
             }}
           >
-            <img src="/ShreeLogo.jpeg" alt="Shreeganda Matrimony" style={{ height: "40px", width: "auto", borderRadius: '8px' }} />
+            <img src="/ShreeLogo.png" alt="Shreeganda Matrimony" style={{ height: "55px", width: "auto", borderRadius: '8px', objectFit: 'contain', display: 'block' }} />
           </Typography>
 
           {/* Desktop Menu */}
@@ -375,7 +375,7 @@ const Navbar = () => {
               component="div"
               sx={{ fontWeight: "bold", fontSize: "1.3rem", display: 'flex', alignItems: 'center' }}
             >
-              <img src="/ShreeLogo.jpeg" alt="Shreeganda Matrimony" style={{ height: "35px", width: "auto", borderRadius: '6px' }} />
+              <img src="/ShreeLogo.png" alt="Shreeganda Matrimony" style={{ height: "45px", width: "auto", borderRadius: '6px', objectFit: 'contain', display: 'block' }} />
             </Typography>
             <IconButton onClick={toggleMobileMenu} sx={{ color: "#fff" }}>
               <CloseIcon />
