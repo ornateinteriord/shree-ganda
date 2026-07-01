@@ -6,13 +6,14 @@ import { IoIosNotifications } from 'react-icons/io';
 import { Link, Outlet, useLocation } from 'react-router-dom';
 import { Suspense } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Collapse, List, ListItem, ListItemText, IconButton, Typography, Menu, MenuItem, Avatar, Badge, Dialog, DialogTitle, DialogContent, TextField, Button, DialogActions, Box } from '@mui/material';
+import { Collapse, List, ListItem, ListItemText, IconButton, Typography, Menu, MenuItem, Avatar, Badge, Dialog, DialogTitle, DialogContent, TextField, Button, DialogActions, Box, useMediaQuery } from '@mui/material';
 import { PremiumLoader } from '../../utils/common';
 import { IoMdNotifications } from "react-icons/io";
 import { CgProfile } from "react-icons/cg";
 import { getAllUserCounts } from '../api/Admin';
 
 const AdminDashboard = () => {
+  const isLargeScreen = useMediaQuery("(min-width:900px)");
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [openUserManagement, setOpenUserManagement] = useState(false);
   const [openAssistanceService, setOpenAssistanceService] = useState(false);
@@ -40,7 +41,13 @@ const AdminDashboard = () => {
       navigate('/admin'); 
     }
     setActivePath(location.pathname);
+    setIsSidebarOpen(false);
   }, [location.pathname]);
+
+  const handleNavClick = (path) => {
+    navigate(path);
+    setIsSidebarOpen(false);
+  };
 
 const closeAllDropdowns = () => {
   setOpenUserManagement(false);
@@ -77,68 +84,68 @@ const closeAllDropdowns = () => {
   };
   
   const navigateUserTable = () => {
-    navigate('/admin/user-table');
+    handleNavClick('/admin/user-table');
   };
   const handleDashboard=()=>{
       closeAllDropdowns();
-    navigate('/admin/dashboard');
+    handleNavClick('/admin/dashboard');
   }
   const navigateUserUpgrade=()=>{
-    navigate('/admin/userData');
+    handleNavClick('/admin/userData');
   }
   
   const navigateRenewals=()=>{
-    navigate('/admin/renewals');
+    handleNavClick('/admin/renewals');
   }
   const navigateresetpass=()=>{
-    navigate('/admin/resetpass');
+    handleNavClick('/admin/resetpass');
   }
   const navigateImageVerify=()=>{
-    navigate('/admin/imageverify');
+    handleNavClick('/admin/imageverify');
   }
   const navigatePendingdata=()=>{
-    navigate('/admin/pendingdata');
+    handleNavClick('/admin/pendingdata');
   }
   const navigateSuccessdata=()=>{
-    navigate('/admin/successdata');
+    handleNavClick('/admin/successdata');
   }
   const navigatePromoterdata=()=>{
-    navigate('/admin/promotersdata');
+    handleNavClick('/admin/promotersdata');
   }
   const navigatePaytopromoters=()=>{
-    navigate('/admin/paytopromoters');
+    handleNavClick('/admin/paytopromoters');
   }
   const navigatePromotersEarn=()=>{
-    navigate('/admin/promoterearn');
+    handleNavClick('/admin/promoterearn');
   }
   const navigatePromotersData=()=>{
-    navigate('/admin/promoters');
+    handleNavClick('/admin/promoters');
   }
   const navigatePromotersUsers=()=>{
-    navigate('/admin/promotersusers');
+    handleNavClick('/admin/promotersusers');
   }
   const navigateOnlineTransaction=()=>{
-    navigate('/admin/onlinetransaction');
+    handleNavClick('/admin/onlinetransaction');
   }
   const navigateAssistanceData=()=>{
-    navigate('/admin/assistance');
+    handleNavClick('/admin/assistance');
   }
   const navigateReceiptsvocher=()=>{
-    navigate('/admin/receiptsvocher');
+    handleNavClick('/admin/receiptsvocher');
   }
 
   const navigateUserReports=()=>{
-    navigate('/admin/userreports');
+    handleNavClick('/admin/userreports');
   }
   const navigateRenewalReports=()=>{
-    navigate('/admin/renewalreports');
+    handleNavClick('/admin/renewalreports');
   }
   const navigateReceiptsReportsdata=()=>{
-    navigate('/admin/receiptsreports');
+    handleNavClick('/admin/receiptsreports');
   }
   const navigateNotification=()=>{
       closeAllDropdowns();
-    navigate('/admin/notification');
+    handleNavClick('/admin/notification');
   }
   
   // Check if a path is active
@@ -149,6 +156,7 @@ const closeAllDropdowns = () => {
   // Profile dialog handlers
   const handleProfileDialogOpen = () => {
     setProfileDialogOpen(true);
+    setIsSidebarOpen(false);
   };
 
   const handleProfileDialogClose = () => {
@@ -201,9 +209,11 @@ const handleConfirmLogout = () => {
           <IconButton onClick={toggleSidebar}>
             <FaBars style={{ color: '#fff', fontSize: '1.8rem' }} />
           </IconButton>
-          <Link to="/" style={{ textDecoration: "none", color: "inherit", display: 'flex', alignItems: 'center' }}>
-            <img src="/ShreeLogo.jpeg" alt="Shreeganda Matrimony" style={{ height: "40px", width: "auto", borderRadius: '8px' }} />
-          </Link>
+          {isLargeScreen && (
+            <Link to="/" style={{ textDecoration: "none", color: "inherit", display: 'flex', alignItems: 'center', marginLeft: '10px' }}>
+              <img src="/ShreeLogo.png" alt="Shreeganda Matrimony" style={{ height: "54px", width: "auto", borderRadius: '8px', objectFit: 'contain', display: 'block' }} />
+            </Link>
+          )}
         </div>
         <div className="nav-right">
         <Badge color="error" variant="dot">
@@ -240,6 +250,13 @@ const handleConfirmLogout = () => {
             display: 'none', 
           }
         }}>
+          {!isLargeScreen && (
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '15px 15px 10px 15px', borderBottom: '1px solid rgba(0,0,0,0.1)' }}>
+              <Link to="/" style={{ textDecoration: "none", display: 'inline-flex', alignItems: 'center' }}>
+                <img src="/ShreeLogo.png" alt="Shreeganda Matrimony" style={{ height: "48px", width: "auto", borderRadius: '8px', objectFit: 'contain' }} />
+              </Link>
+            </div>
+          )}
           {/* Sidebar Header */}
           <div className="sidebar-header" style={{ padding: '15px' }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>

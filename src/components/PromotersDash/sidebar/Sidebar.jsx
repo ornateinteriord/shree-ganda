@@ -158,6 +158,11 @@ const Sidebar = ({
       }}
     >
       <Toolbar />
+      {isMobile && (
+        <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', py: 1.5, borderBottom: '1px solid rgba(255,255,255,0.2)' }}>
+          <img src="/ShreeLogo.png" alt="Shreeganda Matrimony" style={{ height: "48px", width: "auto", borderRadius: '8px', objectFit: 'contain' }} />
+        </Box>
+      )}
       <Box sx={{ overflow: 'auto' }}>
         <List sx={{ mt: '10px' }}>
           {sidebarData.menuItems.map((item, index,) => (

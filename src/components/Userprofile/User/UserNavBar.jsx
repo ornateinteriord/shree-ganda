@@ -237,10 +237,12 @@ const UserNavBar = () => {
             </IconButton>
           )}
 
-          <Box sx={{ textAlign: "left", width: "100%" }}>
-            <Link to="/" style={{ textDecoration: "none", color: "inherit", display: 'inline-flex', alignItems: 'center' }}>
-              <img src="/ShreeLogo.jpeg" alt="Shreeganda Matrimony" style={{ height: "40px", width: "auto", borderRadius: '8px' }} />
-            </Link>
+          <Box sx={{ textAlign: "left", width: "100%", display: 'flex', alignItems: 'center', ml: 1 }}>
+            {isLargeScreen && (
+              <Link to="/" style={{ textDecoration: "none", color: "inherit", display: 'inline-flex', alignItems: 'center' }}>
+                <img src="/ShreeLogo.png" alt="Shreeganda Matrimony" style={{ height: "50px", width: "auto", borderRadius: '8px', objectFit: 'contain', display: 'block' }} />
+              </Link>
+            )}
           </Box>
 
           <IconButton onClick={handleMenuOpen} sx={{ p: 0 }}>
@@ -308,6 +310,13 @@ const UserNavBar = () => {
         }}
       >
         <Toolbar />
+        {!isLargeScreen && (
+          <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', py: 1.5, borderBottom: '1px solid rgba(255,255,255,0.2)' }}>
+            <Link to="/" style={{ textDecoration: "none", display: 'inline-flex', alignItems: 'center' }}>
+              <img src="/ShreeLogo.png" alt="Shreeganda Matrimony" style={{ height: "48px", width: "auto", borderRadius: '8px', objectFit: 'contain' }} />
+            </Link>
+          </Box>
+        )}
         <SidebarMenu
           selectedItem={selectedItem}
           handleDashboardClick={() =>
