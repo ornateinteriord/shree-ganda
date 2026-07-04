@@ -24,6 +24,7 @@ import CloseIcon from "@mui/icons-material/Close";
 import rawJsonData from "../Userprofile/profile/eduction/jsondata/data.json";
 import Navbar from "../navbar/Navbar";
 import "./Register.scss";
+import ScannerImg from "../../assets/Scanner.jpeg";
 
 import { toast } from "react-toastify";
 import { useSignupMutation } from "../api/Auth";
@@ -198,11 +199,7 @@ const Register = () => {
 
   const handleSuccessClose = () => {
     setShowSuccessDialog(false);
-    if (signupResponse) {
-      TokenService.setToken(signupResponse.token);
-      window.dispatchEvent(new Event("storage"));
-      navigate("/home");
-    }
+    navigate("/home");
   };
 
   const isValidAge = (value) => {
@@ -524,8 +521,8 @@ const Register = () => {
               </Typography>
               <Box
                 component="img"
-                src="/ShreeScanner.jpeg"
-                alt="Payment Scanner"
+                src={ScannerImg}
+                alt="Payment Scanner - Shreeganda Enterprises"
                 sx={{
                   width: "100%",
                   maxWidth: "300px",
@@ -537,6 +534,11 @@ const Register = () => {
                   margin: '0 auto'
                 }}
               />
+              <Box sx={{ mt: 1.5, px: 2, py: 0.8, bgcolor: '#f3f4f6', borderRadius: '6px', border: '1px solid #e5e7eb', width: '100%', maxWidth: '280px', textAlign: 'center' }}>
+                <Typography variant="body2" sx={{ color: '#374151', fontWeight: 700, fontSize: '0.85rem' }}>
+                  UPI Name: <span style={{ color: '#b91c1c' }}>Shreeganda Enterprises</span>
+                </Typography>
+              </Box>
               <Typography variant="body2" sx={{ mt: 1, textAlign: "center", color: '#6b7280', fontSize: '0.85rem', display: { xs: 'none', md: 'block' } }}>
                 Use any UPI app (GPay, PhonePe, Paytm) to complete the transaction.
               </Typography>

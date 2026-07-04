@@ -11,6 +11,7 @@ import {
   useMediaQuery,
 } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
+import ScannerImg from "../../assets/Scanner.jpeg";
 
 const PaymentSuccessScanner = ({ open, onClose, userType }) => {
   const theme = useTheme();
@@ -73,8 +74,8 @@ const PaymentSuccessScanner = ({ open, onClose, userType }) => {
 
           <Box
             component="img"
-            src="/ShreeScanner.jpeg"
-            alt="Payment Scanner"
+            src={ScannerImg}
+            alt="Payment Scanner - Shreeganda Enterprises"
             sx={{
               width: "100%",
               maxWidth: "300px",
@@ -84,6 +85,12 @@ const PaymentSuccessScanner = ({ open, onClose, userType }) => {
               boxShadow: "0 4px 8px rgba(0,0,0,0.1)",
             }}
           />
+
+          <Box sx={{ mt: 1, px: 2, py: 0.6, bgcolor: '#f3f4f6', borderRadius: '6px', border: '1px solid #e5e7eb', textAlign: 'center' }}>
+            <Typography variant="body2" sx={{ color: '#374151', fontWeight: 700, fontSize: '0.85rem' }}>
+              UPI Name: <span style={{ color: '#b91c1c' }}>Shreeganda Enterprises</span>
+            </Typography>
+          </Box>
 
           <Typography
             variant="body2"
