@@ -28,8 +28,9 @@ export const useLoginMutation = () => {
         const role = TokenService.getRole();
 
         if (userStatus !== "active") {
-          toast.info(response.message || "Your account is not yet active");
-        navigate("/activation-pending");
+          TokenService.removeToken();
+          window.dispatchEvent(new Event("storage"));
+          toast.info(response.message || "Member under pending approval by admin.");
           return;
         }
 
@@ -59,7 +60,12 @@ export const useLoginMutation = () => {
     },
 
     onError: (error) => {
-      toast.error(error?.message);
+      const errorMessage = error?.response?.data?.message || error?.message || "Login failed";
+      if (error?.response?.status === 403) {
+        toast.info(errorMessage);
+      } else {
+        toast.error(errorMessage);
+      }
       console.error("Login error:", error);
     }
   });

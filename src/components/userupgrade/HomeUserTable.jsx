@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import {
   Card,
   CardContent,
@@ -21,6 +22,7 @@ const HomeUserTable = () => {
   const [currentMembership, ] = useState(null);
   const theme = useTheme();
   const isSmallScreen = useMediaQuery(theme.breakpoints.down("sm"));
+  const navigate = useNavigate();
 
   const handleUpgrade = () => {
     setOpen(true);
@@ -33,16 +35,13 @@ const HomeUserTable = () => {
   const handlePlanSelection = (plan) => {
     setSelectedPlan(plan);
     setOpen(false);
-    
-    // Show scanner for Premium or Silver plans
-    if (plan.name === "PREMIUM MEMBERSHIP" || plan.name === "SILVER MEMBERSHIP") {
-      setShowScanner(true);
-    }
+    setShowScanner(true);
   };
   
   const handleScannerClose = () => {
     setShowScanner(false);
     setSelectedPlan(null);
+    navigate("/user/userDashboard");
   };
 
   return (
@@ -184,7 +183,8 @@ const HomeUserTable = () => {
       <PaymentSuccessScanner
         open={showScanner}
         onClose={handleScannerClose}
-        userType={selectedPlan?.name || ""}
+        userType={selectedPlan?.name || selectedPlan?.originalName || selectedPlan?.type || ""}
+        buttonText="Go to Dashboard"
       />
     </Box>
   );

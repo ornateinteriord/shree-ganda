@@ -24,6 +24,7 @@ import CloseIcon from "@mui/icons-material/Close";
 import rawJsonData from "../Userprofile/profile/eduction/jsondata/data.json";
 import Navbar from "../navbar/Navbar";
 import "./Register.scss";
+import ScannerImg from "../../assets/Scanner.jpeg";
 
 import { toast } from "react-toastify";
 import { useSignupMutation } from "../api/Auth";
@@ -198,11 +199,7 @@ const Register = () => {
 
   const handleSuccessClose = () => {
     setShowSuccessDialog(false);
-    if (signupResponse) {
-      TokenService.setToken(signupResponse.token);
-      window.dispatchEvent(new Event("storage"));
-      navigate("/home");
-    }
+    navigate("/home");
   };
 
   const isValidAge = (value) => {
@@ -459,6 +456,24 @@ const Register = () => {
                 Register Now
               </button>
             </div>
+
+            <Box sx={{ textAlign: "center", mt: 3, pt: 2, borderTop: "1px dashed #e5e7eb" }}>
+              <Typography variant="body2" sx={{ color: "#eff2f6ff", fontSize: "0.95rem" }}>
+                Already have an account?{" "}
+                <span
+                  onClick={() => navigate("/home", { state: { openDialog: true } })}
+                  style={{
+                    color: "#51b6f0ff",
+                    fontWeight: 700,
+                    cursor: "pointer",
+                    textDecoration: "underline",
+                    marginLeft: "4px"
+                  }}
+                >
+                  Sign In
+                </span>
+              </Typography>
+            </Box>
           </form>
         </div>
       </div>
@@ -524,8 +539,8 @@ const Register = () => {
               </Typography>
               <Box
                 component="img"
-                src="/ShreeScanner.jpeg"
-                alt="Payment Scanner"
+                src={ScannerImg}
+                alt="Payment Scanner - Shreeganda Enterprises"
                 sx={{
                   width: "100%",
                   maxWidth: "300px",
@@ -537,6 +552,11 @@ const Register = () => {
                   margin: '0 auto'
                 }}
               />
+              <Box sx={{ mt: 1.5, px: 2, py: 0.8, bgcolor: '#f3f4f6', borderRadius: '6px', border: '1px solid #e5e7eb', width: '100%', maxWidth: '280px', textAlign: 'center' }}>
+                <Typography variant="body2" sx={{ color: '#374151', fontWeight: 700, fontSize: '0.85rem' }}>
+                  UPI Name: <span style={{ color: '#b91c1c' }}>Shreeganda Enterprises</span>
+                </Typography>
+              </Box>
               <Typography variant="body2" sx={{ mt: 1, textAlign: "center", color: '#6b7280', fontSize: '0.85rem', display: { xs: 'none', md: 'block' } }}>
                 Use any UPI app (GPay, PhonePe, Paytm) to complete the transaction.
               </Typography>
@@ -644,7 +664,7 @@ const Register = () => {
               transition: 'all 0.2s'
             }}
           >
-            I Have Paid
+            Go to Website
           </Button>
         </DialogActions>
       </Dialog>
@@ -672,19 +692,6 @@ const Register = () => {
           <Typography variant="body2" sx={{ textAlign: "center", mt: 1, color: "text.secondary" }}>
             Your details have been successfully submitted and our team will review them shortly.
           </Typography>
-          
-          <Box sx={{ mt: 3, p: 2, bgcolor: "#f5f5f5", borderRadius: 2 }}>
-            <Typography variant="subtitle1" fontWeight="bold" sx={{ mb: 1, textAlign: "center" }}>
-              Your Login Details:
-            </Typography>
-            <Typography variant="body1" sx={{ textAlign: "center" }}>
-              <strong>Username:</strong> {formData.username}
-            </Typography>
-            <Typography variant="body1" sx={{ textAlign: "center" }}>
-              <strong>Password:</strong> {formData.password}
-            </Typography>
-          </Box>
-
           <Typography variant="body2" sx={{ textAlign: "center", mt: 3, color: "text.secondary" }}>
             If you have any queries, please reach us at: <br />
             <a href="mailto:shreegandamatrimonysupport@gmail.com" style={{ color: "#1976d2", textDecoration: "none", fontWeight: 500 }}>shreegandamatrimonysupport@gmail.com</a>

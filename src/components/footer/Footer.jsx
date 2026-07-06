@@ -38,8 +38,7 @@ function Footer() {
           <div className="footer-section">
             <h3 className="footer-heading">Contact Us</h3>
             <p className="footer-text">Email: info@shreegandamatrimony.com</p>
-            <p className="footer-text">Call Us: 9148824442</p>
-            <p className="footer-text">Promotor: 7026425724</p>
+            <p className="footer-text">Call Us: 7026425724</p>
           </div>
 
           <div className="footer-section">
