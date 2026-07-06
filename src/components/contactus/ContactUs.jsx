@@ -1,13 +1,29 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import "./ContactUs.scss";
 import Navbar from "../navbar/Navbar";
 
 import { FaMapMarkerAlt, FaEnvelope, FaPhoneAlt } from "react-icons/fa";
 
 const ContactUs = () => {
+  const [formData, setFormData] = useState({ name: '', email: '', subject: '', message: '' });
+
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
+
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.id]: e.target.value });
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const mailtoUrl = `mailto:shreegandamatrimonysupport@gmail.com?subject=${encodeURIComponent(
+      formData.subject || `Contact Enquiry from ${formData.name}`
+    )}&body=${encodeURIComponent(
+      `Name: ${formData.name}\nEmail: ${formData.email}\n\nMessage:\n${formData.message}`
+    )}`;
+    window.location.href = mailtoUrl;
+  };
 
   return (
     <>
@@ -35,10 +51,10 @@ const ContactUs = () => {
                   <div className="icon-wrapper">
                     <FaMapMarkerAlt className="icon" />
                   </div>
-                  <div className="card-content">
+                  {/* <div className="card-content">
                     <h3>Our Office</h3>
                     <p>#148/E, 2nd Floor, 17th Main Vijaynagar, Bangalore - 560040</p>
-                  </div>
+                  </div> */}
                 </div>
 
                 <div className="contact-card">
@@ -47,7 +63,7 @@ const ContactUs = () => {
                   </div>
                   <div className="card-content">
                     <h3>Email Us</h3>
-                    <p>ornateinteriod@gmail.com</p>
+                    <p>shreegandamatrimonysupport@gmail.com</p>
                   </div>
                 </div>
 
@@ -83,25 +99,25 @@ const ContactUs = () => {
                 <h3>Send Us a Message</h3>
                 <p>We typically respond within 24 hours</p>
               </div>
-              <form className="contact-form">
+              <form className="contact-form" onSubmit={handleSubmit}>
                 <div className="form-group">
                   <label htmlFor="name">Your Name</label>
-                  <input type="text" id="name" placeholder="John Doe" required />
+                  <input type="text" id="name" placeholder="John Doe" required value={formData.name} onChange={handleChange} />
                 </div>
 
                 <div className="form-group">
                   <label htmlFor="email">Your Email</label>
-                  <input type="email" id="email" placeholder="john@example.com" required />
+                  <input type="email" id="email" placeholder="john@example.com" required value={formData.email} onChange={handleChange} />
                 </div>
 
                 <div className="form-group">
                   <label htmlFor="subject">Subject</label>
-                  <input type="text" id="subject" placeholder="How can we help?" />
+                  <input type="text" id="subject" placeholder="How can we help?" value={formData.subject} onChange={handleChange} />
                 </div>
 
                 <div className="form-group">
                   <label htmlFor="message">Your Message</label>
-                  <textarea id="message" placeholder="Type your message here..." rows="5"></textarea>
+                  <textarea id="message" placeholder="Type your message here..." rows="5" value={formData.message} onChange={handleChange}></textarea>
                 </div>
 
                 <div className="button-group">
@@ -109,7 +125,8 @@ const ContactUs = () => {
                     Send Message
                   </button>
                   <button
-                    type="reset"
+                    type="button"
+                    onClick={() => setFormData({ name: '', email: '', subject: '', message: '' })}
                     className="clear-btn"
                     style={{ backgroundColor: 'transparent', color: '#000', border: '1px solid #7c2d12' }}
                   >

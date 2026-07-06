@@ -24,6 +24,7 @@ import CloseIcon from "@mui/icons-material/Close";
 import rawJsonData from "../Userprofile/profile/eduction/jsondata/data.json";
 import Navbar from "../navbar/Navbar";
 import "./Register.scss";
+import PaymentSuccessScanner from "../common/PaymentSuccessScanner";
 import ScannerImg from "../../assets/Scanner.jpeg";
 
 import { toast } from "react-toastify";
@@ -479,195 +480,12 @@ const Register = () => {
       </div>
 
       {/* Payment Scanner Dialog */}
-      <Dialog 
-        open={showScanner} 
-        onClose={() => setShowScanner(false)} 
-        maxWidth="md" 
-        fullWidth
-        PaperProps={{
-          sx: {
-            borderRadius: "16px",
-            overflow: "hidden"
-          }
-        }}
-      >
-        <DialogTitle sx={{ 
-          textAlign: "center", 
-          fontWeight: "bold", 
-          bgcolor: '#991b1b', 
-          color: 'white',
-          py: { xs: 1, md: 1.5 },
-          fontSize: { xs: '1rem', md: '1.2rem' }
-        }}>
-          Complete Your Premium Payment
-          <IconButton
-            onClick={() => setShowScanner(false)}
-            sx={{
-              position: 'absolute',
-              right: { xs: 4, md: 12 },
-              top: { xs: 4, md: 12 },
-              color: 'white',
-              '&:hover': { bgcolor: 'rgba(255,255,255,0.2)' }
-            }}
-          >
-            <CloseIcon fontSize="small" />
-          </IconButton>
-        </DialogTitle>
-        <DialogContent sx={{ p: 0, bgcolor: '#f8f9fa', overflow: 'hidden' }}>
-          <Box
-            sx={{
-              display: "flex",
-              flexDirection: { xs: "column", md: "row" },
-              alignItems: "stretch",
-              p: { xs: 1.5, md: 3 },
-              gap: { xs: 1.5, md: 4 }
-            }}
-          >
-            {/* Left Side: QR Code */}
-            <Box sx={{ 
-              display: "flex", 
-              flexDirection: "column", 
-              alignItems: "center", 
-              flex: 1.2,
-              bgcolor: 'white',
-              p: { xs: 1.5, md: 3 },
-              borderRadius: '12px',
-              boxShadow: '0 4px 12px rgba(0,0,0,0.06)',
-            }}>
-              <Typography variant="h6" sx={{ mb: 1, textAlign: "center", color: '#1f2937', fontWeight: 700, fontSize: { xs: '0.9rem', md: '1.25rem' } }}>
-                Scan to Pay
-              </Typography>
-              <Box
-                component="img"
-                src={ScannerImg}
-                alt="Payment Scanner - Shreeganda Enterprises"
-                sx={{
-                  width: "100%",
-                  maxWidth: "300px",
-                  maxHeight: { xs: "200px", md: "300px" },
-                  objectFit: "contain",
-                  borderRadius: "8px",
-                  boxShadow: "0 4px 12px rgba(0,0,0,0.1)",
-                  display: 'block',
-                  margin: '0 auto'
-                }}
-              />
-              <Box sx={{ mt: 1.5, px: 2, py: 0.8, bgcolor: '#f3f4f6', borderRadius: '6px', border: '1px solid #e5e7eb', width: '100%', maxWidth: '280px', textAlign: 'center' }}>
-                <Typography variant="body2" sx={{ color: '#374151', fontWeight: 700, fontSize: '0.85rem' }}>
-                  UPI Name: <span style={{ color: '#b91c1c' }}>Shreeganda Enterprises</span>
-                </Typography>
-              </Box>
-              <Typography variant="body2" sx={{ mt: 1, textAlign: "center", color: '#6b7280', fontSize: '0.85rem', display: { xs: 'none', md: 'block' } }}>
-                Use any UPI app (GPay, PhonePe, Paytm) to complete the transaction.
-              </Typography>
-            </Box>
-
-            {/* Right Side: Email Info */}
-            <Box sx={{ 
-              display: "flex", 
-              flexDirection: "column", 
-              alignItems: "center", 
-              justifyContent: "center",
-              flex: 1,
-            }}>
-              <Box sx={{ 
-                width: '100%', 
-                bgcolor: 'white', 
-                p: { xs: 1.5, md: 3 }, 
-                borderRadius: '12px', 
-                boxShadow: '0 4px 12px rgba(0,0,0,0.06)',
-                display: 'flex',
-                flexDirection: 'column',
-                alignItems: 'center',
-                height: '100%',
-                justifyContent: 'center'
-              }}>
-                <Typography variant="h6" sx={{ mb: 1, textAlign: "center", color: '#1f2937', fontWeight: 700, fontSize: { xs: '0.9rem', md: '1.25rem' } }}>
-                  Verify Payment
-                </Typography>
-                <Typography
-                  variant="body2"
-                  sx={{
-                    textAlign: "center",
-                    color: "#4b5563",
-                    mb: 1.5,
-                    fontSize: "0.9rem",
-                    lineHeight: 1.4,
-                    display: { xs: 'none', md: 'block' }
-                  }}
-                >
-                  After a successful payment, please share a screenshot of the transaction to the email address below to activate your premium membership.
-                </Typography>
-                <Typography
-                  variant="body2"
-                  sx={{
-                    textAlign: "center",
-                    color: "#4b5563",
-                    mb: 1,
-                    fontSize: "0.8rem",
-                    display: { xs: 'block', md: 'none' }
-                  }}
-                >
-                  Share payment screenshot to:
-                </Typography>
-                
-                <Box sx={{ 
-                  bgcolor: '#fff7ed', 
-                  border: '1px dashed #fdba74', 
-                  borderRadius: '8px', 
-                  p: { xs: 1, md: 1.5 }, 
-                  width: '100%',
-                  textAlign: 'center',
-                  transition: 'all 0.2s',
-                  '&:hover': {
-                    bgcolor: '#ffedd5',
-                    borderColor: '#f97316'
-                  }
-                }}>
-                  <a 
-                    href="mailto:shreegandaenterprises@gmail.com" 
-                    style={{ 
-                      color: "#9a3412", 
-                      textDecoration: "none", 
-                      fontWeight: 700,
-                      fontSize: "0.85rem",
-                      wordBreak: "break-all"
-                    }}
-                  >
-                    shreegandaenterprises@gmail.com
-                  </a>
-                </Box>
-              </Box>
-            </Box>
-          </Box>
-        </DialogContent>
-        <DialogActions sx={{ justifyContent: "center", p: { xs: 1.5, md: 2 }, bgcolor: '#f8f9fa', borderTop: '1px solid #e5e7eb' }}>
-          <Button 
-            onClick={handleScannerSubmit} 
-            variant="contained" 
-            size="large"
-            sx={{
-              bgcolor: '#991b1b',
-              color: 'white',
-              px: { xs: 4, md: 5 },
-              py: { xs: 0.5, md: 1 },
-              borderRadius: '30px',
-              fontWeight: 700,
-              fontSize: { xs: '0.9rem', md: '1rem' },
-              textTransform: 'none',
-              boxShadow: '0 8px 20px rgba(153, 27, 27, 0.3)',
-              '&:hover': {
-                bgcolor: '#7c2d12',
-                transform: 'translateY(-2px)',
-                boxShadow: '0 12px 24px rgba(153, 27, 27, 0.4)',
-              },
-              transition: 'all 0.2s'
-            }}
-          >
-            Go to Website
-          </Button>
-        </DialogActions>
-      </Dialog>
+      <PaymentSuccessScanner
+        open={showScanner}
+        onClose={handleScannerSubmit}
+        userType={formData.type_of_user || "Premium"}
+        buttonText="Submit"
+      />
 
       {/* Success Dialog */}
       <Dialog open={showSuccessDialog} onClose={handleSuccessClose} maxWidth="sm" fullWidth>

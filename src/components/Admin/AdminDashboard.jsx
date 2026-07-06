@@ -10,7 +10,7 @@ import { Collapse, List, ListItem, ListItemText, IconButton, Typography, Menu, M
 import { PremiumLoader } from '../../utils/common';
 import { IoMdNotifications } from "react-icons/io";
 import { CgProfile } from "react-icons/cg";
-import { getAllUserCounts } from '../api/Admin';
+import { getAllUserCounts, getAllUserImageVerification } from '../api/Admin';
 
 const AdminDashboard = () => {
   const isLargeScreen = useMediaQuery("(min-width:900px)");
@@ -34,6 +34,51 @@ const AdminDashboard = () => {
   
   const navigate = useNavigate();
   const adminName = "Admin";
+  const { data: imgVerData, mutate: fetchImgVer } = getAllUserImageVerification();
+  const [notificationAnchorEl, setNotificationAnchorEl] = useState(null);
+  const [seenImageCount, setSeenImageCount] = useState(() => {
+    return parseInt(localStorage.getItem('seenImageVerCount') || '0', 10);
+  });
+
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    if (token) {
+      fetchImgVer({ page: 0, pageSize: 1 });
+    }
+    const interval = setInterval(() => {
+      if (localStorage.getItem('token')) {
+        fetchImgVer({ page: 0, pageSize: 1 });
+      }
+    }, 30000);
+    return () => clearInterval(interval);
+  }, [location.pathname]);
+
+  useEffect(() => {
+    if (imgVerData && imgVerData.totalRecords !== undefined) {
+      if (imgVerData.totalRecords < seenImageCount) {
+        setSeenImageCount(imgVerData.totalRecords);
+        localStorage.setItem('seenImageVerCount', imgVerData.totalRecords.toString());
+      }
+    }
+  }, [imgVerData?.totalRecords, seenImageCount]);
+
+  const totalPendingImages = imgVerData?.totalRecords || 0;
+  const unreadImageVerifications = Math.max(0, totalPendingImages - seenImageCount);
+
+  const handleNotificationClick = (event) => {
+    setNotificationAnchorEl(event.currentTarget);
+    setSeenImageCount(totalPendingImages);
+    localStorage.setItem('seenImageVerCount', totalPendingImages.toString());
+  };
+
+  const handleNotificationClose = () => {
+    setNotificationAnchorEl(null);
+  };
+
+  const handleNotificationItemClick = () => {
+    handleNotificationClose();
+    handleNavClick('/admin/imageverify');
+  };
   
   useEffect(() => {
     const token = localStorage.getItem('token'); 
@@ -211,14 +256,66 @@ const handleConfirmLogout = () => {
           </IconButton>
           {isLargeScreen && (
             <Link to="/" style={{ textDecoration: "none", color: "inherit", display: 'flex', alignItems: 'center', marginLeft: '10px' }}>
-              <img src="/ShreeLogo.png" alt="Shreeganda Matrimony" style={{ height: "54px", width: "auto", borderRadius: '8px', objectFit: 'contain', display: 'block' }} />
+              <img src="/ShreeLogo.png" alt="Shreeganda Matrimony" style={{ height: "65px", width: "auto", borderRadius: '8px', objectFit: 'contain', display: 'block', transform: 'scale(1.2)', transformOrigin: 'left center' }} />
             </Link>
           )}
         </div>
         <div className="nav-right">
-        <Badge color="error" variant="dot">
-        <IoMdNotifications fontSize={40} cursor={'pointer'}/>
-        </Badge>
+          <Badge badgeContent={unreadImageVerifications > 0 ? unreadImageVerifications : null} color="error" overlap="circular">
+            <IoMdNotifications fontSize={40} cursor={'pointer'} onClick={handleNotificationClick} />
+          </Badge>
+          <Menu
+            anchorEl={notificationAnchorEl}
+            open={Boolean(notificationAnchorEl)}
+            onClose={handleNotificationClose}
+            PaperProps={{
+              sx: {
+                width: '320px',
+                mt: 1.5,
+                boxShadow: '0 8px 24px rgba(0,0,0,0.15)',
+                borderRadius: '12px'
+              }
+            }}
+            transformOrigin={{ horizontal: 'right', vertical: 'top' }}
+            anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
+          >
+            <Box sx={{ p: 2, borderBottom: '1px solid #eee', bgcolor: '#fdf2f8' }}>
+              <Typography variant="h6" sx={{ fontSize: '1rem', fontWeight: 600, color: '#991b1b' }}>
+                Image Upload Requests
+              </Typography>
+            </Box>
+            <List sx={{ p: 0 }}>
+              {totalPendingImages > 0 ? (
+                <ListItem 
+                  button
+                  onClick={handleNotificationItemClick}
+                  sx={{ 
+                    borderBottom: '1px solid #f5f5f5',
+                    p: 2,
+                    cursor: 'pointer',
+                    '&:hover': { bgcolor: '#f8fafc' }
+                  }}
+                >
+                  <ListItemText 
+                    primary={
+                      <Typography variant="subtitle2" sx={{ fontWeight: 600, color: '#991b1b' }}>
+                        {totalPendingImages} New Image Request{totalPendingImages > 1 ? 's' : ''}
+                      </Typography>
+                    }
+                    secondary={
+                      <Typography variant="body2" sx={{ color: '#555', mt: 0.5 }}>
+                        There are {totalPendingImages} user(s) waiting for image verification approval.
+                      </Typography>
+                    }
+                  />
+                </ListItem>
+              ) : (
+                <Box sx={{ p: 3, textAlign: 'center', color: 'text.secondary' }}>
+                  <Typography variant="body2">No pending image upload requests</Typography>
+                </Box>
+              )}
+            </List>
+          </Menu>
          
         <IconButton onClick={handleMenuOpen}>
             <Avatar alt="Admin Profile" src="/path-to-profile-pic.jpg" style={{background:'black'}}/>
@@ -253,7 +350,7 @@ const handleConfirmLogout = () => {
           {!isLargeScreen && (
             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '15px 15px 10px 15px', borderBottom: '1px solid rgba(0,0,0,0.1)' }}>
               <Link to="/" style={{ textDecoration: "none", display: 'inline-flex', alignItems: 'center' }}>
-                <img src="/ShreeLogo.png" alt="Shreeganda Matrimony" style={{ height: "48px", width: "auto", borderRadius: '8px', objectFit: 'contain' }} />
+                <img src="/ShreeLogo.png" alt="Shreeganda Matrimony" style={{ height: "60px", width: "auto", borderRadius: '8px', objectFit: 'contain', transform: 'scale(1.15)' }} />
               </Link>
             </div>
           )}
@@ -391,7 +488,8 @@ const handleConfirmLogout = () => {
             </Collapse>
             <div className="sidebar-divider" />
 
-            {/* Assistance Service Dropdown */}
+            {/* Assistance Service Dropdown - Commented out for now */}
+            {/*
             <ListItem 
               button 
               onClick={toggleAssistanceService}
@@ -450,6 +548,7 @@ const handleConfirmLogout = () => {
               </List>
             </Collapse>
             <div className="sidebar-divider" />
+            */}
 
             {/* Promoter Management Dropdown */}
             <ListItem 
@@ -556,6 +655,7 @@ const handleConfirmLogout = () => {
                   <ListItemText primary="Online Transaction" primaryTypographyProps={{ style: { fontSize: '0.9rem' } }} />
                 </ListItem>
         
+                {/*
                 <ListItem 
                   button 
                   onClick={navigateAssistanceData}
@@ -567,6 +667,7 @@ const handleConfirmLogout = () => {
                 >
                   <ListItemText primary="Assistance Online Transaction" primaryTypographyProps={{ style: { fontSize: '0.9rem' } }} />
                 </ListItem>
+                */}
                
                 <ListItem 
                   button 

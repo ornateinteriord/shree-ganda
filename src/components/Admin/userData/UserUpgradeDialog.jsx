@@ -11,7 +11,6 @@ import {
     MenuItem,
 } from "@mui/material";
 import { useUpgradeUserType } from "../../api/Admin";
-import PaymentSuccessScanner from "../../common/PaymentSuccessScanner";
 
 const userTypes = ["FreeUser", "PremiumUser", "SilverUser", "Assistance", "Promoter", "BasicUser"];
 
@@ -23,16 +22,17 @@ const UserUpgradeDialog = ({ open, handleClose, defaultUserType, userId }) => {
         referenceNumber: "",
     });
 
-    const [showScanner, setShowScanner] = useState(false);
-    const [upgradedUserType, setUpgradedUserType] = useState("");
-
     useEffect(() => {
         if (open) {
+            const initialType = defaultUserType || "FreeUser";
+            let initialAmount = "0";
+            if (initialType === "SilverUser") initialAmount = "799";
+            else if (initialType === "PremiumUser") initialAmount = "999";
             setFormData({
-                userType: defaultUserType || "FreeUser",
-                amountPaid: "",
-                paidType: "",
-                referenceNumber: "",
+                userType: initialType,
+                amountPaid: initialAmount,
+                paidType: "Admin",
+                referenceNumber: "ADMIN_UPGRADE",
             });
         }
     }, [open, defaultUserType]);
@@ -44,6 +44,16 @@ const UserUpgradeDialog = ({ open, handleClose, defaultUserType, userId }) => {
 
     const handleChange = (e) => {
         const { name, value } = e.target;
+
+        if (name === "userType") {
+            let defaultAmount = formData.amountPaid;
+            if (value === "SilverUser") defaultAmount = "799";
+            else if (value === "PremiumUser") defaultAmount = "999";
+            else if (value === "FreeUser" || value === "Assistance" || value === "Promoter" || value === "BasicUser") defaultAmount = "0";
+
+            setFormData({ ...formData, userType: value, amountPaid: defaultAmount });
+            return;
+        }
 
         // For amountPaid, allow only digits
         if (name === "amountPaid") {
@@ -60,18 +70,12 @@ const UserUpgradeDialog = ({ open, handleClose, defaultUserType, userId }) => {
         upgradeUser({
             userType: formData.userType,
             amountPaid: Number(formData.amountPaid),
-            paidType: formData.paidType,
-            referenceNumber: formData.referenceNumber,
+            paidType: formData.paidType || "Admin",
+            referenceNumber: formData.referenceNumber || "ADMIN_UPGRADE",
             registration_no: userId
         }, {
             onSuccess: () => {
-                // Show scanner dialog for Premium or Silver users
-                if (formData.userType === "PremiumUser" || formData.userType === "SilverUser") {
-                    setUpgradedUserType(formData.userType);
-                    setShowScanner(true);
-                } else {
-                    handleClose();
-                }
+                handleClose();
                 setFormData({
                     userType: "",
                     amountPaid: "",
@@ -83,11 +87,6 @@ const UserUpgradeDialog = ({ open, handleClose, defaultUserType, userId }) => {
                 console.error("Upgrade error:", error);
             }
         });
-    };
-
-    const handleScannerClose = () => {
-        setShowScanner(false);
-        handleClose();
     };
 
     return (
@@ -233,13 +232,6 @@ const UserUpgradeDialog = ({ open, handleClose, defaultUserType, userId }) => {
                     </Button>
                 </DialogActions>
             </Dialog>
-
-            {/* Payment Success Scanner Dialog */}
-            <PaymentSuccessScanner
-                open={showScanner}
-                onClose={handleScannerClose}
-                userType={upgradedUserType}
-            />
         </>
     );
 };

@@ -240,7 +240,7 @@ const UserNavBar = () => {
           <Box sx={{ textAlign: "left", width: "100%", display: 'flex', alignItems: 'center', ml: 1 }}>
             {isLargeScreen && (
               <Link to="/" style={{ textDecoration: "none", color: "inherit", display: 'inline-flex', alignItems: 'center' }}>
-                <img src="/ShreeLogo.png" alt="Shreeganda Matrimony" style={{ height: "50px", width: "auto", borderRadius: '8px', objectFit: 'contain', display: 'block' }} />
+                <img src="/ShreeLogo.png" alt="Shreeganda Matrimony" style={{ height: "65px", width: "auto", borderRadius: '8px', objectFit: 'contain', display: 'block', transform: 'scale(1.2)', transformOrigin: 'left center' }} />
               </Link>
             )}
           </Box>
@@ -313,7 +313,7 @@ const UserNavBar = () => {
         {!isLargeScreen && (
           <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', py: 1.5, borderBottom: '1px solid rgba(255,255,255,0.2)' }}>
             <Link to="/" style={{ textDecoration: "none", display: 'inline-flex', alignItems: 'center' }}>
-              <img src="/ShreeLogo.png" alt="Shreeganda Matrimony" style={{ height: "48px", width: "auto", borderRadius: '8px', objectFit: 'contain' }} />
+              <img src="/ShreeLogo.png" alt="Shreeganda Matrimony" style={{ height: "60px", width: "auto", borderRadius: '8px', objectFit: 'contain', transform: 'scale(1.15)' }} />
             </Link>
           </Box>
         )}

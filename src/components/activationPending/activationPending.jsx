@@ -239,7 +239,7 @@ const ActivationPending = () => {
 >
   Need help? Contact{" "}
   <Link
-    href="mailto:info@shreegandamatrimony.com?subject=Help%20Request"
+    href="mailto:shreegandamatrimonysupport@gmail.com?subject=Help%20Request"
     target="_blank"
     rel="noopener noreferrer"
     underline="always"
@@ -249,7 +249,7 @@ const ActivationPending = () => {
       cursor: 'pointer'
     }}
   >
-    info@shreegandamatrimony.com
+    shreegandamatrimonysupport@gmail.com
   </Link>
 </Typography>
         </Paper>
@@ -266,6 +266,7 @@ const ActivationPending = () => {
         open={showScanner}
         onClose={handleScannerClose}
         userType={selectedPlan?.name || ""}
+        buttonText="Submit"
       />
     </Box>
   );
