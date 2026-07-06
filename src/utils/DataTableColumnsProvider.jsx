@@ -760,7 +760,7 @@ export const getUserDataColumns = (upgradeUserMutation, handleUpgrade) => [
   ];
 
 
-export const getOnlineTransactionColumns = (showActive) => [
+export const getOnlineTransactionColumns = (onUpdateClick) => [
   {
     name: "Date",
     selector: (row) => new Date(row.date).toLocaleDateString(),
@@ -794,11 +794,28 @@ export const getOnlineTransactionColumns = (showActive) => [
   {
     name: "Status",
     cell: (row) => (
-      <Typography color={row.status === "TXN_SUCCESS" ? "#4caf50" : "#ff9800"}>
+      <Typography color={row.status === "TXN_SUCCESS" || row.status === "success" ? "#4caf50" : "#ff9800"} fontWeight={600}>
         {row.status}
       </Typography>
     ),
     sortable: true,
+  },
+  {
+    name: "Actions",
+    cell: (row) => (
+      <Button
+        variant="contained"
+        size="small"
+        color="primary"
+        onClick={() => onUpdateClick && onUpdateClick(row)}
+        sx={{ textTransform: "none", fontSize: "0.85rem", backgroundColor: "#34495e", "&:hover": { backgroundColor: "#2c3e50" } }}
+      >
+        Update
+      </Button>
+    ),
+    ignoreRowClick: true,
+    allowOverflow: true,
+    button: true,
   },
 ];
 

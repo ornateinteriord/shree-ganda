@@ -160,7 +160,7 @@ const Sidebar = ({
       <Toolbar />
       {isMobile && (
         <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', py: 1.5, borderBottom: '1px solid rgba(255,255,255,0.2)' }}>
-          <img src="/ShreeLogo.png" alt="Shreeganda Matrimony" style={{ height: "48px", width: "auto", borderRadius: '8px', objectFit: 'contain' }} />
+          <img src="/ShreeLogo.png" alt="Shreeganda Matrimony" style={{ height: "60px", width: "auto", borderRadius: '8px', objectFit: 'contain', transform: 'scale(1.15)' }} />
         </Box>
       )}
       <Box sx={{ overflow: 'auto' }}>

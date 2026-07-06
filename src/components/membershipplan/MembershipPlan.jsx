@@ -77,7 +77,7 @@ const MembershipPlans = () => {
                 src="/ShreeLogo.png" 
                 alt="Shreeganda Matrimony Logo" 
                 style={{ 
-                  height: isMobile ? "50px" : "70px", 
+                  height: isMobile ? "70px" : "95px", 
                   width: "auto", 
                   borderRadius: '12px', 
                   boxShadow: '0 4px 20px rgba(0,0,0,0.4)' 

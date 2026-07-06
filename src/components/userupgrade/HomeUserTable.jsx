@@ -184,7 +184,7 @@ const HomeUserTable = () => {
         open={showScanner}
         onClose={handleScannerClose}
         userType={selectedPlan?.name || selectedPlan?.originalName || selectedPlan?.type || ""}
-        buttonText="Go to Dashboard"
+        buttonText="Submit"
       />
     </Box>
   );

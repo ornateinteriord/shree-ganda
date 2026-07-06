@@ -11,8 +11,32 @@ import {
 } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 import ScannerImg from "../../assets/Scanner.jpeg";
+import { toast } from "react-toastify";
+import { post } from "../api/authHooks";
+import TokenService from "../token/tokenService";
 
 const PaymentSuccessScanner = ({ open, onClose, userType, buttonText }) => {
+  const handleSubmit = async () => {
+    const planName = userType || "Premium Plan";
+    try {
+      const regNo = TokenService?.getRegistrationNo?.();
+      const userId = TokenService?.getUserId?.();
+      if (regNo || userId) {
+        await post("/api/user/submit-qr-payment", {
+          registration_no: regNo,
+          user_id: userId,
+          planName: planName
+        });
+      }
+    } catch (err) {
+      console.log("Error submitting QR payment:", err);
+    }
+    toast.success(`🎉 Payment request submitted for ${planName}! Admin will verify your transaction and activate your account shortly.`);
+    if (onClose) {
+      onClose();
+    }
+  };
+
   return (
     <Dialog 
       open={open} 
@@ -49,6 +73,26 @@ const PaymentSuccessScanner = ({ open, onClose, userType, buttonText }) => {
         </IconButton>
       </DialogTitle>
       <DialogContent sx={{ p: 0, bgcolor: '#f8f9fa', overflow: 'hidden' }}>
+        <Box sx={{ bgcolor: '#fef2f2', borderBottom: '1px solid #fee2e2', py: 1.5, px: 3, textAlign: 'center' }}>
+          <Typography variant="subtitle1" sx={{ color: '#991b1b', fontWeight: 700, fontSize: { xs: '0.95rem', md: '1.1rem' }, display: 'flex', alignItems: 'center', justify: 'center', flexWrap: 'wrap', gap: 1 }}>
+            Selected Membership Plan: 
+            <Box 
+              component="span" 
+              sx={{ 
+                bgcolor: '#991b1b', 
+                color: '#ffea00', 
+                border: '1px solid #facc15',
+                padding: '4px 16px', 
+                borderRadius: '20px', 
+                fontWeight: 800,
+                letterSpacing: '0.5px',
+                boxShadow: '0 2px 6px rgba(153, 27, 27, 0.25)'
+              }}
+            >
+              {userType || "Premium Plan"}
+            </Box>
+          </Typography>
+        </Box>
         <Box
           sx={{
             display: "flex",
@@ -176,19 +220,40 @@ const PaymentSuccessScanner = ({ open, onClose, userType, buttonText }) => {
           </Box>
         </Box>
       </DialogContent>
-      <DialogActions sx={{ justifyContent: "center", p: { xs: 1.5, md: 2 }, bgcolor: '#f8f9fa', borderTop: '1px solid #e5e7eb' }}>
+      <DialogActions sx={{ justifyContent: "center", p: { xs: 1.5, md: 2 }, gap: 2, bgcolor: '#f8f9fa', borderTop: '1px solid #e5e7eb' }}>
         <Button 
           onClick={onClose} 
+          variant="outlined" 
+          size="large"
+          sx={{
+            borderColor: '#6b7280',
+            color: '#374151',
+            px: { xs: 4, md: 5 },
+            py: { xs: 1, md: 1.2 },
+            borderRadius: '30px',
+            fontWeight: 700,
+            fontSize: { xs: '1rem', md: '1.1rem' },
+            textTransform: 'none',
+            '&:hover': {
+              borderColor: '#374151',
+              bgcolor: '#f3f4f6',
+            }
+          }}
+        >
+          Cancel
+        </Button>
+        <Button 
+          onClick={handleSubmit} 
           variant="contained" 
           size="large"
           sx={{
             bgcolor: '#991b1b',
             color: 'white',
-            px: { xs: 4, md: 5 },
-            py: { xs: 0.5, md: 1 },
+            px: { xs: 5, md: 6 },
+            py: { xs: 1, md: 1.2 },
             borderRadius: '30px',
             fontWeight: 700,
-            fontSize: { xs: '0.9rem', md: '1rem' },
+            fontSize: { xs: '1rem', md: '1.1rem' },
             textTransform: 'none',
             boxShadow: '0 8px 20px rgba(153, 27, 27, 0.3)',
             '&:hover': {
@@ -197,7 +262,7 @@ const PaymentSuccessScanner = ({ open, onClose, userType, buttonText }) => {
             }
           }}
         >
-          {buttonText || "Close"}
+          {buttonText || "Submit"}
         </Button>
       </DialogActions>
     </Dialog>

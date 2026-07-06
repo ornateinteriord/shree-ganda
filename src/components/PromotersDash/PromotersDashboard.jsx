@@ -81,7 +81,7 @@ const PromotersDashboard = () => {
             sx={{ flexGrow: 1, fontWeight: "bold", display: 'flex', alignItems: 'center', ml: 1 }}
           >
             {!isMobile && (
-              <img src="/ShreeLogo.png" alt="Shreeganda Matrimony" style={{ height: "50px", width: "auto", borderRadius: '8px', objectFit: 'contain', display: 'block' }} />
+              <img src="/ShreeLogo.png" alt="Shreeganda Matrimony" style={{ height: "65px", width: "auto", borderRadius: '8px', objectFit: 'contain', display: 'block', transform: 'scale(1.2)', transformOrigin: 'left center' }} />
             )}
           </Typography>
 

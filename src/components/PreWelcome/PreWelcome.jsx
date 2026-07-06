@@ -84,7 +84,7 @@ const PreWelcome = () => {
       </button>
 
       <div className="pre-welcome-headings" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-        <img src="/ShreeLogo.png" alt="Shreeganda Matrimony Logo" style={{ height: "100px", width: "auto", borderRadius: '8px', marginBottom: '10px' }} />
+        <img src="/ShreeLogo.png" alt="Shreeganda Matrimony Logo" style={{ height: "140px", width: "auto", borderRadius: '8px', marginBottom: '10px' }} />
         <p className="tagline">Uniting Hearts, Creating Bonds</p>
       </div>
 

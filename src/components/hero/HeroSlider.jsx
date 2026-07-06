@@ -97,7 +97,7 @@ const HeroSlider = () => {
             src="/ShreeLogo.png"
             alt="Shreeganda Matrimony Logo"
             sx={{
-              height: isMobile ? "100px" : isTablet ? "110px" : "120px",
+              height: isMobile ? "130px" : isTablet ? "150px" : "170px",
               width: "auto",
               maxWidth: "90%",
               borderRadius: "12px",
