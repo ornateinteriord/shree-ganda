@@ -92,6 +92,22 @@ const HeroSlider = () => {
         </Slider>
         <Overlay />
         <Content>
+          <Box
+            component="img"
+            src="/ShreeLogo.png"
+            alt="Shreeganda Matrimony Logo"
+            sx={{
+              height: isMobile ? "100px" : isTablet ? "110px" : "120px",
+              width: "auto",
+              maxWidth: "90%",
+              borderRadius: "12px",
+              objectFit: "contain",
+              mb: isMobile ? 1.5 : 2,
+              mx: "auto",
+              display: "block",
+              filter: "drop-shadow(0px 4px 8px rgba(0,0,0,0.4))"
+            }}
+          />
           <Typography
             variant={isMobile ? "h4" : isTablet ? "h3" : "h2"}
             component="h1"

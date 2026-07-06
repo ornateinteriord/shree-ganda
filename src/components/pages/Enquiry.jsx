@@ -10,7 +10,7 @@ const Enquiry = () => {
     <div className='container'>
       <div className="enquiry-container">
         <div className="enquiry">
-        <a href="">9148824442</a>
+        <a href="">7026425724</a>
       {/* <hr /> */}
         <a href="">enqyuiryKalyana.com</a>
         </div>

@@ -7,95 +7,93 @@ import {
   Button,
   Box,
   Typography,
-  useMediaQuery,
+  IconButton,
 } from "@mui/material";
-import { useTheme } from "@mui/material/styles";
+import CloseIcon from "@mui/icons-material/Close";
 import ScannerImg from "../../assets/Scanner.jpeg";
 
-const PaymentSuccessScanner = ({ open, onClose, userType }) => {
-  const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
-
+const PaymentSuccessScanner = ({ open, onClose, userType, buttonText }) => {
   return (
-    <Dialog
-      open={open}
-      onClose={onClose}
-      maxWidth="md"
+    <Dialog 
+      open={open} 
+      onClose={onClose} 
+      maxWidth="md" 
       fullWidth
       PaperProps={{
         sx: {
-          borderRadius: "10px",
-          padding: { xs: "10px", sm: "20px" },
-        },
+          borderRadius: "16px",
+          overflow: "hidden"
+        }
       }}
     >
-      {/* <DialogTitle
-        sx={{
-          textAlign: "center",
-          fontWeight: 600,
-          fontSize: { xs: "1.25rem", sm: "1.5rem" },
-          color: "#7c2d12",
-        }}
-      >
-        Payment Successful!
-      </DialogTitle> */}
-
-      <DialogContent>
+      <DialogTitle sx={{ 
+        textAlign: "center", 
+        fontWeight: "bold", 
+        bgcolor: '#991b1b', 
+        color: 'white',
+        py: { xs: 1, md: 1.5 },
+        fontSize: { xs: '1rem', md: '1.2rem' }
+      }}>
+        Complete Your {userType || "Premium"} Payment
+        <IconButton
+          onClick={onClose}
+          sx={{
+            position: 'absolute',
+            right: { xs: 4, md: 12 },
+            top: { xs: 4, md: 12 },
+            color: 'white',
+            '&:hover': { bgcolor: 'rgba(255,255,255,0.2)' }
+          }}
+        >
+          <CloseIcon fontSize="small" />
+        </IconButton>
+      </DialogTitle>
+      <DialogContent sx={{ p: 0, bgcolor: '#f8f9fa', overflow: 'hidden' }}>
         <Box
           sx={{
             display: "flex",
             flexDirection: { xs: "column", md: "row" },
-            alignItems: "center",
-            justifyContent: "center",
-            gap: { xs: 3, md: 6 },
-            py: 2
+            alignItems: "stretch",
+            p: { xs: 1.5, md: 3 },
+            gap: { xs: 1.5, md: 4 }
           }}
         >
           {/* Left Side: QR Code */}
-          <Box sx={{ display: "flex", flexDirection: "column", alignItems: "center", flex: 1 }}>
-            <Typography
-              variant="body2"
-              sx={{
-                textAlign: "center",
-                mb: 2,
-                fontSize: { xs: "0.75rem", sm: "0.875rem" },
-              }}
-            >
-              Please scan the QR code below for payment confirmation:
+          <Box sx={{ 
+            display: "flex", 
+            flexDirection: "column", 
+            alignItems: "center", 
+            flex: 1.2,
+            bgcolor: 'white',
+            p: { xs: 1.5, md: 3 },
+            borderRadius: '12px',
+            boxShadow: '0 4px 12px rgba(0,0,0,0.06)',
+          }}>
+            <Typography variant="h6" sx={{ mb: 1, textAlign: "center", color: '#1f2937', fontWeight: 700, fontSize: { xs: '0.9rem', md: '1.25rem' } }}>
+              Scan to Pay
             </Typography>
-
             <Box
               component="img"
               src={ScannerImg}
               alt="Payment Scanner - Shreeganda Enterprises"
               sx={{
                 width: "100%",
-                maxWidth: "200px",
-                height: "auto",
+                maxWidth: "300px",
+                maxHeight: { xs: "200px", md: "300px" },
+                objectFit: "contain",
                 borderRadius: "8px",
-                border: "1px solid #ddd",
-                boxShadow: "0 4px 8px rgba(0,0,0,0.1)",
-                mb: 1
+                boxShadow: "0 4px 12px rgba(0,0,0,0.1)",
+                display: 'block',
+                margin: '0 auto'
               }}
             />
-
-            <Box sx={{ mt: 0.5, px: 2, py: 0.6, bgcolor: '#f3f4f6', borderRadius: '6px', border: '1px solid #e5e7eb', textAlign: 'center' }}>
-              <Typography variant="body2" sx={{ color: '#374151', fontWeight: 700, fontSize: '0.8rem' }}>
+            <Box sx={{ mt: 1.5, px: 2, py: 0.8, bgcolor: '#f3f4f6', borderRadius: '6px', border: '1px solid #e5e7eb', width: '100%', maxWidth: '280px', textAlign: 'center' }}>
+              <Typography variant="body2" sx={{ color: '#374151', fontWeight: 700, fontSize: '0.85rem' }}>
                 UPI Name: <span style={{ color: '#b91c1c' }}>Shreeganda Enterprises</span>
               </Typography>
             </Box>
-
-            <Typography
-              variant="body2"
-              sx={{
-                textAlign: "center",
-                mt: 1,
-                color: "rgba(0, 0, 0, 0.6)",
-                fontSize: { xs: "0.75rem", sm: "0.875rem" },
-                maxWidth: "250px"
-              }}
-            >
-              Scan this QR code with your mobile device to complete the payment process.
+            <Typography variant="body2" sx={{ mt: 1, textAlign: "center", color: '#6b7280', fontSize: '0.85rem', display: { xs: 'none', md: 'block' } }}>
+              Use any UPI app (GPay, PhonePe, Paytm) to complete the transaction.
             </Typography>
           </Box>
 
@@ -106,64 +104,100 @@ const PaymentSuccessScanner = ({ open, onClose, userType }) => {
             alignItems: "center", 
             justifyContent: "center",
             flex: 1,
-            borderLeft: { xs: "none", md: "1px solid #eee" },
-            borderTop: { xs: "1px solid #eee", md: "none" },
-            pt: { xs: 3, md: 0 },
-            pl: { xs: 0, md: 4 }
           }}>
-            <Typography
-              variant="body1"
-              sx={{
-                textAlign: "center",
-                fontWeight: 500,
-                color: "rgba(0, 0, 0, 0.8)",
-                fontSize: { xs: "0.875rem", sm: "1rem" },
-                mb: 2
-              }}
-            >
-              Please share the payment screenshot to this mail:
-            </Typography>
-            <a 
-              href="mailto:shreegandaenterprises@gmail.com" 
-              style={{ 
-                color: "#7c2d12", 
-                textDecoration: "none", 
-                fontWeight: 600,
-                fontSize: "1.1rem",
-                padding: "10px 15px",
-                backgroundColor: "#fff3e0",
-                borderRadius: "8px",
-                border: "1px dashed #7c2d12"
-              }}
-            >
-              shreegandaenterprises@gmail.com
-            </a>
+            <Box sx={{ 
+              width: '100%', 
+              bgcolor: 'white', 
+              p: { xs: 1.5, md: 3 }, 
+              borderRadius: '12px', 
+              boxShadow: '0 4px 12px rgba(0,0,0,0.06)',
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center',
+              height: '100%',
+              justifyContent: 'center'
+            }}>
+              <Typography variant="h6" sx={{ mb: 1, textAlign: "center", color: '#1f2937', fontWeight: 700, fontSize: { xs: '0.9rem', md: '1.25rem' } }}>
+                Verify Payment
+              </Typography>
+              <Typography
+                variant="body2"
+                sx={{
+                  textAlign: "center",
+                  color: "#4b5563",
+                  mb: 1.5,
+                  fontSize: "0.9rem",
+                  lineHeight: 1.4,
+                  display: { xs: 'none', md: 'block' }
+                }}
+              >
+                After a successful payment, please share a screenshot of the transaction to the email address below to activate your premium membership.
+              </Typography>
+              <Typography
+                variant="body2"
+                sx={{
+                  textAlign: "center",
+                  color: "#4b5563",
+                  mb: 1,
+                  fontSize: "0.8rem",
+                  display: { xs: 'block', md: 'none' }
+                }}
+              >
+                Share payment screenshot to:
+              </Typography>
+              
+              <Box sx={{ 
+                bgcolor: '#fff7ed', 
+                border: '1px dashed #fdba74', 
+                borderRadius: '8px', 
+                p: { xs: 1, md: 1.5 }, 
+                width: '100%',
+                textAlign: 'center',
+                transition: 'all 0.2s',
+                '&:hover': {
+                  bgcolor: '#ffedd5',
+                  borderColor: '#f97316'
+                }
+              }}>
+                <a 
+                  href="mailto:shreegandaenterprises@gmail.com" 
+                  style={{ 
+                    color: "#9a3412", 
+                    textDecoration: "none", 
+                    fontWeight: 700,
+                    fontSize: "0.85rem",
+                    wordBreak: "break-all"
+                  }}
+                >
+                  shreegandaenterprises@gmail.com
+                </a>
+              </Box>
+            </Box>
           </Box>
         </Box>
       </DialogContent>
-
-      <DialogActions
-        sx={{
-          padding: "16px 24px",
-          justifyContent: "center",
-        }}
-      >
-        <Button
-          variant="contained"
-          onClick={onClose}
+      <DialogActions sx={{ justifyContent: "center", p: { xs: 1.5, md: 2 }, bgcolor: '#f8f9fa', borderTop: '1px solid #e5e7eb' }}>
+        <Button 
+          onClick={onClose} 
+          variant="contained" 
+          size="large"
           sx={{
-            backgroundColor: "#7c2d12",
-            color: "#fff",
-            fontWeight: 600,
-            textTransform: "none",
-            padding: "8px 24px",
-            fontSize: { xs: "0.875rem", sm: "1rem" },
-            "&:hover": {
-              backgroundColor: "#285228",
-            },
+            bgcolor: '#991b1b',
+            color: 'white',
+            px: { xs: 4, md: 5 },
+            py: { xs: 0.5, md: 1 },
+            borderRadius: '30px',
+            fontWeight: 700,
+            fontSize: { xs: '0.9rem', md: '1rem' },
+            textTransform: 'none',
+            boxShadow: '0 8px 20px rgba(153, 27, 27, 0.3)',
+            '&:hover': {
+              bgcolor: '#7c2d12',
+              boxShadow: '0 10px 25px rgba(153, 27, 27, 0.4)',
+            }
           }}
         >
-          Close
+          {buttonText || "Close"}
         </Button>
       </DialogActions>
     </Dialog>

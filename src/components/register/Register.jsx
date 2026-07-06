@@ -456,6 +456,24 @@ const Register = () => {
                 Register Now
               </button>
             </div>
+
+            <Box sx={{ textAlign: "center", mt: 3, pt: 2, borderTop: "1px dashed #e5e7eb" }}>
+              <Typography variant="body2" sx={{ color: "#eff2f6ff", fontSize: "0.95rem" }}>
+                Already have an account?{" "}
+                <span
+                  onClick={() => navigate("/home", { state: { openDialog: true } })}
+                  style={{
+                    color: "#51b6f0ff",
+                    fontWeight: 700,
+                    cursor: "pointer",
+                    textDecoration: "underline",
+                    marginLeft: "4px"
+                  }}
+                >
+                  Sign In
+                </span>
+              </Typography>
+            </Box>
           </form>
         </div>
       </div>
@@ -646,7 +664,7 @@ const Register = () => {
               transition: 'all 0.2s'
             }}
           >
-            I Have Paid
+            Go to Website
           </Button>
         </DialogActions>
       </Dialog>
@@ -674,19 +692,6 @@ const Register = () => {
           <Typography variant="body2" sx={{ textAlign: "center", mt: 1, color: "text.secondary" }}>
             Your details have been successfully submitted and our team will review them shortly.
           </Typography>
-          
-          <Box sx={{ mt: 3, p: 2, bgcolor: "#f5f5f5", borderRadius: 2 }}>
-            <Typography variant="subtitle1" fontWeight="bold" sx={{ mb: 1, textAlign: "center" }}>
-              Your Login Details:
-            </Typography>
-            <Typography variant="body1" sx={{ textAlign: "center" }}>
-              <strong>Username:</strong> {formData.username}
-            </Typography>
-            <Typography variant="body1" sx={{ textAlign: "center" }}>
-              <strong>Password:</strong> {formData.password}
-            </Typography>
-          </Box>
-
           <Typography variant="body2" sx={{ textAlign: "center", mt: 3, color: "text.secondary" }}>
             If you have any queries, please reach us at: <br />
             <a href="mailto:shreegandamatrimonysupport@gmail.com" style={{ color: "#1976d2", textDecoration: "none", fontWeight: 500 }}>shreegandamatrimonysupport@gmail.com</a>
