@@ -17,7 +17,7 @@ import {
 import { useUpdateOnlineTransactionStatus } from "../../api/Admin";
 
 const statusOptions = ["TXN_SUCCESS", "success", "PENDING", "TXN_FAILURE"];
-const userTypeOptions = ["SilverUser", "PremiumUser", "FreeUser", "paidSilver", "paidPremium"];
+const userTypeOptions = ["SilverUser", "PremiumUser", "FreeUser"];
 
 const UpdateOnlineTransactionDialog = ({ open, handleClose, transaction }) => {
   const [formData, setFormData] = useState({
