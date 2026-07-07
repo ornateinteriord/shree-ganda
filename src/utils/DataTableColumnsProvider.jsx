@@ -72,6 +72,12 @@ export const getPromoterUserListTable = () => [
       width : '10%'
     },
     {
+      name: "Promoter ID",
+      selector: row => row.refered_by || "-",
+      sortable: true,
+      width : '10%'
+    },
+    {
       name: "Name",
       selector: row => `${row.first_name} ${row.last_name}`,
       sortable: true,
@@ -110,6 +116,11 @@ export const getPendingandSuccessUserDataColumns = () => [
     {
       name: "Registration No",
       selector: (row) => row.id,
+      sortable: true,
+    },
+    {
+      name: "Promoter ID",
+      selector: (row) => row.refered_by || "-",
       sortable: true,
     },
     {
@@ -391,7 +402,7 @@ export const getPromotersDataColumns = (handleStatusChange) => [
   },
   {
     name: "Membership",
-    selector: (row) => row.membership_type || "-",
+    selector: (row) => (row.membership_type === "Premium" ? "Promoter" : (row.membership_type || "Promoter")),
     sortable: true,
   },
   {
@@ -432,6 +443,11 @@ export const getUserTableColumns = (formatUserRole) =>  [
     {
       name: "Reference No",
       selector: row => row.registration_no,
+      sortable: true,
+    },
+    {
+      name: "Promoter ID",
+      selector: row => row.refered_by || "-",
       sortable: true,
     },
     {
@@ -476,8 +492,23 @@ export const getUserTableColumns = (formatUserRole) =>  [
 export const getPromotersEarningsColumns = (handleDetailsClick) => [
   {
     name: "Promoter Code",
-    selector: (row) => row.referal_by || "N/A",
+    selector: (row) => row.referal_by || "-",
     sortable: true,
+  },
+  {
+    name: "Promoter Name",
+    selector: (row) => row.promoter_name || "-",
+    sortable: true,
+  },
+  {
+    name: "Contact Info",
+    selector: (row) => row.mobile && row.email ? `${row.mobile} / ${row.email}` : (row.mobile || row.email || "-"),
+    sortable: false,
+  },
+  {
+    name: "Bank Account",
+    selector: (row) => row.account_number ? `A/c: ${row.account_number}${row.bank_ifsc ? ` (${row.bank_ifsc})` : ""}` : "-",
+    sortable: false,
   },
   {
     name: "Total Earnings",
@@ -494,7 +525,7 @@ export const getPromotersEarningsColumns = (handleDetailsClick) => [
     selector: (row) => row.status,
     sortable: true,
     cell: (row) => (
-      <span style={{ color: row.status === "pending" ? "#d32f2f" : "#2e7d32" }}>
+      <span style={{ color: row.status === "pending" ? "#d32f2f" : "#2e7d32", fontWeight: 600 }}>
         {row.status}
       </span>
     ),
@@ -516,38 +547,38 @@ export const getPromotersEarningsColumns = (handleDetailsClick) => [
 ];
 export const getTransactionDetailsDialogColumns = () => [
             {
-                name: "Ref No",
-                selector: (row) => row.ref_no || "N/A",
+                name: "Referred User Reg No",
+                selector: (row) => row.ref_no || "-",
                 sortable: true,
             },
             {
-                name: "Email",
-                selector: (row) => row.emailid || "N/A",
+                name: "Referred User Email",
+                selector: (row) => row.user_email || row.emailid || "-",
                 sortable: true,
             },
             {
-                name: "Mobile",
-                selector: (row) => row.mobile || "N/A",
+                name: "Referred User Mobile",
+                selector: (row) => row.user_mobile || row.mobile || "-",
                 sortable: true,
             },
             {
-                name: "Amount",
+                name: "Promoter Earning",
                 selector: (row) => `₹${row.amount_earned || 0}`,
                 sortable: true,
             },
             {
                 name: "Transaction No",
-                selector: (row) => row.transaction_no || "N/A",
+                selector: (row) => row.transaction_no || "-",
                 sortable: true,
             },
             {
-                name: "Transaction Date",
-                selector: (row) => row.transaction_date || "N/A",
+                name: "Date",
+                selector: (row) => row.transaction_date || row.date || "-",
                 sortable: true,
             },
             {
-                name: "User Type",
-                selector: (row) => row.usertype || "N/A",
+                name: "Plan Type",
+                selector: (row) => row.usertype || "-",
                 sortable: true,
             },
         ];
@@ -597,6 +628,11 @@ export const getUserUpgradeColumns = (handleUpgrade) => [
       sortable: true,
     },
     {
+      name: "Promoter ID",
+      selector: row => row.refered_by || "-",
+      sortable: true,
+    },
+    {
       name: "Name",
       selector: row => `${row.first_name} ${row.last_name}`,
       sortable: true,
@@ -637,6 +673,11 @@ export const getUserDataColumns = (upgradeUserMutation, handleUpgrade) => [
     {
       name: "Registration No",
       selector: row => row.registration_no,
+      sortable: true,
+    },
+    {
+      name: "Promoter ID",
+      selector: row => row.refered_by || "-",
       sortable: true,
     },
     {

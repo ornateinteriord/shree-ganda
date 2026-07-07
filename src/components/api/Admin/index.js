@@ -324,6 +324,32 @@ export const useUpdatePromoterStatus = () => {
   });
 };
 
+export const useAddPromoter = () => {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: async (data) => {
+      const response = await post("/api/admin/add-promoter", data);
+      if (!response?.success) {
+        throw new Error(response?.message || "Failed to add promoter");
+      }
+      return response;
+    },
+    onSuccess: (data) => {
+      if (data.success) {
+        toast.success(data.message || "Promoter added successfully");
+        queryClient.invalidateQueries({ queryKey: ["promoters"] });
+      } else {
+        toast.error(data.message || "Failed to add promoter");
+      }
+    },
+    onError: (error) => {
+      const errorMessage = error?.response?.data?.message || error?.message || "Error adding promoter";
+      toast.error(errorMessage);
+    },
+  });
+};
+
 export const getPromoterUsersStats = () => {
   return useQuery({
     queryKey: ["promoter-user-stats"],

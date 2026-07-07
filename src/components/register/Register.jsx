@@ -37,6 +37,7 @@ import dayjs from "dayjs";
 import { LoadingComponent } from "../../App";
 import CustomAutocomplete from "../Autocomplete/CustomAutocomplete";
 import TokenService from "../token/tokenService";
+import { post } from "../api/authHooks";
 
 const datas = rawJsonData.reduce((acc, curr) => ({ ...acc, ...curr }), {});
 
@@ -94,9 +95,13 @@ const Register = () => {
     mobile_no: "",
     password: "",
     confirmPassword: "",
+    refered_by: "",
   };
 
   const [formData, setFormData] = useState(initialFormState);
+  const [promoterName, setPromoterName] = useState("");
+  const [promoterError, setPromoterError] = useState("");
+  const [isValidatingPromoter, setIsValidatingPromoter] = useState(false);
 
   useEffect(() => {
     setFormData((prev) => ({ ...prev, user_role: getUserRole() }));
@@ -123,6 +128,10 @@ const Register = () => {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
+    if (name === "refered_by") {
+      setFormData((prev) => ({ ...prev, [name]: value.toUpperCase() }));
+      return;
+    }
     if (name === "mobile_no") {
       if (value === "" || /^\d{0,10}$/.test(value)) {
         setFormData((prev) => ({ ...prev, [name]: value }));
@@ -156,7 +165,44 @@ const Register = () => {
     return Math.abs(ageDate.getUTCFullYear() - 1970);
   };
 
-  const handleClear = () => setFormData(initialFormState);
+  const handleVerifyPromoter = async () => {
+    const code = formData.refered_by?.trim().toUpperCase();
+    if (code !== formData.refered_by) {
+      setFormData((prev) => ({ ...prev, refered_by: code || "" }));
+    }
+    if (!code) {
+      setPromoterError("Please enter a Sponsor Code first");
+      setPromoterName("");
+      return;
+    }
+    setIsValidatingPromoter(true);
+    setPromoterError("");
+    setPromoterName("");
+    setFormData((prev) => ({ ...prev, refered_name: "" }));
+    try {
+      const response = await post("/api/promoter/promocheck", { promocode: code });
+      if (response?.success && response?.data?.promoterName) {
+        setPromoterName(response.data.promoterName);
+        setFormData((prev) => ({ ...prev, refered_name: response.data.promoterName }));
+        toast.success(`Sponsor verified: ${response.data.promoterName}`);
+      } else {
+        setPromoterError(response?.message || "Invalid Sponsor Code");
+        toast.error(response?.message || "Invalid Sponsor Code");
+      }
+    } catch (error) {
+      const msg = error?.response?.data?.message || "Invalid Sponsor Code or inactive promoter";
+      setPromoterError(msg);
+      toast.error(msg);
+    } finally {
+      setIsValidatingPromoter(false);
+    }
+  };
+
+  const handleClear = () => {
+    setFormData(initialFormState);
+    setPromoterName("");
+    setPromoterError("");
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -341,6 +387,7 @@ const Register = () => {
                     <CustomAutocomplete options={datas.languageValues ?? []} label="Mother Tongue" name="mother_tongue" value={formData.mother_tongue} onChange={handleChange} />
                   </div>
                 </div>
+
               </div>
 
               {/* RIGHT COLUMN - Family, Address & Login Details */}
@@ -440,11 +487,87 @@ const Register = () => {
                   </div>
                 </div>
 
-                <div className="checkbox-row">
-                  <input type="checkbox" id="terms" required />
-                  <label htmlFor="terms">I agree to the Terms &amp; Conditions</label>
+              </div>
+            </div>
+
+            {/* Dedicated 2-Column Row for Sponsor Code and Sponsor Name */}
+            <div className="form-grid" style={{ marginTop: "12px", marginBottom: "8px" }}>
+              <div className="form-column">
+                <div className="form-row">
+                  <div className="label-col">Sponsor Code:</div>
+                  <div className="input-col">
+                    <Box display="flex" gap={1}>
+                      <TextField
+                        fullWidth
+                        name="refered_by"
+                        value={formData.refered_by || ""}
+                        onChange={handleChange}
+                        placeholder="Promoter ID / Sponsor Code"
+                        className="mui-input-custom"
+                        inputProps={{ maxLength: 8 }}
+                      />
+                      <Button
+                        type="button"
+                        variant="contained"
+                        onClick={handleVerifyPromoter}
+                        disabled={isValidatingPromoter || !formData.refered_by}
+                        sx={{
+                          bgcolor: "#D4AF37",
+                          color: "#111",
+                          fontWeight: 700,
+                          "&:hover": { bgcolor: "#b89728" },
+                          textTransform: "none",
+                          minWidth: "85px",
+                          borderRadius: "6px",
+                          boxShadow: "0 2px 6px rgba(0,0,0,0.2)"
+                        }}
+                      >
+                        {isValidatingPromoter ? "..." : "Verify"}
+                      </Button>
+                    </Box>
+                    {promoterError && (
+                      <Typography variant="caption" sx={{ color: "#ffcdd2", fontWeight: 600, display: "block", mt: 0.5 }}>
+                        ✖ {promoterError}
+                      </Typography>
+                    )}
+                  </div>
                 </div>
               </div>
+
+              <div className="form-column">
+                <div className="form-row">
+                  <div className="label-col">Sponsor Name:</div>
+                  <div className="input-col">
+                    <TextField
+                      fullWidth
+                      name="refered_name"
+                      value={promoterName || ""}
+                      placeholder="Sponsor Name (Auto-filled on verify)"
+                      className="mui-input-custom"
+                      InputProps={{
+                        readOnly: true,
+                        startAdornment: promoterName ? (
+                          <span style={{ color: "#22c55e", fontWeight: "bold", marginRight: "8px" }}>✔</span>
+                        ) : null
+                      }}
+                      sx={{
+                        "& .MuiOutlinedInput-root": {
+                          bgcolor: promoterName ? "#f0fdf4 !important" : "#ffffff !important",
+                          "& input": {
+                            color: promoterName ? "#166534 !important" : "#555 !important",
+                            fontWeight: promoterName ? 600 : 400
+                          }
+                        }
+                      }}
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div className="checkbox-row" style={{ marginTop: "12px", marginBottom: "16px" }}>
+              <input type="checkbox" id="terms" required />
+              <label htmlFor="terms">I agree to the Terms &amp; Conditions</label>
             </div>
 
             <input type="hidden" name="user_role" value={formData.user_role} />
