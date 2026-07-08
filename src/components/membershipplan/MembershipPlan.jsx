@@ -30,6 +30,7 @@ const MembershipPlans = () => {
 
   const handlePlanSelection = (planName) => {
     const planRoles = {
+      'SILVER': 'SilverUser',
       'PREMIUM': 'PremiumUser',
       'STANDARD': 'SilverUser',
       'ELITE': 'PremiumUser'

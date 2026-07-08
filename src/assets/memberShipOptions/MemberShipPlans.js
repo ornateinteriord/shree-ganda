@@ -1,7 +1,7 @@
 // MemberShipPlans.js
 export const membershipOptions = [
   {
-    name: 'STANDARD',
+    name: 'SILVER',
     discountedPrice: '₹799',
     duration: '6 MONTHS',
     features: [
@@ -12,7 +12,7 @@ export const membershipOptions = [
     ],
     color: '#F16003',
     gradient: 'linear-gradient(135deg, #F16003 0%, #ff8c42 100%)',
-    originalName: 'Standard'
+    originalName: 'Silver'
   },
   {
     name: 'PREMIUM',
