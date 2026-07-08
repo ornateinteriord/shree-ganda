@@ -16,7 +16,7 @@ import { FaHeart } from "react-icons/fa";
 import { get } from "../../api/authHooks";
 import TokenService from "../../token/tokenService";
 import MembershipDialog from "../MembershipDailog/MembershipDailog";
-import { membershipOptions } from "../MembershipDailog/MemberShipPlans";
+import { membershipOptions } from "../../../assets/memberShipOptions/MemberShipPlans";
 import Profileimage from "../../../assets/profile.jpg";
 import { calculateAge } from "../../../utils/common";
 import AboutPop from "../viewAll/popupContent/abouPop/AboutPop";

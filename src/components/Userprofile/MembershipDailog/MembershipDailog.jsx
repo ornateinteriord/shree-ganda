@@ -29,8 +29,11 @@ const MembershipDialog = ({ open, onClose, onSelectPlan }) => {
   const handleSelectPlan = (plan) => {
     // Map plan names to user roles
     const planRoles = {
+      'SILVER': 'SilverUser',
       'SILVER MEMBERSHIP': 'SilverUser',
-      'PREMIUM MEMBERSHIP': 'PremiumUser'
+      'PREMIUM': 'PremiumUser',
+      'PREMIUM MEMBERSHIP': 'PremiumUser',
+      'STANDARD': 'SilverUser'
     };
     
     const planType = planRoles[plan.name] || 'FreeUser';
