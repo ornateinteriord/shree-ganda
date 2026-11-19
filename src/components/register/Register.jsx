@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback, useRef } from "react";
 import {
   Box,
   Paper,
@@ -50,6 +50,20 @@ const Register = () => {
   const searchParams = new URLSearchParams(location.search);
   const planType = searchParams.get("type");
 
+  const getInitialRefCode = () => {
+    try {
+      const params = new URLSearchParams(window?.location?.search || "");
+      return (
+        params.get("ref") ||
+        params.get("promo") ||
+        params.get("refered_by") ||
+        ""
+      ).trim().toUpperCase();
+    } catch {
+      return "";
+    }
+  };
+
   const [showScanner, setShowScanner] = useState(false);
   const [showSuccessDialog, setShowSuccessDialog] = useState(false);
   const [signupResponse, setSignupResponse] = useState(null);
@@ -95,17 +109,63 @@ const Register = () => {
     mobile_no: "",
     password: "",
     confirmPassword: "",
-    refered_by: "",
+    refered_by: getInitialRefCode(),
+    refered_name: "",
   };
 
   const [formData, setFormData] = useState(initialFormState);
   const [promoterName, setPromoterName] = useState("");
   const [promoterError, setPromoterError] = useState("");
   const [isValidatingPromoter, setIsValidatingPromoter] = useState(false);
+  const verifiedCodeRef = useRef("");
+
+  const verifyCode = useCallback(async (codeToVerify) => {
+    if (!codeToVerify || verifiedCodeRef.current === codeToVerify) return;
+    verifiedCodeRef.current = codeToVerify;
+    setIsValidatingPromoter(true);
+    setPromoterError("");
+    try {
+      const response = await post("/api/promoter/promocheck", { promocode: codeToVerify });
+      if (response?.success && response?.data?.promoterName) {
+        setPromoterName(response.data.promoterName);
+        setFormData((prev) => ({
+          ...prev,
+          refered_by: codeToVerify,
+          refered_name: response.data.promoterName,
+        }));
+        toast.success(`Sponsor Code applied: ${codeToVerify} (${response.data.promoterName})`, {
+          toastId: "sponsor-applied-toast",
+        });
+      } else {
+        setPromoterError(response?.message || "Invalid Sponsor Code");
+      }
+    } catch (error) {
+      console.error("Auto verify sponsor error:", error);
+      const msg = error?.response?.data?.message || "Invalid Sponsor Code or inactive promoter";
+      setPromoterError(msg);
+    } finally {
+      setIsValidatingPromoter(false);
+    }
+  }, []);
 
   useEffect(() => {
     setFormData((prev) => ({ ...prev, user_role: getUserRole() }));
   }, [planType]);
+
+  useEffect(() => {
+    const params = new URLSearchParams(location.search);
+    const code = (
+      params.get("ref") ||
+      params.get("promo") ||
+      params.get("refered_by") ||
+      getInitialRefCode()
+    ).trim().toUpperCase();
+
+    if (code) {
+      setFormData((prev) => ({ ...prev, refered_by: code }));
+      verifyCode(code);
+    }
+  }, [location.search, verifyCode]);
 
   useEffect(() => {
     if (formData.state) {
