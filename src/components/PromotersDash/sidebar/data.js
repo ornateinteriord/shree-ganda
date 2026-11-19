@@ -1,6 +1,6 @@
 // data.js
 const sidebarData = {
-  title: "Sangam ❤️ Sarthi",
+  title: "ShreeGanda ❤️ Matrimony",
   menuItems: [
     {
       text: "Dashboard",
